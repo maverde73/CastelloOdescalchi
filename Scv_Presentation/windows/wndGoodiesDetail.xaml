@@ -1,0 +1,159 @@
+﻿<my:BaseDetailPage 
+	x:Class="Presentation.wndGoodiesDetail"
+	xmlns:my2="clr-namespace:NumericTextBox;assembly=NumericTextBox"  
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"  
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Articolo" 
+	Height="250" 
+	MinHeight="250"
+	Width="850"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"	
+        
+	>
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+
+	<Window.Resources>
+		<CollectionViewSource x:Key="cvsGoodie" d:DesignSource="{d:DesignInstance ent:Guida, CreateList=True}" />
+	</Window.Resources>
+
+	<Grid Name="grdPrenotationDetail">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="100*"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Name="brdGuide" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid x:Name="grdGoodies" Margin="10" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+				<!-- Campi Guida-->
+				<Grid Grid.Row="1" Margin="3" DataContext="{StaticResource cvsGoodie}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="20*"></ColumnDefinition>
+						<ColumnDefinition Width="52*"></ColumnDefinition>
+						<ColumnDefinition Width="17*"></ColumnDefinition>
+						<ColumnDefinition Width="17*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="0">
+						<Label Name="lblGuideTitle" Content="Tipo articolo" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<telerik:RadComboBox 
+							Name="cmbGoodieType"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							DisplayMemberPath="Descrizione"
+							ItemsSource="{Binding AvailableGoodiesTypes}"
+							SelectedValue="{Binding ObjGoodies.Id_TipoArticolo, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="Id_TipoArticolo"
+							Validation.Error="Validation_Error"							
+							Style="{StaticResource DataRadComboBox}"
+							/>
+					</DockPanel>
+					<DockPanel Grid.Column="1" HorizontalAlignment="Stretch">
+						<Label Content="Descrizione" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtDescrizione" Validation.Error="Validation_Error" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+							<Binding
+								Path="Descrizione"
+							    Mode="TwoWay"
+								ValidatesOnDataErrors="True"
+								NotifyOnValidationError="True"
+								UpdateSourceTrigger="PropertyChanged"
+								/>
+						</TextBox>
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="2">
+						<Label Content="ISBN" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtISBN" Validation.Error="Validation_Error" MaxLength="13" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+							<Binding
+								Path="ISBN"
+							    Mode="TwoWay"
+								ValidatesOnDataErrors="True"
+								NotifyOnValidationError="True"
+								UpdateSourceTrigger="PropertyChanged"
+								/>
+						</TextBox>
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="3" >
+						<Label Content="Codice" Grid.Column="9" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtCodice" Text="{Binding Codice, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  MaxLength="13" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+
+				</Grid>
+				<Grid Grid.Row="2" Margin="3" DataContext="{StaticResource cvsGoodie}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="40*"></ColumnDefinition>
+						<ColumnDefinition Width="40*"></ColumnDefinition>
+						<ColumnDefinition Width="10*"></ColumnDefinition>
+						<ColumnDefinition Width="10*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="0">
+						<Label Content="Autore" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtAutore" Text="{Binding Autore, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="1">
+						<Label Content="Editrice" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtEditrice" Text="{Binding Editrice, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="2">
+						<Label Content="Pr.acquisto" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<my2:NumericTextBox Name="txtPrezzoAcquisto" Text="{Binding PrezzoAcquisto, Mode=TwoWay,  ValidatesOnDataErrors=False, NotifyOnValidationError=False}" MaxLength="20" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="3">
+						<Label Content="Pr.vendita" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<my2:NumericTextBox Name="txtPrezzoVendita" Text="{Binding PrezzoVendita, Mode=TwoWay,  ValidatesOnDataErrors=False, NotifyOnValidationError=False}" MaxLength="20" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+				</Grid>
+				<Grid Grid.Row="3" Margin="3" DataContext="{StaticResource cvsGoodie}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<Label Content="Nota" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<TextBox 
+							Name="txtNota" 
+							Text="{Binding 
+								Nota, Mode=TwoWay,  
+								ValidatesOnDataErrors=True, 
+								NotifyOnValidationError=True}" 
+							MaxLength="100" 
+							AcceptsReturn="True" 
+							TextWrapping="Wrap" 
+							Height="40" 
+							MinHeight="40" 
+							VerticalScrollBarVisibility="Auto" 
+							Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+							/>
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</Border>
+		<Border Name="brdButtons" Grid.Row="2" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<Grid x:Name="grdButtons" Margin="3" >
+				<StackPanel Orientation="Horizontal">
+					<telerik:RadButton Name="btnSave" Content="Salva" Width="100" Height="25" />
+					<telerik:RadButton Name="btnDelete" Content="Elimina" Width="100" Height="25" />
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</my:BaseDetailPage>

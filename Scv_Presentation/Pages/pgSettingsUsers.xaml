@@ -1,0 +1,83 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgSettingsUsers"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="Guide">
+
+	<Grid Margin="10">
+		<telerik:RadGridView			
+			Name="grdMaster" 
+			AutoGenerateColumns="False" 
+			VerticalAlignment="Top"
+			HorizontalAlignment="Stretch"
+			SelectionMode="Single"
+			ItemsSource="{Binding}"	
+			ScrollViewer.VerticalScrollBarVisibility="Auto"
+			ScrollMode="RealTime"
+			>
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn
+					Header="Titolo"
+					DataMemberBinding="{Binding Titolo}"
+					MinWidth="100"
+					Width="240"
+					/>
+
+				<telerik:GridViewDataColumn 
+					Header="Nominativo"
+					DataMemberBinding="{Binding Nominativo}"
+					MinWidth="100"
+					Width="240"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="Identificativo"
+					DataMemberBinding="{Binding Identificativo}"
+					MinWidth="100"
+					Width="240"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="Attivo"
+					DataMemberBinding="{Binding Fl_Attivo}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="Amministratore"
+					DataMemberBinding="{Binding Fl_Amministratore}"
+					Width="70"
+					/>
+
+			</telerik:RadGridView.Columns>
+
+			<telerik:RadContextMenu.ContextMenu>
+				<telerik:RadContextMenu 
+					x:Name="ContextMenu" 
+					ItemClick="contextMenu_Click" 
+					Opening="contextMenu_Opening">
+					<telerik:RadMenuItem Name="mnuOpen" Header="Apri" CommandParameter="open">
+						<telerik:RadMenuItem.IconTemplate>
+							<DataTemplate>
+								<Image Source="../Themes/Images/ButtonIcons/OpenItem_16.png" Stretch="UniformToFill"/>
+							</DataTemplate>
+						</telerik:RadMenuItem.IconTemplate>
+					</telerik:RadMenuItem>
+					<telerik:RadMenuItem Name="mnuDelete" Header="Elimina" CommandParameter="delete">
+						<telerik:RadMenuItem.IconTemplate>
+							<DataTemplate>
+								<Image Source="../Themes/Images/ButtonIcons/DeleteItem_16.png" Stretch="UniformToFill"/>
+							</DataTemplate>
+						</telerik:RadMenuItem.IconTemplate>
+					</telerik:RadMenuItem>
+				</telerik:RadContextMenu>
+			</telerik:RadContextMenu.ContextMenu>
+		</telerik:RadGridView>
+	</Grid>
+</my:BaseContentPage>

@@ -1,0 +1,395 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgEasyTicketing"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"			    
+    mc:Ignorable="d" 
+    d:DesignHeight="300" 
+	d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="pgEasyTicketing">
+
+    <Grid Margin="10" VirtualizingStackPanel.VirtualizationMode="Recycling">
+        <Grid.Resources>
+            <Style x:Key="AutoCompleteStyle" TargetType="TextBlock">
+                <Setter Property="FontSize" Value="18" />
+                <Setter Property="Foreground" Value="#FF0A0A0A" />
+                <Setter Property="VerticalAlignment" Value="Center" />
+            </Style>
+            <DataTemplate x:Name="tmpPetitioner" x:Key="aucPetitioner">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Text="{Binding Cognome}" Style="{StaticResource AutoCompleteStyle}" />
+                    <TextBlock Text=", " Style="{StaticResource AutoCompleteStyle}" />
+                    <TextBlock Text="{Binding Nome}" Style="{StaticResource AutoCompleteStyle}" />
+                </StackPanel>
+            </DataTemplate>
+        </Grid.Resources>
+
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Grid.Row="5" Grid.Column="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Margin="0,3,0,0">
+            <Grid Margin="5">
+                <StackPanel Orientation="Vertical">
+                    <DockPanel Height="200">
+                        <telerik:RadScheduleView Name="swAppointments" CurrentDate="{Binding CurrentDate, Mode=TwoWay}" ShowDialog="RadScheduleView_ShowDialog"  AppointmentsSource="{Binding Appointments}" AppointmentDeleted="swAppointments_AppointmentDeleted">
+                            <telerik:RadScheduleView.DragDropBehavior>
+                                <my:CustomScheduleViewDragDropBehavior />
+                            </telerik:RadScheduleView.DragDropBehavior>
+                            
+                            <telerik:RadScheduleView.ActiveViewDefinition>
+                                <telerik:DayViewDefinition  
+                            TimerulerMajorTickStringFormat="{}{0:HH:mm} " 
+                            MajorTickLength="15min"  />
+                            </telerik:RadScheduleView.ActiveViewDefinition>
+                            <telerik:RadContextMenu.ContextMenu>
+                                <telerik:RadContextMenu 
+						x:Name="ContextMenu" ItemClick="contextMenu_Click" >
+                                    <telerik:RadMenuItem Name="mnuPrint" Header="Seleziona per stampa" CommandParameter="printtickets">
+                                        <telerik:RadMenuItem.IconTemplate>
+                                            <DataTemplate>
+                                                <Image Source="../Themes/Images/ButtonIcons/print_16.png" Stretch="UniformToFill"/>
+                                            </DataTemplate>
+                                        </telerik:RadMenuItem.IconTemplate>
+                                    </telerik:RadMenuItem>
+                                    <telerik:RadMenuItem Name="mnuOpen"  Header="Apri" CommandParameter="open">
+                                        <telerik:RadMenuItem.IconTemplate>
+                                            <DataTemplate>
+                                                <Image Source="../Themes/Images/ButtonIcons/OpenItem_16.png" Stretch="UniformToFill"/>
+                                            </DataTemplate>
+                                        </telerik:RadMenuItem.IconTemplate>
+                                    </telerik:RadMenuItem>
+                                    <telerik:RadMenuItem Name="mnuDispatch" Header="Lavora" CommandParameter="dispatch">
+                                        <telerik:RadMenuItem.IconTemplate>
+                                            <DataTemplate>
+                                                <Image Source="../Themes/Images/ButtonIcons/schedule_16.png" Stretch="UniformToFill"/>
+                                            </DataTemplate>
+                                        </telerik:RadMenuItem.IconTemplate>
+                                    </telerik:RadMenuItem>
+                                </telerik:RadContextMenu>
+                            </telerik:RadContextMenu.ContextMenu>
+                        </telerik:RadScheduleView>
+                    </DockPanel>
+                    <!--<StackPanel Orientation="Horizontal"  Margin="0 10 0 0">
+                        <StackPanel Margin="410 0 0 0" >
+                          
+                            <telerik:RadAutoCompleteBox 
+							Name="cmbPetitioner"
+							HorizontalAlignment="Stretch"
+                            MinWidth="300"
+							Height="36" 
+                            Width="260" 
+                            FontSize="18"
+							SelectionMode="Single"
+							TextSearchMode="StartsWith"
+							TextSearchPath="Cognome"
+							DisplayMemberPath="Cognome"
+							WatermarkContent="Cerca Richiedente..."
+							DropDownItemTemplate="{StaticResource aucPetitioner}"	
+							AutoCompleteMode="Suggest"							
+							ItemsSource="{Binding AvailablePetitioners}" 
+                            SelectedItem="{Binding SelectedRichiedente, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+                            SelectionChanged="cmbPetitioner_SelectionChanged"/>
+                        </StackPanel>
+                    </StackPanel>-->
+                    <StackPanel Orientation="Vertical"  Margin="0 10 0 10">
+                        <StackPanel Margin="3 0 0 0">
+                            <Label Name="lblMessage" Content="" FontWeight="Bold" Foreground="Red" />
+                        </StackPanel>
+                        <StackPanel Orientation="Horizontal"  Margin="0 10 0 0">
+                            <StackPanel Margin="3 0 0 0">
+                                <Label Name="lblVisitTypes" Content="Tipo visita" FontWeight="Bold" />
+                                <telerik:RadComboBox 
+							Name="cmbVisitTypes"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+    						TextSearchMode="Contains"
+							DisplayMemberPath="Descrizione"
+							ItemsSource="{Binding AvailableVisitTypes}" 
+                            SelectedItem="{Binding SelectedNewVisitType, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+							SelectedValuePath="Id_TipoVisita"
+							telerik:StyleManager.Theme="Windows8Touch" Width="360"  />
+                            </StackPanel>
+                            <StackPanel Margin="3 0 0 0">
+                                <Label Name="lblLanguanges" Content="Lingua" FontWeight="Bold" />
+                                <telerik:RadComboBox 
+							Name="cmbLanguages"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+    						TextSearchMode="Contains"
+							ItemsSource="{Binding AvailableLanguages}"
+							SelectedValuePath="Id_Lingua" 
+                            SelectedValue="{Binding SelectedId_Lingua, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+							DisplayMemberPath="Descrizione"
+							telerik:StyleManager.Theme="Windows8Touch" Width="150"  />
+                            </StackPanel>
+                            <telerik:RadButton Name="btnNewVisit" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Bold"  Content="Nuova Visita" telerik:StyleManager.Theme="Windows8Touch" Margin="3 25 0 0" Click="btnNewVisit_Click" />
+                        </StackPanel>
+
+                        <!--<StackPanel Margin="3 0 0 0" >
+                            <Label Name="lblSurname" Content="Cognome (opzionale)" FontWeight="Bold"  />
+                            <TextBox Name="txtSurname" Height="36" Width="210" FontSize="18" ></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="3 0 0 0" >
+                            <Label Name="lblName" Content="Nome (opzionale)" FontWeight="Bold"  />
+                            <TextBox Name="txtName" Height="36" Width="210" FontSize="18" ></TextBox>
+                        </StackPanel>
+                        <StackPanel Margin="3 0 0 0" >
+                            <Label Name="lblEmail" Content="Email (opzionale)" FontWeight="Bold"  />
+                            <TextBox Name="txtEmail" Height="36" Width="210" FontSize="18" ></TextBox>
+                        </StackPanel>-->
+                        <!--<telerik:RadButton Name="btnAddVP" HorizontalAlignment="Left" VerticalAlignment="Bottom"  ToolTip="Aggiungi una visita"    Click="btnAddVP_Click"   Margin="3,0,0,0" >
+                            <telerik:RadButton.Content>
+                                <Image Source="../Themes/Images/ButtonIcons/add-tickets.png" Height="31"></Image>
+                            </telerik:RadButton.Content>
+                        </telerik:RadButton>-->
+                    </StackPanel>
+
+                    <DockPanel Height="110">
+                        <telerik:RadGridView 
+							    Name="grdTickets"
+								CanUserSortColumns="False"								
+							    AutoGenerateColumns="False" 
+							    SelectionMode="Single"
+							    ShowGroupPanel="False"					
+  							    ItemsSource="{Binding SrcTickets}"
+                                RowIndicatorVisibility="Collapsed"
+                                telerik:StyleManager.Theme="Windows8Touch" 
+                                ScrollViewer.CanContentScroll="true"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             	ScrollMode="RealTime">
+                            <telerik:RadGridView.Columns>
+                                <!--<telerik:GridViewDataColumn UniqueName="TipoVisita" Header="Tipo Visita" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding TipoVisita, FallbackValue=''}" Width="400">
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding TipoVisita, FallbackValue=''}"></TextBlock>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>-->
+
+                                <telerik:GridViewDataColumn  
+                            Header="Ora" 
+                            DataMemberBinding="{Binding Ora_Visita, Mode=TwoWay}"
+                            IsFilterable="False"  ShowFilterButton="False">
+
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadComboBox 
+                                            DisplayMemberPath="Time" 
+                                            SelectedValuePath="Time"
+                                            ItemsSource="{Binding AvailableHours, Mode=TwoWay}" 
+                                            SelectedValue="{Binding Ora_Visita, Mode=TwoWay}" 
+                                            telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Interi"  Header="Interi" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Interi, FallbackValue=''}" Width="120">
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadNumericUpDown
+							            Name="nudInteri"
+							            Minimum="0"
+							            Maximum="999"
+					                    NumberDecimalDigits="0" 
+                                        IsEnabled="{Binding InteriEnabled}"
+							            Value="{Binding Interi, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+								            }"
+                                        telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Ridotti"  Header="Ridotti" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Ridotti, FallbackValue=''}" Width="120" >
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadNumericUpDown
+							            Name="nudRidotti"
+							            Minimum="0"
+							            Maximum="999"
+					                    NumberDecimalDigits="0"
+                                        IsEnabled="{Binding RidottiEnabled}"
+							            Value="{Binding Ridotti, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+								            }"
+                                        telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Scontati"  Header="Scontati" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Ridotti, FallbackValue=''}" Width="120" >
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadNumericUpDown
+							            Name="nudScontati"
+							            Minimum="0"
+							            Maximum="999"
+					                    NumberDecimalDigits="0"
+                                        IsEnabled="{Binding ScontatiEnabled}"
+							            Value="{Binding Scontati, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+								            }"
+                                        telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Cumulativi"  Header="Cumulativi" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Ridotti, FallbackValue=''}" Width="120" >
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadNumericUpDown
+							            Name="nudCumulativi"
+							            Minimum="0"
+							            Maximum="999"
+					                    NumberDecimalDigits="0"
+                                        IsEnabled="{Binding CumulativoEnabled}"
+							            Value="{Binding Cumulativi, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+								            }"
+                                        telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Omaggio"  Header="Omaggio" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Omaggio, FallbackValue=''}" Width="120" >
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadNumericUpDown
+							            Name="nudOmaggio"
+							            Minimum="0"
+							            Maximum="999"
+					                    NumberDecimalDigits="0"
+                                        IsEnabled="{Binding OmaggioEnabled}"
+							            Value="{Binding Omaggio, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+								            }"
+                                        telerik:StyleManager.Theme="Windows8Touch"/>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <telerik:GridViewDataColumn UniqueName="Prezzo" Header="Prezzo" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding Prezzo, FallbackValue=''}" Width="70">
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <TextBlock Text="{Binding Prezzo, FallbackValue=''}"></TextBlock>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>
+                                <!--<telerik:GridViewDataColumn TextAlignment="Center" UniqueName="Cumulativo" Header="Cumulativo" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Cumulativo, FallbackValue=''}" Width="80" >
+                                    <telerik:GridViewDataColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <StackPanel HorizontalAlignment="Center">
+                                                <CheckBox  IsChecked="{Binding Cumulativo, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged
+                                             
+								            }" />
+                                            </StackPanel>
+                                        </DataTemplate>
+                                    </telerik:GridViewDataColumn.CellTemplate>
+                                </telerik:GridViewDataColumn>-->
+                                <telerik:GridViewColumn  IsFilterable="False"  ShowFilterButton="False" >
+                                    <telerik:GridViewColumn.Header>
+                                        <Image Source="../Themes/Images/ButtonIcons/undo_16.png" Stretch="None" />
+                                    </telerik:GridViewColumn.Header>
+
+                                    <telerik:GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadButton 
+													Click="UndoChangeOnRow" 
+													CommandParameter="{Binding Id_Riga}"
+                                                    ToolTip="Azzera i contatori"
+									                Width="25" 
+                                                    IsEnabled="{Binding ResetEnabled}">
+                                                <telerik:RadButton.Content >
+                                                    <Image Source="../Themes/Images/ButtonIcons/undo_16.png" Stretch="None" />
+                                                </telerik:RadButton.Content>
+                                            </telerik:RadButton>
+                                        </DataTemplate>
+                                    </telerik:GridViewColumn.CellTemplate>
+                                </telerik:GridViewColumn>
+                                <!--<telerik:GridViewColumn  IsFilterable="False"  ShowFilterButton="False" >
+                                    <telerik:GridViewColumn.Header>
+                                        <Image Source="../Themes/Images/ButtonIcons/delete_16.png" Stretch="None" />
+                                    </telerik:GridViewColumn.Header>
+
+                                    <telerik:GridViewColumn.CellTemplate>
+                                        <DataTemplate>
+                                            <telerik:RadButton 
+													Click="DeleteVisit" 
+													CommandParameter="{Binding Id_Riga}"
+                                                    ToolTip="Elimina"
+									                Width="25">
+                                                <telerik:RadButton.Content >
+                                                    <Image Source="../Themes/Images/ButtonIcons/delete_16.png" Stretch="None" />
+                                                </telerik:RadButton.Content>
+                                            </telerik:RadButton>
+                                        </DataTemplate>
+                                    </telerik:GridViewColumn.CellTemplate>
+                                </telerik:GridViewColumn>-->
+                            </telerik:RadGridView.Columns>
+                        </telerik:RadGridView>
+                    </DockPanel>
+
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="150"></ColumnDefinition>
+                            <ColumnDefinition Width="*"></ColumnDefinition>
+                        </Grid.ColumnDefinitions>
+
+                        <StackPanel Grid.Column="0" Margin="0 0 0 0">
+                            <Label Name="lblPaymentType" Content="Tipo pagamento" FontWeight="Bold" />
+                            <telerik:RadComboBox 
+							Name="cmbPaymentTypes"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+    						TextSearchMode="Contains"
+                            SelectedValue="{Binding Id_TipoPagamento, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+					        SelectedValuePath="Id_TipoPagamento"
+					        DisplayMemberPath="Descrizione"
+					        ItemsSource="{Binding AvailablePaymentTypes}"
+							telerik:StyleManager.Theme="Windows8Touch" Width="190"  Margin="0 0 0 0"/>
+                        </StackPanel>
+
+
+                        <telerik:RadButton Name="btnPrint" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Bold"  Content="Stampa Biglietti" telerik:StyleManager.Theme="Windows8Touch" Width="130"  Margin="0 25 0 0" Click="btnPrint_Click" />
+                        <telerik:RadButton Name="btnPrintGruoped" Grid.Column="2" HorizontalAlignment="Left" FontWeight="Bold"  Content="Stampa Unica" telerik:StyleManager.Theme="Windows8Touch" Width="130"  Margin="0 25 0 0" />
+                        <telerik:RadButton Name="btnCancelTicket" Grid.Column="3" HorizontalAlignment="Left" FontWeight="Bold"  Content="Annulla Biglietti" telerik:StyleManager.Theme="Windows8Touch" Margin="0 25 0 0" Width="130" Click="btnCancelTicket_Click" />
+                        <telerik:RadButton Name="btnTotal"  Grid.Column="4" HorizontalAlignment="Right" FontWeight="Bold"  Content="0" IsEnabled="False" telerik:StyleManager.Theme="Windows8Touch" Width="70" Margin="0 25 360 0" HorizontalContentAlignment="Left" />
+
+                    </Grid>
+
+
+
+
+
+
+
+
+
+
+                </StackPanel>
+
+            </Grid>
+        </Border>
+
+    </Grid>
+</my:BaseContentPage>

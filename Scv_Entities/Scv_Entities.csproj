@@ -1,0 +1,133 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C9F6A5C9-6383-49EA-B646-67A6452D3A14}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Scv_Entities</RootNamespace>
+    <AssemblyName>Scv_Entities</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="classes\Articolo.cs" />
+    <Compile Include="classes\Biglietto.cs" />
+    <Compile Include="classes\EsercizioVendita.cs" />
+    <Compile Include="classes\EsistenzaArticolo.cs" />
+    <Compile Include="classes\Guida.cs" />
+    <Compile Include="classes\GuidaLingua.cs" />
+    <Compile Include="classes\Invoice.cs" />
+    <Compile Include="classes\LK_Chiusura.cs" />
+    <Compile Include="classes\LK_Lingua.cs" />
+    <Compile Include="classes\LK_Organizzazione.cs" />
+    <Compile Include="classes\MandatoDettaglio.cs" />
+    <Compile Include="classes\Movimento.cs" />
+    <Compile Include="classes\MovementDetail.cs" />
+    <Compile Include="classes\MovementMaster.cs" />
+    <Compile Include="classes\Pagamento.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="classes\Prenotazione_Filter.cs" />
+    <Compile Include="classes\VisitaProgrammata.cs" />
+    <Compile Include="classes\V_EvidenzeGiornaliere.cs" />
+    <Compile Include="classes\V_EvidenzeGiornaliereGroup.cs" />
+    <Compile Include="classes\V_GuideDisponibili.cs" />
+    <Compile Include="classes\V_GuideIncaricate.cs" />
+    <Compile Include="classes\V_Mandato.cs" />
+    <Compile Include="classes\V_MandatoGuida.cs" />
+    <Compile Include="classes\V_Movimento.cs" />
+    <Compile Include="classes\Prenotazione.cs" />
+    <Compile Include="classes\Richiedenti.cs" />
+    <Compile Include="classes\VisitaPrenotata.cs" />
+    <Compile Include="classes\V_Guide.cs" />
+    <Compile Include="classes\V_Prenotazione.cs" />
+    <Compile Include="classes\V_Richiedente.cs" />
+    <Compile Include="classes\V_TipoVisita_TipoBiglietto_Grouped.cs" />
+    <Compile Include="classes\V_VisitePrenotate.cs" />
+    <Compile Include="classes\V_VisiteProgrammate.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="IN_VIA.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>IN_VIA.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="classes\V_Articoli.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
+    <EntityDeploy Include="IN_VIA.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>IN_VIA.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="Properties\DataSources\V_TipoVisita_TipoBiglietto.datasource" />
+    <None Include="Properties\DataSources\V_TipoVisita_TipoBiglietto_Grouped.datasource" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scv_Model\Scv_Model.csproj">
+      <Project>{D2B20A16-7689-4120-91BB-D691AD6DC620}</Project>
+      <Name>Scv_Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="MandatoAmministrazione.rdlc" />
+    <EmbeddedResource Include="rptStat.rdlc" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

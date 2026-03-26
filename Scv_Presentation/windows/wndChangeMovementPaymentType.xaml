@@ -1,0 +1,88 @@
+﻿<my:BaseDetailPage	
+	x:Class="Presentation.wndChangeMovementPaymentType"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:ntb="clr-namespace:NumericTextBox;assembly=NumericTextBox"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"			
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Cambiamento tipo pagamento" 
+	Height="170"
+	Width="500"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"	        
+	>
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="100*"></RowDefinition>
+		</Grid.RowDefinitions>
+		
+		<StackPanel Name="pnlPaymentType" Grid.Row="0" HorizontalAlignment="Stretch">
+			<Label Content="Tipo pagamento" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+			<telerik:RadComboBox 
+				Name="cmbPaymentType"
+				HorizontalAlignment="Stretch"
+				VerticalAlignment="Stretch"
+				DisplayMemberPath="Descrizione"
+				ItemsSource="{Binding AvailablePaymentTypes}"
+				SelectedValue="{Binding ObjMovement.Id_TipoPagamento, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+				SelectedValuePath="Id_TipoPagamento"
+				SelectionChanged="cmbPaymentType_SelectionChanged"
+				Validation.Error="Validation_Error"							
+				Style="{StaticResource DataRadComboBox}"
+				/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="1" Name="pnlNota" Margin="0,5,0,0">
+			<Label Content="Autorizzazione / Nota" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+			<TextBox 
+				Name="txtNota"                             
+				Text="{
+					Binding ObjMovement.Nota, 
+					Mode=TwoWay, 
+					ValidatesOnDataErrors=True, 
+					NotifyOnValidationError=True,
+                    UpdateSourceTrigger=PropertyChanged
+				}" 
+				Validation.Error="Validation_Error"	
+                            
+				MaxLength="100" 
+				Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+				/>
+		</StackPanel>
+		<StackPanel Grid.Row="1" Name="pnlPos" Margin="0,5,0,0">
+			<Label Content="Numero POS" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+			<TextBox
+				Name="txtPos"  
+				MaxLength="50"
+				Text="{
+					Binding ObjMovement.Nr_Pos, 
+					Mode=TwoWay, 
+					ValidatesOnDataErrors=True, 
+					NotifyOnValidationError=True,
+					UpdateSourceTrigger=PropertyChanged									
+				}" 
+				Validation.Error="Validation_Error"	
+				Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+				/>
+		</StackPanel>
+
+		<StackPanel Grid.Row="3" Orientation="Horizontal" VerticalAlignment="Bottom" >
+			<telerik:RadButton Name="btnSave" Content="Salva" Width="100" Height="25" />
+		</StackPanel>
+	</Grid>
+</my:BaseDetailPage>
+
+

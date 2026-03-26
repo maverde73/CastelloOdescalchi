@@ -1,0 +1,17 @@
+FROM kivy/buildozer:latest
+
+USER root
+ENV BUILDOZER_WARN_ON_ROOT=0
+
+# Install build-tools via sdkmanager
+RUN apt-get update && apt-get install -y wget unzip && \
+    mkdir -p /root/.buildozer/android/platform/android-sdk/cmdline-tools && \
+    wget -q "https://dl.google.com/android/repository/commandlinetools-linux-11076708_latest.zip" -O /tmp/cmdline.zip && \
+    unzip -qo /tmp/cmdline.zip -d /tmp/cmdline-tmp && \
+    mv /tmp/cmdline-tmp/cmdline-tools /root/.buildozer/android/platform/android-sdk/cmdline-tools/latest && \
+    rm -rf /tmp/cmdline.zip /tmp/cmdline-tmp && \
+    yes | /root/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager --licenses && \
+    /root/.buildozer/android/platform/android-sdk/cmdline-tools/latest/bin/sdkmanager "build-tools;33.0.2" "platforms;android-33" && \
+    pip install buildozer
+
+WORKDIR /app

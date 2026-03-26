@@ -1,0 +1,34 @@
+﻿<my:BasePrintPage 
+	x:Class="Presentation.wndPrintInvoices"
+	xmlns:my2="clr-namespace:System.Windows.Forms.Integration;assembly=WindowsFormsIntegration"  
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"  
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+	xmlns:rv="clr-namespace:Microsoft.Reporting.WinForms;assembly=Microsoft.ReportViewer.WinForms" 
+    Title="Stampa Movimenti Magazzino" 
+	Height="500" 
+	Width="800"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"
+	WindowState="Maximized" 
+	WindowStartupLocation="CenterScreen"
+    
+    >
+
+	<Grid Name="grdPrenotationDetail">
+		<my2:WindowsFormsHost >
+			<rv:ReportViewer x:Name="rv">
+
+			</rv:ReportViewer>
+		</my2:WindowsFormsHost>
+	</Grid>
+</my:BasePrintPage>

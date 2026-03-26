@@ -1,0 +1,60 @@
+﻿<Commands Path="xml" Language="EN">
+  <Command name="CutPaper"/>
+  <!-- Reset -->
+  <Command name="Reset"/>
+  <!-- Logo -->
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="PrintLogo" />
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="PrintString" String="_____________________________________________" LineFeed="Yes" />
+  <!-- pax -->
+  <!-- intestazione per pax-->
+  <Command name="SetBoldMode" X="1"/>
+  <Command name="SetPosition" X="20" />
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="PrintString" String="Pax" LineFeed="YES" />
+
+  <!--valori per pax-->
+  <Command name="SetBoldMode" X="0"/>
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="SetFont" Font="Small" />
+  <Command name="SetCharSize" X="2" Y="2" />
+  <Command name="SetPosition" X="29" />
+  <Command name="PrintString" Mapping="Pax" LineFeed="No" />
+  <!-- valore per tipo biglietto-->
+  <Command name="SetPosition" X="210" />
+  <Command name="SetBoldMode" X="1"/>
+  <Command name="SetFont" Font="Large" />
+  <Command name="SetCharSize" X="3" Y="2" />
+  <Command name="PrintString" Mapping="TicketType" LineFeed="YES"  />
+  <Command name="SetCharSize" X="1" Y="1" />
+  <Command name="PrintString" String="_____________________________________________" LineFeed="Yes" />
+  <!-- intestazione per data e prezzo-->
+  <Command name="SetBoldMode" X="1"/>
+  <Command name="SetFont" Font="Large" />
+  <Command name="SetPosition" X="120" />
+  <Command name="PrintString" String="Data e Ora" LineFeed="No" />
+  <Command name="SetPosition" X="380" />
+  <Command name="PrintString" String="Prezzo/Price" LineFeed="YES" />
+
+  <!--valori per data e prezzo-->
+  <Command name="SetBoldMode" X="0"/>
+  <Command name="SetFont" Font="Small" />
+  <Command name="SetPosition" X="93" />
+  <Command name="PrintString" Mapping="Date" Format="dd/MM/yyyy HH:mm:ss"  LineFeed="No" />
+  <Command name="SetPosition" X="420" />
+  <Command name="PrintEuro" LineFeed="No" />
+  <Command name="SetPosition" X="440" />
+  <Command name="PrintString" Mapping="Price"  LineFeed="YES" />
+  <Command name="SetLeftMargin" Margin="0" />
+  <Command name="PrintString" String="________________________________________________________________" LineFeed="Yes" />
+  <Command name="LineFeed" Line="1" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="PrintBarCode" Mapping="BarCode" Font="Large" TextPosition="Down" Height="81" Barcode="ITF"/>
+  <Command name="SetHAlign" Align="Left" />
+  <Command name="SetHAlign" Align="Center" />
+  <Command name="NewLine" />
+  <Command name="LineFeed" Line="3" />
+  <!-- Cut paper -->
+  <Command name="CutPaper"/>
+</Commands>

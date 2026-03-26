@@ -1,0 +1,129 @@
+﻿<my:BaseUserControl 
+	x:Class="Presentation.CustomControls.ucOutLookBar"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:telerikControls="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls"
+    HorizontalAlignment="Center" VerticalAlignment="Stretch">
+	<Grid VerticalAlignment="Stretch">
+		<telerik:RadOutlookBar 
+			x:Name="outlookBar" 
+			HorizontalAlignment="Stretch" 
+			VerticalAlignment="Stretch"
+            Padding="6"
+			Height="Auto"
+			MinHeight="300"
+			Width="200"
+            FontWeight="Bold">
+            <telerik:RadOutlookBarItem 
+				Name="ticketing"  
+				Header="Biglietteria"
+				Icon="../Themes/Images/ButtonIcons/tickets_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/tickets_16.png">
+                <telerik:RadTreeView 
+					x:Name="TicketingTreeView"
+                    Margin="-5 10 0 0"
+					SelectionChanged="TicketingTreeView_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+                    <telerik:RadTreeViewItem x:Name="tvEmitTickets" Header="Emissione diretta" CommandParameter="ticketing" />
+                    <telerik:RadTreeViewItem x:Name="tvTicketOffice" Header="Emissione per visite" CommandParameter="ticketoffice" />
+                </telerik:RadTreeView>
+            </telerik:RadOutlookBarItem>
+            <telerik:RadOutlookBarItem 
+				Name="booking"  
+				Header="Prenotazioni"
+				Icon="../Themes/Images/ButtonIcons/booking_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/booking_16.png">
+				<telerik:RadTreeView 
+					x:Name="PrenotationTreeView"
+                    Margin="-5 10 0 0"
+					SelectionChanged="PrenotationsTreeView_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+                    <telerik:RadTreeViewItem x:Name="tvPrenotations" Header="Prenotazioni" CommandParameter="booking" />
+                    <telerik:RadTreeViewItem x:Name="tvVisits" Header="Visite" CommandParameter="evidenze_giornaliere" />
+
+					<telerik:RadTreeViewItem x:Name="tvCanceledPayments" Header="Pagamenti annullati" CommandParameter="pagamentiannullati" />
+                    <telerik:RadTreeViewItem x:Name="tvStats" Header="Statistiche" CommandParameter="statistics" />
+                </telerik:RadTreeView>
+			</telerik:RadOutlookBarItem>
+
+            <telerik:RadOutlookBarItem Name="guides"  Header="Guide"
+				Icon="../Themes/Images/ButtonIcons/Personnel_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/Personnel_16.png" >
+				<telerik:RadTreeView 
+					x:Name="GuidesTreeView"
+                    Margin="-5 10 0 0"
+					SelectionChanged="GuidesTreeView_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+					<telerik:RadTreeViewItem x:Name="tvGuides" Header="Gestione guide" CommandParameter="guides" />
+					<telerik:RadTreeViewItem x:Name="tvGuidesAssignment" Header="Assegnazione guide" CommandParameter="guides_assignment" />
+					<!--<telerik:RadTreeViewItem x:Name="tvFirmaGuide" Header="Firma giornaliera guide" CommandParameter="firmaguide" />
+					<telerik:RadTreeViewItem x:Name="tvGuidesPayroll" Header="Buste paga guide" CommandParameter="guides_payroll" />-->
+				</telerik:RadTreeView>
+			</telerik:RadOutlookBarItem>
+			<telerik:RadOutlookBarItem Name="goods" Header="Movimentazioni"
+				Icon="../Themes/Images/ButtonIcons/Books_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/Books_16.png" 					   
+				>
+				<telerik:RadTreeView 
+					x:Name="tvWarehouse"
+                    Margin="-5 10 0 0"
+					SelectionChanged="tvWarehouse_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+					<telerik:RadTreeViewItem x:Name="tvGoods" Header="Gestione Articoli" CommandParameter="goods" />
+					<telerik:RadTreeViewItem x:Name="tvStores" Header="Gestione Esercizi di Vendita" CommandParameter="stores" />
+					<telerik:RadTreeViewItem x:Name="tvInventario" Header="Inventario" CommandParameter="inventario" />
+					<telerik:RadTreeViewItem x:Name="tvWarehous" Header="Magazzino" CommandParameter="" IsExpanded="True">
+						<telerik:RadTreeViewItem x:Name="tvWarehouseMovements" Header="Movimenti" CommandParameter="warehouse_movements" />
+						<telerik:RadTreeViewItem x:Name="tvPrivateSellMovements" Header="Vendite a privati" CommandParameter="privatesell_movements" />
+						<!--<telerik:RadTreeViewItem x:Name="tvWarehouseReceipts" Header="Bolle" CommandParameter="bills" />
+						<telerik:RadTreeViewItem x:Name="tvWarehouseInvoices" Header="Fatture" CommandParameter="invoices" />-->
+					</telerik:RadTreeViewItem>
+					<telerik:RadTreeViewItem x:Name="tvGuidesStuff" Header="Competenze" CommandParameter="" IsExpanded="True">
+						<telerik:RadTreeViewItem x:Name="tvGuidesMovements" Header="Movimenti" CommandParameter="guides_movements" />
+					</telerik:RadTreeViewItem>
+				</telerik:RadTreeView>
+			</telerik:RadOutlookBarItem>
+			<telerik:RadOutlookBarItem Name="mandato_gestione" Header="Mandato"
+				Icon="../Themes/Images/ButtonIcons/Books_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/Books_16.png" 					   
+				>
+				<telerik:RadTreeView 
+					x:Name="tvMandato"
+                    Margin="-5 10 0 0"
+					SelectionChanged="tvMandato_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+
+					<telerik:RadTreeViewItem x:Name="tvMandatoStampa" Header="Stampe" CommandParameter="mandato_gestione" />
+
+				</telerik:RadTreeView>
+			</telerik:RadOutlookBarItem>
+			<telerik:RadOutlookBarItem 
+				Name="settings_personal" 
+				Header="Impostazioni"
+				Icon="../Themes/Images/ButtonIcons/Settings_24.png"
+				SmallIcon="../Themes/Images/ButtonIcons/Settings_16.png" >
+
+				<telerik:RadTreeView 
+					x:Name="tvSettings"
+                    Margin="-5 10 0 0"
+					SelectionChanged="tvSettings_SelectionChanged"
+                    SelectionMode="Single" 
+					ItemsIndent="5">
+					<telerik:RadTreeViewItem x:Name="tvPersonal" Header="Dati personali" CommandParameter="settings_personal" />
+					<telerik:RadTreeViewItem x:Name="tvUsers" Header="Utenti" CommandParameter="settings_users" />
+                    <telerik:RadTreeViewItem x:Name="tvVisitTypes" Header="Tipologie visite" CommandParameter="settings_visittypes" />
+                    <telerik:RadTreeViewItem x:Name="tvClosing" Header="Giorni di chiusura" CommandParameter="settings_closings" />
+				</telerik:RadTreeView>
+			</telerik:RadOutlookBarItem>
+		</telerik:RadOutlookBar>
+	</Grid>
+</my:BaseUserControl>

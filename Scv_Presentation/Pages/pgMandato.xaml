@@ -1,0 +1,211 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgMandato"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"	
+	xmlns:ntb="clr-namespace:NumericTextBox;assembly=NumericTextBox"	
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="Mandato">
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"></RowDefinition>
+			<RowDefinition></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Border Name="brdFilter" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<StackPanel Orientation="Horizontal" Margin="5">
+				<StackPanel>
+					<Label Content="Data mandato"></Label>
+					<telerik:RadDatePicker Name="dtpDate" MinWidth="120" SelectedValue="{Binding ObjSelectedDate}"></telerik:RadDatePicker>
+				</StackPanel>
+				<StackPanel Margin="5,0,0,0">
+					<Label Content="Nr. mandato"></Label>
+					<Label Content="{Binding ObjMandato.Nr_Mandato}"></Label>
+				</StackPanel>
+				<StackPanel Margin="5,0,0,0">
+					<Label Content="Ultima data mandato"></Label>
+                    <Label Content="{Binding ObjUltimoMandato}" ContentStringFormat="dd/MM/yyyy"></Label>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+		<ScrollViewer Grid.Row="1" Grid.Column="0" VerticalScrollBarVisibility="Auto">
+			<StackPanel>
+				<telerik:RadGridView			
+					Name="grdMaster" 
+					AutoGenerateColumns="False"							
+					GroupRenderMode="Flat"
+					VerticalAlignment="Top"
+					HorizontalAlignment="Stretch"
+					SelectionMode="Single"
+  					ItemsSource="{Binding ObjMandatoDettaglio}"	
+					ScrollViewer.VerticalScrollBarVisibility="Auto"
+					ScrollMode="RealTime"
+					ShowGroupPanel="False"
+					RowLoaded="grdMaster_RowLoaded"
+					ShowColumnFooters="True"	
+					CanUserDeleteRows="False"
+					>
+					<telerik:RadGridView.Columns>
+						<telerik:GridViewDataColumn 
+							Header="Taglio" 
+							DataMemberBinding="{Binding Taglio, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+							TextAlignment="Left"
+							IsFilterable="False" 
+							ShowFilterButton="False"
+							Width="200"
+							IsReadOnly="True"
+							>
+								<telerik:GridViewDataColumn.Footer>
+									<TextBlock 
+										VerticalAlignment="Center"
+										HorizontalAlignment="Stretch"
+										Width="190"
+										TextAlignment="Right"
+										Text="Totale cassa" />
+								</telerik:GridViewDataColumn.Footer>
+						</telerik:GridViewDataColumn>
+						<telerik:GridViewDataColumn
+							Header="Numero"
+							DataMemberBinding="{Binding Numero, Mode=TwoWay}"
+							IsFilterable="False"
+							ShowFilterButton="False"
+                            Width="100"
+							IsReadOnly="{Binding IsNumberReadOnly}"
+							>
+							<telerik:GridViewDataColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Numero, StringFormat=0, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" />
+								</DataTemplate>
+							</telerik:GridViewDataColumn.CellTemplate>
+							<telerik:GridViewDataColumn.CellEditTemplate>
+								<DataTemplate>
+									<telerik:RadNumericUpDown
+										Minimum="0"
+										Maximum="10000"
+										NumberDecimalDigits="0"
+										UpdateValueEvent="PropertyChanged"
+										Value="{Binding Numero, Mode=TwoWay}"
+										/>
+								</DataTemplate>
+							</telerik:GridViewDataColumn.CellEditTemplate>
+							<telerik:GridViewDataColumn.AggregateFunctions>
+								<telerik:SumFunction SourceField="Numero" />
+							</telerik:GridViewDataColumn.AggregateFunctions>
+							<telerik:GridViewDataColumn.Footer>
+								<telerik:AggregateResultsList
+									ItemsSource="{Binding}"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Stretch"
+									Width="50"
+									>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<StackPanel>
+												<TextBlock 
+													VerticalAlignment="Center"
+													HorizontalAlignment="Stretch"
+													TextAlignment="Left"
+													Text="{Binding FormattedValue}" />
+											</StackPanel>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</telerik:AggregateResultsList>
+							</telerik:GridViewDataColumn.Footer>
+						</telerik:GridViewDataColumn>
+
+						<telerik:GridViewDataColumn
+							Header="Valore"
+							DataMemberBinding="{Binding Valore, Mode=TwoWay}"
+							IsFilterable="False"
+							ShowFilterButton="False"
+                            Width="150"
+							IsReadOnly="{Binding IsValueReadOnly}"
+							>
+							<telerik:GridViewDataColumn.CellTemplate>
+								<DataTemplate>
+									<TextBlock Text="{Binding Valore, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" />
+								</DataTemplate>
+							</telerik:GridViewDataColumn.CellTemplate>
+							<telerik:GridViewDataColumn.CellEditTemplate>
+								<DataTemplate>
+									<ntb:NumericTextBox Name="txtValore" Text="{Binding Valore, Mode=TwoWay}" MaxLength="20"  Width="120"  />
+								</DataTemplate>
+							</telerik:GridViewDataColumn.CellEditTemplate>
+							<telerik:GridViewDataColumn.AggregateFunctions>
+								<telerik:SumFunction SourceField="Valore" ResultFormatString="{}{0:c}" />
+							</telerik:GridViewDataColumn.AggregateFunctions>
+							<telerik:GridViewDataColumn.Footer>
+								<telerik:AggregateResultsList
+									ItemsSource="{Binding}"
+									VerticalAlignment="Center"
+									HorizontalAlignment="Stretch"
+									Width="150"
+									>
+									<ItemsControl.ItemTemplate>
+										<DataTemplate>
+											<StackPanel>
+												<TextBlock 
+													VerticalAlignment="Center"
+													HorizontalAlignment="Stretch"
+													TextAlignment="Left"
+													Text="{Binding FormattedValue}" />
+											</StackPanel>
+										</DataTemplate>
+									</ItemsControl.ItemTemplate>
+								</telerik:AggregateResultsList>
+							</telerik:GridViewDataColumn.Footer>
+
+						</telerik:GridViewDataColumn>
+					</telerik:RadGridView.Columns>
+				</telerik:RadGridView>
+			</StackPanel>
+		</ScrollViewer>
+		<StackPanel Grid.Row="1" Grid.Column="1" Margin="5">
+			<Grid Name="grdSintesi">
+				<Grid.RowDefinitions>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+					<RowDefinition></RowDefinition>
+                    <RowDefinition Height="0"></RowDefinition>
+                    <RowDefinition Height="0"></RowDefinition>
+					<RowDefinition></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Label Content="Sintesi incassi" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Background="Gainsboro" FontFamily="Arial" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="Totale" Grid.Row="1" Grid.Column="0" FontFamily="Arial" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="- Contanti" Grid.Row="2" Grid.Column="0" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="- Pos" Grid.Row="3" Grid.Column="0" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="- Assegni" Grid.Row="4" Grid.Column="0" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="- Online" Grid.Row="5" Grid.Column="0" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+                <telerik:RadButton Name="btnRefreshOP" Content="Aggiorna" Grid.Row="5" Grid.Column="0" Margin="0 0 0 0"  HorizontalAlignment="Right" Visibility="{Binding BtnRefreshOPVisibility}"></telerik:RadButton>
+				<Label Content="- IOR" Grid.Row="6" Grid.Column="0" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="- Totale cassa" Grid.Row="7" Grid.Column="0" FontFamily="Arial" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+
+				<Label Content="{Binding Args.SintesiTotale, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="1" Grid.Column="1" FontFamily="Arial" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.SintesiContanti, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="2" Grid.Column="1" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.SintesiPos, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="3" Grid.Column="1" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.SintesiAssegno, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="4" Grid.Column="1" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.SintesiOnline, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="5" Grid.Column="1" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.SintesiIOR, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="6" Grid.Column="1" FontFamily="Arial" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+				<Label Content="{Binding Args.TotaleCassa, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Grid.Row="7" Grid.Column="1" FontFamily="Arial" FontWeight="Bold" BorderBrush="LightGray" BorderThickness="0.5"></Label>
+			</Grid>
+		</StackPanel>
+		<StackPanel Grid.Row="2">
+            <telerik:RadButton Name="btnUdate" Content="Registra modifiche" Grid.Row="2" Grid.Column="0" Width="300" Visibility="{Binding BtnUpdateVisibility}" HorizontalAlignment="Left"></telerik:RadButton>
+		</StackPanel>
+	</Grid>
+</my:BaseContentPage>

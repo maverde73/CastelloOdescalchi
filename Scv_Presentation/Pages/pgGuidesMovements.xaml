@@ -1,0 +1,154 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgGuidesMovements"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"			
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+	Title="Guide">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"></RowDefinition>
+			<RowDefinition></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Border Name="brdFilter" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+
+			<StackPanel Orientation="Horizontal" Margin="5">
+				<StackPanel>
+					<Label Content="Dal"></Label>
+					<StackPanel Orientation="Horizontal">
+						<telerik:RadDatePicker Name="dtpDate1" MinWidth="120"></telerik:RadDatePicker>
+						<telerik:RadButton Name="btnCancelDate1" Content="non filtrare"></telerik:RadButton>
+					</StackPanel>
+				</StackPanel>
+				<StackPanel Margin="5,0,0,0">
+					<Label Content="Al"></Label>
+					<StackPanel Orientation="Horizontal">
+						<telerik:RadDatePicker Name="dtpDate2" MinWidth="120"></telerik:RadDatePicker>
+						<telerik:RadButton Name="btnCancelDate2" Content="non filtrare"></telerik:RadButton>
+					</StackPanel>
+				</StackPanel>
+				<StackPanel Margin="5,0,0,0">
+					<Label Content="Tipo movimento"></Label>
+					<telerik:RadComboBox 
+					Name="cmbTipoMovimento" 
+					MinWidth="200"
+					Style="{StaticResource ValidationRadComboBox}" 
+					ItemsSource="{Binding AvailableMovementTypes}"
+					SelectedValue="{Binding SelectedMovementTypeID, Mode=TwoWay}"						
+					DisplayMemberPath="Descrizione"
+					SelectedValuePath="Id_TipoMovimento"						
+					/>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+					<telerik:RadButton Name="btnFilter"  Content="Filtra" MinWidth="100"  Height="22" VerticalAlignment="Bottom"/>
+					<telerik:RadButton Name="btnCancel"  Content="Elimina filtri" MinWidth="100"  Height="22" VerticalAlignment="Bottom"/>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+			<telerik:RadGridView				
+				Name="grdMaster"
+				Grid.Row="1"
+				AutoGenerateColumns="False"
+				VerticalAlignment="Top"
+				HorizontalAlignment="Stretch"
+				SelectionMode="Single"
+				ItemsSource="{Binding MasterTable}"	
+				ScrollViewer.VerticalScrollBarVisibility="Auto"
+				ScrollMode="RealTime"
+				ShowGroupPanel="false"
+				AutoExpandGroups="False"
+				>
+				<telerik:RadGridView.Columns>
+					<telerik:GridViewDataColumn 
+					Header="Identificativo"
+					DataMemberBinding="{Binding Identificativo}"
+					Width="100"
+					ShowFilterButton="False"
+					/>
+
+					<telerik:GridViewDataColumn
+					Header="Data"
+					DataMemberBinding="{Binding MovementDate, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="80"
+					ShowFilterButton="False"
+					/>
+
+					<telerik:GridViewDataColumn
+					Header="Tipo movimento"
+					DataMemberBinding="{Binding TipoMovimento}"
+					Width="150"
+					ShowFilterButton="False"
+					/>
+
+					<telerik:GridViewDataColumn
+					Header="Tipo pagamento"
+					DataMemberBinding="{Binding TipoPagamento}"
+					Width="150"
+					ShowFilterButton="False"
+					/>
+
+					<telerik:GridViewDataColumn 
+					Header="Nominativo"
+					DataMemberBinding="{Binding Guide}"
+					MinWidth="200"
+					Width="200"
+					/>
+
+					<telerik:GridViewDataColumn
+					Header="Importo"
+					DataMemberBinding="{Binding PrezzoVendita,  StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="70"
+					/>
+
+					<telerik:GridViewDataColumn
+					Header="Nota"
+					DataMemberBinding="{Binding Nota}"
+					Width="250"
+					ShowFilterButton="False"
+					/>
+
+				</telerik:RadGridView.Columns>
+				<telerik:RadContextMenu.ContextMenu>
+					<telerik:RadContextMenu 
+					x:Name="ContextMenu" 
+					ItemClick="contextMenu_Click" 
+					Opening="contextMenu_Opening">
+						<telerik:RadMenuItem Name="mnuPrint" Header="Stampa" CommandParameter="print">
+							<telerik:RadMenuItem.IconTemplate>
+								<DataTemplate>
+									<Image Source="../Themes/Images/ButtonIcons/print_16.png" Stretch="UniformToFill"/>
+								</DataTemplate>
+							</telerik:RadMenuItem.IconTemplate>
+						</telerik:RadMenuItem>
+						<!--<telerik:RadMenuItem Name="mnuDelete" Header="Elimina" CommandParameter="delete" >
+							<telerik:RadMenuItem.IconTemplate>
+								<DataTemplate>
+									<Image Source="../Themes/Images/ButtonIcons/DeleteItem_16.png" Stretch="UniformToFill"/>
+								</DataTemplate>
+							</telerik:RadMenuItem.IconTemplate>
+						</telerik:RadMenuItem>-->
+					</telerik:RadContextMenu>
+				</telerik:RadContextMenu.ContextMenu>
+			</telerik:RadGridView>
+		</ScrollViewer>
+		<telerik:RadDataPager 
+			Name="gridPager"
+			Grid.Row="2"
+            Source="{Binding Items, ElementName=grdMaster}"
+            DisplayMode="All"
+			AutoEllipsisMode="Both"
+			NumericButtonCount="10"
+			IsTotalItemCountFixed="True"
+			/>
+
+	</Grid>
+</my:BaseContentPage>

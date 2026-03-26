@@ -1,0 +1,43 @@
+﻿<my:BaseDetailPage 
+        x:Class="Presentation.wndCancelTickets"
+     xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Annullamento Biglietti" 
+	Width="500"
+    Height="150"
+	ResizeMode="NoResize"
+	WindowStartupLocation="CenterScreen">
+    
+
+
+    <Grid Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="60"/>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Column="0" VerticalAlignment="Stretch"   Margin="0 0 0 0">
+
+            <telerik:RadComboBox 
+							Name="cmbBiglietti"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+    						TextSearchMode="Contains"
+							DisplayMemberPath="FullDescription"
+							ItemsSource="{Binding SrcBiglietti}" 
+                            SelectedItem="{Binding SelectedBiglietto, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+							SelectedValuePath="Id_Biglietto"
+							telerik:StyleManager.Theme="Windows8Touch" Width="300" SelectionChanged="cmbBiglietti_SelectionChanged" />
+
+
+            <telerik:RadButton Name="btnCancelTicket" Grid.Column="1" HorizontalAlignment="Left" FontWeight="Bold"  Content="Annulla Biglietto" telerik:StyleManager.Theme="Windows8Touch" Margin="10 0 0 0" Click="btnCancelTicket_Click" />
+        </StackPanel>
+
+    </Grid>
+</my:BaseDetailPage>

@@ -1,0 +1,87 @@
+﻿<UserControl
+	x:Class="Presentation.LocationManager"
+	xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="58" 
+	d:DesignWidth="677"	
+	>
+
+	<UserControl.Resources>
+		<SolidColorBrush x:Key="Black" Color="#FF000000"/>
+		<SolidColorBrush x:Key="Grey" Color="#FF767676"/>
+		<SolidColorBrush x:Key="W Grey" Color="#FFD6D4D4"/>
+		<Style x:Key="AutoCompleteStyle" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="Segoe UI" />
+			<Setter Property="FontSize" Value="13.333" />
+			<Setter Property="Foreground" Value="#FF0A0A0A" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+
+		<Style x:Key="ColumnHeaderStyle" TargetType="TextBlock">
+			<Setter Property="FontFamily" Value="Segoe UI" />
+			<Setter Property="FontSize" Value="16" />
+			<Setter Property="Foreground" Value="#FFFFFFFF" />
+			<Setter Property="VerticalAlignment" Value="Center" />
+		</Style>
+
+		<Style x:Key="PathFrameEllipseStyle" TargetType="Ellipse">
+			<Setter Property="Width" Value="40" />
+			<Setter Property="Height" Value="40" />
+			<Setter Property="Stroke" Value="#FFFFFFFF" />
+			<Setter Property="StrokeThickness" Value="2" />
+		</Style>
+
+		<DataTemplate x:Name="tmpPetitioner" x:Key="aucLocation">
+			<StackPanel Orientation="Horizontal">
+				<TextBlock Text="{Binding Nome}" Style="{StaticResource AutoCompleteStyle}" />
+				<TextBlock Text=", " Style="{StaticResource AutoCompleteStyle}" />
+				<TextBlock Text="{Binding CAP}" Style="{StaticResource AutoCompleteStyle}" />
+			</StackPanel>
+		</DataTemplate>
+	</UserControl.Resources>
+	<Grid>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel MinWidth="100" Margin="2,0,2,0">
+				<Label Name="lblSearch" Content="Città" />
+				<telerik:RadAutoCompleteBox 
+					Name="cmb"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					MinWidth="250"
+					SelectionMode="Single"
+					TextSearchMode="Contains"
+					TextSearchPath="Nome"					
+					DropDownItemTemplate="{StaticResource aucLocation}"	
+					DisplayMemberPath="Nome"
+					WatermarkContent="Città..."
+					AutoCompleteMode="Suggest"
+					ItemsSource="{Binding Availables}"
+					SelectedItem="{Binding AutoCompleteBoxSelectedItem, Mode=TwoWay}"
+					SelectionChanged="cmb_SelectionChanged"
+					SearchTextChanged="cmb_SearchTextChanged"	
+					Style="{StaticResource DataRadTextBox}"
+					/>
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="150" Margin="2,0,2,0" Visibility="Collapsed">
+				<Label Name="lblCity" Content="Città" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtCity" Text="{Binding Nome, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="50" Margin="2,0,2,0">
+				<Label Name="lblCAP" Content="Cap" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtCAP" Text="{Binding CAP, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="100" Margin="2,0,2,0">
+				<Label Name="lblProvince" Content="Provincia" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtProvince" Text="{Binding Provincia, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="100" Margin="2,0,2,0">
+				<Label Name="lblCountry" Content="Nazione" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtCountry" Text="{Binding Nazione, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

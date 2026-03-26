@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv*/
+
+# Buildozer / Android
+.buildozer/
+kivy_app/.buildozer/
+kivy_app/bin/
+bin/
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Docker volumes
+sqldata/
+
+# APK binaries
+*.apk
+
+# OS
+.DS_Store
+Thumbs.db

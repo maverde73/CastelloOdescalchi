@@ -1,0 +1,411 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Turnstile Simulator — Castello Odescalchi</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @keyframes pulse-green { 0%,100%{box-shadow:0 0 0 0 rgba(34,197,94,.4)} 50%{box-shadow:0 0 0 20px rgba(34,197,94,0)} }
+        @keyframes pulse-red { 0%,100%{box-shadow:0 0 0 0 rgba(239,68,68,.4)} 50%{box-shadow:0 0 0 20px rgba(239,68,68,0)} }
+        .pulse-green { animation: pulse-green 1s ease-in-out 3; }
+        .pulse-red { animation: pulse-red 1s ease-in-out 3; }
+        .xml-block { font-family: monospace; font-size: 11px; white-space: pre-wrap; word-break: break-all; }
+    </style>
+</head>
+<body class="bg-gray-900 text-gray-100 h-screen overflow-hidden flex flex-col">
+
+<!-- Header -->
+<div class="bg-gray-800 border-b border-gray-700 px-4 py-2 flex items-center justify-between flex-shrink-0">
+    <h1 class="text-lg font-bold text-amber-400">Turnstile Simulator — Castello Odescalchi</h1>
+    <div class="flex items-center gap-4 text-xs">
+        <div class="flex items-center gap-1.5" id="srvStatus">
+            <span class="w-2 h-2 rounded-full bg-gray-500"></span>
+            <span class="text-gray-400">Server: ...</span>
+        </div>
+        <div class="flex items-center gap-1.5" id="turnStatus">
+            <span class="w-2 h-2 rounded-full bg-gray-500"></span>
+            <span class="text-gray-400">Tornello: ...</span>
+        </div>
+        <div id="connectInfo" class="text-green-400 hidden"></div>
+        <div class="flex items-center gap-1.5" id="wsStatus">
+            <span class="w-2 h-2 rounded-full bg-red-500"></span>
+            <span>WS: Disconnesso</span>
+        </div>
+        <button onclick="toggleConfig()" class="text-gray-400 hover:text-amber-400 transition text-xs border border-gray-600 rounded px-2 py-0.5">Config</button>
+    </div>
+</div>
+
+<!-- Config Panel (hidden by default) -->
+<div id="configPanel" class="hidden bg-gray-800 border-b border-gray-700 px-4 py-3 flex-shrink-0">
+    <div class="grid grid-cols-3 gap-4 text-xs">
+        <div>
+            <div class="text-amber-400 font-semibold mb-2">Tornello Simulato</div>
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-400 w-24">Server target:</span>
+                    <input id="cfgServerHost" class="bg-gray-700 border border-gray-600 rounded px-1.5 py-0.5 w-32 text-xs" value="127.0.0.1">
+                    <span class="text-gray-500">:</span>
+                    <input id="cfgServerPort" type="number" class="bg-gray-700 border border-gray-600 rounded px-1.5 py-0.5 w-16 text-xs" value="10000">
+                </div>
+            </div>
+        </div>
+        <div>
+            <div class="text-amber-400 font-semibold mb-2">Validation Server</div>
+            <div class="space-y-1">
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-400 w-24">UDP port:</span>
+                    <input id="cfgUdpPort" type="number" class="bg-gray-700 border border-gray-600 rounded px-1.5 py-0.5 w-16 text-xs" value="10000">
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="text-gray-400 w-24">DB host:</span>
+                    <input id="cfgDbHost" class="bg-gray-700 border border-gray-600 rounded px-1.5 py-0.5 w-32 text-xs" value="localhost">
+                </div>
+            </div>
+        </div>
+        <div class="flex items-end">
+            <button onclick="saveConfig()" class="bg-amber-600 hover:bg-amber-500 text-white text-xs py-1 px-4 rounded transition">Salva Config</button>
+            <span id="cfgSaveStatus" class="ml-2 text-xs text-green-400 hidden">Salvato</span>
+        </div>
+    </div>
+</div>
+
+<!-- Grid 2x2 -->
+<div class="grid grid-cols-2 grid-rows-2 gap-3 p-3 flex-1 min-h-0">
+
+    <!-- Panel 1: Emissione -->
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col overflow-hidden">
+        <h2 class="text-sm font-semibold text-amber-400 mb-3 uppercase tracking-wide">Emissione Biglietto</h2>
+        <div class="grid grid-cols-2 gap-3 mb-3">
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Pax</label>
+                <input type="number" id="emitPax" value="1" min="1" max="127"
+                       class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:border-amber-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Tipo</label>
+                <select id="emitTipo" class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:border-amber-500 focus:outline-none"></select>
+            </div>
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Data</label>
+                <input type="datetime-local" id="emitDate"
+                       class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:border-amber-500 focus:outline-none">
+            </div>
+            <div>
+                <label class="text-xs text-gray-400 block mb-1">Cont</label>
+                <input type="number" id="emitCont" value="0" min="0" max="3"
+                       class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm focus:border-amber-500 focus:outline-none">
+            </div>
+        </div>
+        <button onclick="emitTicket()" class="bg-amber-600 hover:bg-amber-500 text-white font-medium py-2 rounded text-sm transition">Emetti Biglietto</button>
+        <div id="emitResult" class="mt-3 hidden">
+            <div class="bg-gray-900 rounded p-3 border border-gray-600">
+                <div class="text-xs text-gray-400 mb-1">Barcode generato</div>
+                <div class="font-mono text-lg text-green-400" id="emitBarcode"></div>
+                <div class="text-xs text-gray-500 mt-1" id="emitDetail"></div>
+                <button onclick="copyToTurnstile()" class="mt-2 bg-blue-600 hover:bg-blue-500 text-white text-xs py-1 px-3 rounded transition">Copia al Tornello &rarr;</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Panel 2: Tornello -->
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col overflow-hidden">
+        <h2 class="text-sm font-semibold text-amber-400 mb-3 uppercase tracking-wide">Simulatore Tornello (UDP)</h2>
+        <div class="mb-2">
+            <label class="text-xs text-gray-400 block mb-1">Barcode</label>
+            <input type="text" id="scanBarcode" placeholder="Inserisci o incolla barcode..."
+                   class="w-full bg-gray-700 border border-gray-600 rounded px-2 py-1.5 text-sm font-mono focus:border-amber-500 focus:outline-none">
+        </div>
+        <div class="flex gap-2 mb-3">
+            <button onclick="turnstileAction('entry')" class="flex-1 bg-green-600 hover:bg-green-500 text-white font-medium py-1.5 rounded text-sm transition">Scansiona</button>
+            <button onclick="turnstileAction('pass')" class="bg-blue-600 hover:bg-blue-500 text-white font-medium py-1.5 px-3 rounded text-sm transition">Pass</button>
+            <button onclick="turnstileAction('test')" class="bg-gray-600 hover:bg-gray-500 text-white font-medium py-1.5 px-3 rounded text-sm transition">Test</button>
+        </div>
+        <div class="flex items-center gap-4 mb-3">
+            <div id="gateIndicator" class="w-20 h-20 rounded-full border-4 border-gray-600 bg-gray-700 flex items-center justify-center transition-all duration-500 flex-shrink-0">
+                <span id="gateIcon" class="text-3xl text-gray-500">&#x25CF;</span>
+            </div>
+            <div class="flex-1">
+                <div id="gateText" class="text-sm text-gray-400">In attesa...</div>
+                <div id="gateDetail" class="mt-1 text-xs text-gray-500 font-mono"></div>
+            </div>
+        </div>
+        <div class="flex-1 overflow-y-auto bg-gray-900 rounded border border-gray-700 p-2 space-y-1 min-h-0" id="xmlViewer">
+            <div class="text-xs text-gray-500 text-center py-2">Protocollo XML</div>
+        </div>
+    </div>
+
+    <!-- Panel 3: Log Timeline -->
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-semibold text-amber-400 uppercase tracking-wide">Log Timeline</h2>
+            <button onclick="clearLog()" class="text-xs text-gray-500 hover:text-gray-300 transition">Pulisci</button>
+        </div>
+        <div id="logContainer" class="flex-1 overflow-y-auto space-y-2 text-sm min-h-0">
+            <div class="text-gray-500 text-xs text-center py-4">Nessun evento</div>
+        </div>
+    </div>
+
+    <!-- Panel 4: Vista DB -->
+    <div class="bg-gray-800 rounded-lg border border-gray-700 p-4 flex flex-col overflow-hidden">
+        <div class="flex items-center justify-between mb-3">
+            <h2 class="text-sm font-semibold text-amber-400 uppercase tracking-wide">Database Biglietti</h2>
+            <button onclick="refreshTickets()" class="text-xs text-gray-500 hover:text-gray-300 transition">Aggiorna</button>
+        </div>
+        <div class="flex-1 overflow-y-auto min-h-0">
+            <table class="w-full text-xs">
+                <thead class="text-gray-400 border-b border-gray-700 sticky top-0 bg-gray-800">
+                    <tr>
+                        <th class="text-left py-1 px-1">ID</th>
+                        <th class="text-left py-1 px-1">Codice</th>
+                        <th class="text-left py-1 px-1">Tipo</th>
+                        <th class="text-center py-1 px-1">Pax</th>
+                        <th class="text-left py-1 px-1">Emissione</th>
+                        <th class="text-center py-1 px-1">Stato</th>
+                    </tr>
+                </thead>
+                <tbody id="ticketTableBody" class="text-gray-300">
+                    <tr><td colspan="6" class="text-center py-4 text-gray-500">Caricamento...</td></tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+let ws = null;
+let lastEmittedBarcode = null;
+
+// --- WebSocket ---
+function connectWS() {
+    ws = new WebSocket(`ws://${location.host}/ws`);
+    ws.onopen = () => { setWsStatus(true); checkComponentStatus(); };
+    ws.onclose = () => { setWsStatus(false); setTimeout(connectWS, 2000); };
+    ws.onmessage = (e) => handleWSMessage(JSON.parse(e.data));
+}
+function setWsStatus(ok) {
+    const el = document.getElementById('wsStatus');
+    el.innerHTML = `<span class="w-2 h-2 rounded-full ${ok?'bg-green-500':'bg-red-500'}"></span><span>${ok?'WS: Connesso':'WS: Disconnesso'}</span>`;
+}
+function handleWSMessage(data) {
+    switch(data.type) {
+        case 'ticket_emitted': addLogCard('EMESSO', `code=${data.ticket.code} pax=${data.ticket.pax}`, 'blue', data.timestamp); refreshTickets(); break;
+        case 'udp_sent': addXml('sent', data.to, data.xml, data.timestamp); addLogStep(data.action, 'sent', data.to, data.xml, data.timestamp); break;
+        case 'udp_recv': addXml('recv', data.from, data.xml, data.timestamp); addLogStep(data.action, 'recv', data.from, data.xml, data.timestamp); break;
+        case 'udp_timeout': addLogCard('TIMEOUT', 'Nessuna risposta dal server', 'red', data.timestamp); break;
+    }
+}
+
+// --- Component Status ---
+async function checkComponentStatus() {
+    try {
+        const r = await fetch('/api/status');
+        const s = await r.json();
+        setComponentStatus('srvStatus', 'Server', s.validation_server);
+        setComponentStatus('turnStatus', 'Tornello', s.turnstile);
+        // Show connection addresses
+        const ci = document.getElementById('connectInfo');
+        if (s.turnstile_connect_addr) {
+            ci.innerHTML = `Tornello: <b>${s.turnstile_connect_addr}</b> | Server: <b>${s.server_connect_addr}</b>`;
+            ci.classList.remove('hidden');
+        }
+        // Load config into panel only if config panel is hidden (user not editing)
+        if (document.getElementById('configPanel').classList.contains('hidden')) {
+            const cr = await fetch('/api/config');
+            const cfg = await cr.json();
+            document.getElementById('cfgServerHost').value = cfg.turnstile.server_host;
+            document.getElementById('cfgServerPort').value = cfg.turnstile.server_udp_port;
+            document.getElementById('cfgUdpPort').value = cfg.validation_server.udp_port;
+            document.getElementById('cfgDbHost').value = cfg.database.host;
+        }
+    } catch(e) {}
+}
+function setComponentStatus(elId, label, status) {
+    const el = document.getElementById(elId);
+    const ok = status && status.active;
+    const detail = status?.bind || status?.server_target || '';
+    el.innerHTML = `<span class="w-2 h-2 rounded-full ${ok?'bg-green-500':'bg-red-500'}"></span>
+        <span class="${ok?'text-green-400':'text-red-400'}">${label}: ${ok?'attivo':'offline'}</span>
+        ${detail ? `<span class="text-gray-500">${detail}</span>` : ''}`;
+}
+
+// --- Config ---
+function toggleConfig() { document.getElementById('configPanel').classList.toggle('hidden'); }
+async function saveConfig() {
+    const cfg = {
+        turnstile: { server_host: document.getElementById('cfgServerHost').value, server_udp_port: parseInt(document.getElementById('cfgServerPort').value) },
+        validation_server: { udp_port: parseInt(document.getElementById('cfgUdpPort').value) },
+        database: { host: document.getElementById('cfgDbHost').value }
+    };
+    await fetch('/api/config', { method: 'POST', headers: {'Content-Type': 'application/json'}, body: JSON.stringify(cfg) });
+    const s = document.getElementById('cfgSaveStatus');
+    s.classList.remove('hidden'); setTimeout(() => s.classList.add('hidden'), 2000);
+    checkComponentStatus();
+}
+
+// --- XML Viewer ---
+function addXml(dir, addr, xml, ts) {
+    const v = document.getElementById('xmlViewer');
+    if (v.querySelector('.text-center')) v.innerHTML = '';
+    const t = new Date(ts).toLocaleTimeString('it-IT',{hour:'2-digit',minute:'2-digit',second:'2-digit',fractionalSecondDigits:3});
+    const isSent = dir === 'sent';
+    const el = document.createElement('div');
+    el.className = `border-l-2 ${isSent?'border-blue-800':'border-cyan-800'} pl-2 py-1`;
+    el.innerHTML = `<div class="flex items-center gap-2 mb-0.5">
+        <span class="text-xs text-gray-500">${t}</span>
+        <span class="text-xs font-bold ${isSent?'text-blue-400':'text-cyan-400'}">${isSent?'&gt;&gt;&gt; SENT':'&lt;&lt;&lt; RECV'}</span>
+        <span class="text-xs text-gray-500">${addr}</span>
+    </div><div class="xml-block ${isSent?'text-blue-400':'text-cyan-400'} opacity-80">${esc(fmt(xml))}</div>`;
+    v.appendChild(el); v.scrollTop = v.scrollHeight;
+}
+function fmt(xml) { return xml ? xml.replace(/></g,'>\n<').replace(/<\?xml[^>]+\?>\n?/,'') : '(empty)'; }
+function esc(s) { return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+
+// --- Log Timeline ---
+function addLogCard(badge, text, color, ts) {
+    const c = document.getElementById('logContainer');
+    if (c.querySelector('.text-center')) c.innerHTML = '';
+    const t = new Date(ts).toLocaleTimeString('it-IT');
+    const el = document.createElement('div');
+    el.className = `rounded border border-${color}-500/50 bg-${color}-900/20 px-3 py-2`;
+    el.innerHTML = `<div class="flex items-center gap-2"><span class="text-xs text-gray-500">${t}</span>
+        <span class="text-xs px-1.5 py-0.5 rounded bg-${color}-600 text-white">${badge}</span>
+        <span class="text-xs text-gray-300">${text}</span></div>`;
+    c.prepend(el);
+}
+function addLogStep(action, dir, addr, xml, ts) {
+    const c = document.getElementById('logContainer');
+    if (c.querySelector('.text-center')) c.innerHTML = '';
+    const t = new Date(ts).toLocaleTimeString('it-IT',{fractionalSecondDigits:3});
+    const isSent = dir === 'sent';
+    const color = isSent ? 'blue' : 'cyan';
+    // Extract key info from XML
+    let info = '';
+    if (xml) {
+        const m = xml.match(/<(test|entry|pass|return|open)[^>]*>/);
+        if (m) info = m[0];
+        const chip = xml.match(/<chip>([^<]+)<\/chip>/);
+        if (chip) info += ` barcode=${chip[1]}`;
+        const txt = xml.match(/<txt>([^<]+)<\/txt>/);
+        if (txt) info += ` "${txt[1]}"`;
+        const act = xml.match(/<act>([^<]+)<\/act>/);
+        if (act) info += ` dir=${act[1]}`;
+        const cnt = xml.match(/<cnt>([^<]+)<\/cnt>/);
+        if (cnt) info += ` cnt=${cnt[1]}`;
+    }
+    const el = document.createElement('div');
+    el.className = `text-xs font-mono text-${color}-400 pl-2 border-l-2 border-${color}-800 py-0.5`;
+    el.textContent = `${t} [${isSent?'SENT':'RECV'} ${addr}] ${action.toUpperCase()} ${info}`;
+    c.prepend(el);
+}
+function clearLog() { document.getElementById('logContainer').innerHTML = '<div class="text-gray-500 text-xs text-center py-4">Nessun evento</div>'; }
+
+// --- Emit ---
+let dateManuallyChanged = false;
+async function emitTicket() {
+    const body = {
+        pax: parseInt(document.getElementById('emitPax').value) || 1,
+        tipo: parseInt(document.getElementById('emitTipo').value) || 1,
+        cont: parseInt(document.getElementById('emitCont').value) || 0,
+        date: dateManuallyChanged ? (document.getElementById('emitDate').value || null) : null
+    };
+    // Update displayed date to now
+    if (!dateManuallyChanged) setDefaultDate();
+    const r = await fetch('/api/emit', { method:'POST', headers:{'Content-Type':'application/json'}, body:JSON.stringify(body) });
+    const ticket = await r.json();
+    lastEmittedBarcode = String(ticket.code);
+    document.getElementById('emitBarcode').textContent = lastEmittedBarcode;
+    document.getElementById('emitDetail').textContent = `ID: ${ticket.id} | Pax: ${ticket.pax} | Tipo: ${ticket.tipo}`;
+    document.getElementById('emitResult').classList.remove('hidden');
+}
+function copyToTurnstile() { if (lastEmittedBarcode) document.getElementById('scanBarcode').value = lastEmittedBarcode; }
+
+// --- Turnstile Actions ---
+async function turnstileAction(action) {
+    const barcode = document.getElementById('scanBarcode').value.trim();
+    if (action === 'entry' && !barcode) return;
+    document.getElementById('xmlViewer').innerHTML = '';
+    if (action === 'entry') setGate('loading');
+    try {
+        const r = await fetch('/api/turnstile/action', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ barcode, action })
+        });
+        const data = await r.json();
+        if (data.error) { setGate('error', data.error); return; }
+        if (data.timeout) { setGate('error', 'Timeout — server non raggiungibile'); return; }
+        if (action === 'test') { setGate('test'); }
+        else if (action === 'entry' && data.parsed) {
+            const p = data.parsed;
+            if (p.count === '1') setGate('Valido', p.text);
+            else if (p.text?.includes('scaduto')) setGate('Scaduto', p.text);
+            else if (p.text?.includes('vidimato')) setGate('Validato', p.text);
+            else if (p.text?.includes('annullato')) setGate('Annullato', p.text);
+            else setGate('Invalido', p.text || 'Accesso negato');
+        }
+        refreshTickets();
+    } catch(e) { setGate('error', e.message); }
+}
+
+// --- Gate ---
+function setGate(state, detail) {
+    const ind = document.getElementById('gateIndicator');
+    const icon = document.getElementById('gateIcon');
+    const text = document.getElementById('gateText');
+    const det = document.getElementById('gateDetail');
+    ind.className = 'w-20 h-20 rounded-full border-4 flex items-center justify-center transition-all duration-500 flex-shrink-0';
+    icon.className = 'text-3xl';
+    det.textContent = detail || '';
+    const map = {
+        loading: ['border-gray-500 bg-gray-700','&#x23F3;','text-gray-400','Validazione...','text-sm text-gray-400'],
+        test: ['border-gray-500 bg-gray-700','&#x2764;','text-green-400','Heartbeat OK','text-sm text-green-400'],
+        error: ['border-red-500 bg-red-900/50 pulse-red','&#x26A0;','text-red-400','ERRORE','text-sm text-red-400 font-bold'],
+        Valido: ['border-green-500 bg-green-900/50 pulse-green','&#x2714;','text-green-400','ACCESSO CONSENTITO','text-sm text-green-400 font-bold'],
+        Scaduto: ['border-yellow-500 bg-yellow-900/50 pulse-red','&#x23F0;','text-yellow-400','BIGLIETTO SCADUTO','text-sm text-yellow-400 font-bold'],
+        Validato: ['border-orange-500 bg-orange-900/50 pulse-red','&#x26A0;','text-orange-400','GIA\' VIDIMATO','text-sm text-orange-400 font-bold'],
+        Annullato: ['border-orange-500 bg-orange-900/50 pulse-red','&#x1F6AB;','text-orange-400','ANNULLATO','text-sm text-orange-400 font-bold'],
+        Invalido: ['border-red-500 bg-red-900/50 pulse-red','&#x2716;','text-red-400','ACCESSO NEGATO','text-sm text-red-400 font-bold'],
+    };
+    const m = map[state] || map.Invalido;
+    ind.classList.add(...m[0].split(' ')); icon.innerHTML = m[1]; icon.classList.add(m[2]);
+    text.textContent = m[3]; text.className = m[4];
+}
+
+// --- DB Table ---
+async function refreshTickets() {
+    try {
+        const r = await fetch('/api/tickets');
+        const tickets = await r.json();
+        const tb = document.getElementById('ticketTableBody');
+        if (!tickets.length) { tb.innerHTML = '<tr><td colspan="6" class="text-center py-4 text-gray-500">Nessun biglietto</td></tr>'; return; }
+        tb.innerHTML = tickets.map(t => {
+            let badge, rc = '';
+            if (t.annullato) { badge = '<span class="px-1 py-0.5 rounded bg-red-600/30 text-red-400 text-xs">Annullato</span>'; rc = 'bg-red-900/10'; }
+            else if (t.vidimato) { badge = '<span class="px-1 py-0.5 rounded bg-green-600/30 text-green-400 text-xs">Vidimato</span>'; rc = 'bg-green-900/10'; }
+            else { badge = '<span class="px-1 py-0.5 rounded bg-gray-600/30 text-gray-400 text-xs">Attivo</span>'; }
+            const d = t.emissione ? new Date(t.emissione).toLocaleString('it-IT',{day:'2-digit',month:'2-digit',hour:'2-digit',minute:'2-digit'}) : '-';
+            return `<tr class="border-b border-gray-700/50 ${rc}"><td class="py-1 px-1">${t.id}</td><td class="py-1 px-1 font-mono text-xs">${String(t.codice).slice(0,12)}...</td><td class="py-1 px-1">${t.tipo}</td><td class="py-1 px-1 text-center">${t.pax}</td><td class="py-1 px-1">${d}</td><td class="py-1 px-1 text-center">${badge}</td></tr>`;
+        }).join('');
+    } catch(e) {}
+}
+
+// --- Init ---
+async function loadTicketTypes() {
+    try {
+        const r = await fetch('/api/ticket-types');
+        const types = await r.json();
+        document.getElementById('emitTipo').innerHTML = types.map(t => `<option value="${t.id}">${t.descrizione} (&euro;${t.prezzo.toFixed(2)})</option>`).join('');
+    } catch(e) {}
+}
+function setDefaultDate() {
+    const n = new Date(); n.setMinutes(n.getMinutes() - n.getTimezoneOffset());
+    document.getElementById('emitDate').value = n.toISOString().slice(0, 16);
+}
+
+setDefaultDate(); loadTicketTypes(); refreshTickets(); connectWS();
+document.getElementById('emitDate').addEventListener('change', () => { dateManuallyChanged = true; });
+setInterval(refreshTickets, 5000);
+setInterval(checkComponentStatus, 10000);
+</script>
+</body>
+</html>

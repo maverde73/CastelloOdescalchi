@@ -1,0 +1,25 @@
+{
+  "turnstile": {
+    "host": "0.0.0.0",
+    "udp_port": 10001,
+    "http_port": 8001,
+    "server_host": "127.0.0.1",
+    "server_udp_port": 10000
+  },
+  "validation_server": {
+    "host": "0.0.0.0",
+    "udp_port": 10000,
+    "http_port": 8002
+  },
+  "database": {
+    "host": "localhost",
+    "port": 1433,
+    "user": "sa",
+    "password": "Password15!",
+    "database": "Castello_Odescalchi_Bracciano_Visite"
+  },
+  "dashboard": {
+    "host": "0.0.0.0",
+    "port": 8000
+  }
+}

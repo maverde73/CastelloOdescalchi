@@ -1,0 +1,168 @@
+﻿<my:BaseDetailPage 
+	x:Class="Presentation.wndStoreDetail"
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"
+	xmlns:ntb="clr-namespace:NumericTextBox;assembly=NumericTextBox"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Esercizio di vendita" 
+	Height="280" 
+	MinHeight="280"
+	Width="700"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"	
+        
+	>
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+
+	<Window.Resources>
+		<CollectionViewSource x:Key="cvsStore" d:DesignSource="{d:DesignInstance ent:Guida, CreateList=True}" />
+	</Window.Resources>
+
+	<Grid Name="grdPrenotationDetail">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="35"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Name="brdGuide" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid x:Name="grdGuide" Margin="10" >
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid Grid.Row="0" Margin="3" DataContext="{StaticResource cvsStore}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="45*"></ColumnDefinition>
+						<ColumnDefinition Width="45*"></ColumnDefinition>
+						<ColumnDefinition Width="10*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel Grid.Column="0" HorizontalAlignment="Stretch">
+						<Label Content="Descrizione" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtDescrizione" Validation.Error="Validation_Error" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+							<Binding
+								Path="Descrizione"
+							    Mode="TwoWay"
+								ValidatesOnDataErrors="True"
+								NotifyOnValidationError="True"
+								UpdateSourceTrigger="PropertyChanged"
+								/>
+						</TextBox>
+					</DockPanel>
+					<DockPanel Grid.Column="1" HorizontalAlignment="Stretch">
+						<Label Content="Nome contatto" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtNomeContatto" Validation.Error="Validation_Error" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+							<Binding
+								Path="Contatto"
+							    Mode="TwoWay"
+								ValidatesOnDataErrors="True"
+								NotifyOnValidationError="True"
+								UpdateSourceTrigger="PropertyChanged"
+								/>
+						</TextBox>
+					</DockPanel>
+					<DockPanel Grid.Column="2" HorizontalAlignment="Stretch" >
+						<Label Content="Sconto" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<telerik:RadNumericUpDown 
+							Name="txtSconto" 
+							Validation.Error="Validation_Error" 
+							Minimum="0" 
+							Maximum="100" 
+							Style="{StaticResource DataRadNumericUpDown}" 
+							HorizontalAlignment="Stretch" 
+							Value="{
+								Binding Sconto,
+								Mode=TwoWay,
+								NotifyOnValidationError=True,
+								ValidatesOnDataErrors=True,
+								UpdateSourceTrigger=PropertyChanged
+							}" />
+					</DockPanel>
+				</Grid>
+				<Grid Grid.Row="1" Margin="3" DataContext="{StaticResource cvsStore}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="35*"></ColumnDefinition>
+						<ColumnDefinition Width="35*"></ColumnDefinition>
+						<ColumnDefinition Width="10*"></ColumnDefinition>
+						<ColumnDefinition Width="20*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="0" >
+						<Label Content="Città" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtCitta" Text="{Binding Citta, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="1" >
+						<Label Content="Indirizzo" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtIndirizzo" Text="{Binding Indirizzo, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="2" >
+						<Label Content="CAP" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtCap" Text="{Binding CAP, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="3" >
+						<Label Content="Provincia" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtProvincia" Text="{Binding Provincia, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}"  MaxLength="20" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+				</Grid>
+				<Grid Grid.Row="2" Margin="3" DataContext="{StaticResource cvsStore}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="50.*"></ColumnDefinition>
+						<ColumnDefinition Width="50*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="0">
+						<Label Content="Tel. Uff." Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtTelUfficio" Validation.Error="Validation_Error" Text="{Binding Tel_Ufficio, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}" MaxLength="20" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="1">
+						<Label Content="Tel. Cell." Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<TextBox Name="txtTelCellulare" Text="{Binding Tel_Cellulare, Mode=TwoWay,  ValidatesOnDataErrors=True, NotifyOnValidationError=True}" MaxLength="20" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+				</Grid>
+				<Grid Grid.Row="3" Margin="3" DataContext="{StaticResource cvsStore}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<Label Content="Nota" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<TextBox 
+							Name="txtNota" 
+							Text="{Binding 
+								Nota, Mode=TwoWay,  
+								ValidatesOnDataErrors=True, 
+								NotifyOnValidationError=True}" 
+							MaxLength="100" 
+							AcceptsReturn="True" 
+							TextWrapping="Wrap" 
+							Height="40" 
+							MinHeight="40" 
+							VerticalScrollBarVisibility="Auto" 
+							Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+							/>
+					</StackPanel>
+				</Grid>
+			</Grid>
+		</Border>
+
+		<Border Name="brdButtons" Grid.Row="2" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<Grid x:Name="grdButtons" Margin="3" >
+				<StackPanel Orientation="Horizontal">
+					<telerik:RadButton Name="btnSave" Content="Salva" Width="100" Height="25" />
+					<telerik:RadButton Name="btnDelete" Content="Elimina" Width="100" Height="25" />
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</my:BaseDetailPage>

@@ -1,0 +1,36 @@
+﻿<UserControl 
+	x:Class="Presentation.VisitTypeManager"
+	xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="58" 
+	d:DesignWidth="380"	
+	>
+	<Grid>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel MinWidth="100">
+				<Label Name="lblSearch" Content="Tipo visita" />
+				<telerik:RadComboBox 
+					Name="cmb"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					MinWidth="150"
+					TextSearchMode="Contains"
+					DisplayMemberPath="Descrizione"
+					ItemsSource="{Binding Availables}"
+					SelectedItem="{Binding SelectedItem}"
+					SelectedValuePath="Id_TipoVisita"
+					SelectionChanged="cmb_SelectionChanged"
+					Style="{StaticResource DataRadComboBox}"
+					/>
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="150" Visibility="Collapsed">
+				<Label Name="lblVisitType" Content="Tipo visita" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtVisitType" Text="{Binding Descrizione, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

@@ -1,0 +1,192 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgBooking"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"			    
+    mc:Ignorable="d" 
+    d:DesignHeight="300" 
+	d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="pgPetitioners">
+    <Grid Margin="10" VirtualizingStackPanel.VirtualizationMode="Recycling">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="55"></RowDefinition>
+            <RowDefinition Height="100*"></RowDefinition>
+            <RowDefinition Height="30"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Border Name="brdFilter" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+            <StackPanel Orientation="Horizontal" Margin="1">
+                <StackPanel>
+                    <Label Content="Protocollo"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="txtReference" MinWidth="100"></TextBox>
+                        <telerik:RadButton Name="btnCancelReference" Content="non filtrare"></telerik:RadButton>
+                    </StackPanel>
+                </StackPanel>
+
+                <StackPanel>
+                    <Label Content="Data prenotazione dal"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <telerik:RadDatePicker Name="dtpDate1" MinWidth="90"></telerik:RadDatePicker>
+                        <telerik:RadButton Name="btnCancelDate1" Content="non filtrare"></telerik:RadButton>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="5,0,0,0">
+                    <Label Content="Data pronotazione al"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <telerik:RadDatePicker Name="dtpDate2" MinWidth="90"></telerik:RadDatePicker>
+                        <telerik:RadButton Name="btnCancelDate2" Content="non filtrare"></telerik:RadButton>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Margin="5,0,0,0">
+                    <Label Content="Stato visite"></Label>
+                    <telerik:RadComboBox 
+						Name="cmbTipoMovimento" 
+						MinWidth="100"
+						Style="{StaticResource ValidationRadComboBox}" 
+						ItemsSource="{Binding AvailableStatusTypes}"
+						SelectedValue="{Binding SelectedStatusTypeID, Mode=TwoWay}"						
+						DisplayMemberPath="Descrizione"
+						SelectedValuePath="Id_TipoRisposta"						
+						/>
+                </StackPanel>
+                <StackPanel>
+                    <Label Content="Numero Ordine"></Label>
+                    <StackPanel Orientation="Horizontal">
+                        <TextBox Name="txtNumeroOrdine" MinWidth="100"></TextBox>
+                        <telerik:RadButton Name="btnCancelNumeroOrdine" Content="non filtrare"></telerik:RadButton>
+                    </StackPanel>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Margin="5,0,0,0">
+                    <telerik:RadButton Name="btnFilter"  Content="Filtra" IsDefault="True" MinWidth="80"/>
+                    <telerik:RadButton Name="btnCancel"  Content="Elimina filtri" MinWidth="80"/>
+                </StackPanel>
+            </StackPanel>
+        </Border>
+        <telerik:RadGridView
+				Name="grdMaster" 
+				Grid.Row="1"
+				AutoGenerateColumns="False" 
+				SelectionMode="Single"
+				ItemsSource="{Binding MasterTable}"	
+				SelectedItem="{Binding SelectedItem, Mode=TwoWay}"					
+				FilterOperatorsLoading="grdMaster_FilterOperatorsLoading"
+				GroupRowIsExpandedChanged="grdMaster_GroupRowIsExpandedChanged"
+				>
+            <telerik:RadGridView.Columns>
+                <telerik:GridViewDataColumn  Header="Protoc." IsReadOnly="True" IsFilterable="True"  ShowFilterButton="True"  DataMemberBinding="{Binding NProtocollo}"  Width="80*" />
+                <telerik:GridViewDataColumn
+						Header="Dt. Richiesta"
+						DataMemberBinding="{Binding RequestDate, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80*"
+						>
+                </telerik:GridViewDataColumn>
+                <telerik:GridViewDataColumn
+						Header="Cogn. Rich."
+						UniqueName="cognome"
+						DataMemberBinding="{Binding Cognome}"
+						Width="80*"
+						>
+                </telerik:GridViewDataColumn>
+                <telerik:GridViewDataColumn
+						Header="Nome Rich."
+						UniqueName="nome"
+						DataMemberBinding="{Binding Nome}"
+						Width="80*"
+						>
+                </telerik:GridViewDataColumn>
+
+                <telerik:GridViewDataColumn						
+						Header="Visitatore"
+						UniqueName="visitatore"
+						DataMemberBinding="{Binding Responsabile}"
+						Width="110*"
+						>
+                </telerik:GridViewDataColumn>
+
+                <telerik:GridViewDataColumn 
+						Header="Dt. visita"
+						DataMemberBinding="{Binding Dt_Visita, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80*"
+						/>
+
+                <telerik:GridViewDataColumn 
+						Header="Ling. visita"
+						DataMemberBinding="{Binding LinguaVisita}"
+						Width="80*"
+						/>
+
+                <telerik:GridViewDataColumn 
+						Header="Pr. ora"
+						DataMemberBinding="{Binding Ora_Visita}"
+						Width="50*"
+						/>
+
+                <telerik:GridViewDataColumn 
+						Header="Visitatori"
+						DataMemberBinding="{Binding Tot_Visitatori}"
+						Width="80"
+						/>
+
+                <telerik:GridViewDataColumn 
+						Header="Ricevuta"
+						DataMemberBinding="{Binding Ricevuta}"
+						Width="80*"
+						/>
+
+                <telerik:GridViewDataColumn 
+						Header="Dt. Ric."
+						DataMemberBinding="{Binding Dt_Pagamento, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80*"
+						/>
+
+                <!--<telerik:GridViewDataColumn 
+						Header="Dt. risp."
+						DataMemberBinding="{Binding Dt_InvioMailRichiedente, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80*"
+						/>-->
+
+                <telerik:GridViewDataColumn 
+						Header="Tipo risposta"
+						DataMemberBinding="{Binding TipoRisposta}"
+						Width="140*"
+						/>
+
+            </telerik:RadGridView.Columns>
+            <telerik:RadContextMenu.ContextMenu>
+                <telerik:RadContextMenu 
+						x:Name="ContextMenu" 
+						ItemClick="contextMenu_Click" 
+						Opening="contextMenu_Opening">
+                    <telerik:RadMenuItem Name="mnuOpen" Header="Apri" CommandParameter="open">
+                        <telerik:RadMenuItem.IconTemplate>
+                            <DataTemplate>
+                                <Image Source="../Themes/Images/ButtonIcons/OpenItem_16.png" Stretch="UniformToFill"/>
+                            </DataTemplate>
+                        </telerik:RadMenuItem.IconTemplate>
+                    </telerik:RadMenuItem>
+                    <telerik:RadMenuItem Name="mnuDispatch" Header="Lavora" CommandParameter="dispatch">
+                        <telerik:RadMenuItem.IconTemplate>
+                            <DataTemplate>
+                                <Image Source="../Themes/Images/ButtonIcons/schedule_16.png" Stretch="UniformToFill"/>
+                            </DataTemplate>
+                        </telerik:RadMenuItem.IconTemplate>
+                    </telerik:RadMenuItem>
+                </telerik:RadContextMenu>
+            </telerik:RadContextMenu.ContextMenu>
+        </telerik:RadGridView>
+        <telerik:RadDataPager 
+				Name="gridPager"
+				Grid.Row="2"
+				Source="{Binding Items, ElementName=grdMaster}"
+				DisplayMode="All"
+				AutoEllipsisMode="Both"
+				NumericButtonCount="10"
+				IsTotalItemCountFixed="True"
+				PageIndexChanged="gridPager_PageIndexChanged"
+				/>
+    </Grid>
+</my:BaseContentPage>

@@ -1,0 +1,80 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgStats"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="Guide">
+
+    <Grid Name="grd" Margin="10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="80*"></RowDefinition>
+            
+            <RowDefinition Height="20*"></RowDefinition>
+        </Grid.RowDefinitions>
+
+
+        <Border Name="brdGuide" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+            <Grid x:Name="grdData" Margin="10" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="1" Margin="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                        <ColumnDefinition Width="20*"></ColumnDefinition>
+                        <ColumnDefinition Width="40*"></ColumnDefinition>
+                        <ColumnDefinition Width="Auto"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel HorizontalAlignment="Stretch" Grid.Column="0">
+                        <Label Name="lblAnni" Content="Anni" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Center" DockPanel.Dock="Top" />
+                        <ListBox Name="lbxAnni" ItemsSource="{Binding SrcAnni}"  Height="300" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected,Mode=TwoWay}" Content="{Binding TheText}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Stretch" Grid.Column="1">
+                        <Label Name="lblMesi" Content="Mesi" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Center" DockPanel.Dock="Top" />
+                        <ListBox  Name="lbxMesi"  ItemsSource="{Binding SrcMesi}" Height="300" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected,Mode=TwoWay}" Content="{Binding TheText}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+                    <DockPanel HorizontalAlignment="Stretch" Grid.Column="2">
+                        <Label Name="lblTipiVisita" Content="Tipi Visita" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Center" DockPanel.Dock="Top" />
+                        <ListBox  Name="lbxTipiVisita"  ItemsSource="{Binding SrcTipiVisita}"  Height="300" ScrollViewer.VerticalScrollBarVisibility="Auto">
+                            <ListBox.ItemTemplate>
+                                <DataTemplate>
+                                    <CheckBox IsChecked="{Binding IsSelected,Mode=TwoWay}" Content="{Binding TheText}"/>
+                                </DataTemplate>
+                            </ListBox.ItemTemplate>
+                        </ListBox>
+                    </DockPanel>
+
+                </Grid>
+
+            </Grid>
+        </Border>
+
+        <Border Name="brdButtons" Grid.Row="1" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+            <Grid x:Name="grdButtons" Margin="3" >
+                <StackPanel Orientation="Horizontal">
+                    <telerik:RadButton Name="btnPrint" Content="Stampa" Width="100" Height="25" Click="btnPrint_Click" />
+
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</my:BaseContentPage>

@@ -1,0 +1,40 @@
+﻿<UserControl 
+	x:Class="Presentation.OrganizationManager"
+	xmlns:telerik="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.Input"  
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="58" 
+	d:DesignWidth="380"	
+	>
+	<Grid>
+		<StackPanel Orientation="Horizontal">
+			<StackPanel MinWidth="100" Margin="2,0,2,0">
+				<Label Name="lblSearch" Content="Organizzazione" />
+				<telerik:RadAutoCompleteBox 
+					Name="cmb"
+					HorizontalAlignment="Stretch"
+					VerticalAlignment="Stretch"
+					MinWidth="150"
+					SelectionMode="Single"
+					TextSearchMode="Contains"
+					TextSearchPath="Descrizione"					
+					DisplayMemberPath="Descrizione"
+					WatermarkContent="Organizzazione..."
+					AutoCompleteMode="Suggest"
+					ItemsSource="{Binding Availables}"
+					SelectedItem="{Binding AutoCompleteBoxSelectedItem, Mode=TwoWay}"
+					SelectionChanged="cmb_SelectionChanged"
+					SearchTextChanged="cmb_SearchTextChanged"	
+					Style="{StaticResource DataRadTextBox}"
+					/>
+			</StackPanel>
+			<StackPanel DataContext="{Binding SelectedItem}" MinWidth="150" Margin="2,0,2,0" Visibility="Collapsed">
+				<Label Name="lblOrganization" Content="Organizzazione" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtOrganization" Text="{Binding Descrizione, Mode=TwoWay}" HorizontalAlignment="Stretch" Style="{StaticResource DataTextBox}" />
+			</StackPanel>
+		</StackPanel>
+	</Grid>
+</UserControl>

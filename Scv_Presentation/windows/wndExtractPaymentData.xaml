@@ -1,0 +1,209 @@
+﻿<my:BaseDetailPage 
+	x:Class="Presentation.wndExtractPaymentData"
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"  
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"		
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Esportazione dati pagamenti" 
+	Height="610" 
+	MinHeight="650"
+	Width="800"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"	        
+	>
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="100*"></RowDefinition>
+			<RowDefinition Height="100*"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid>
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0">
+					<TextBlock Text="Data inizio ricerca"></TextBlock>
+					<telerik:RadDatePicker SelectedValue="{Binding ObjSearchDateStart, Mode=TwoWay}"></telerik:RadDatePicker>
+				</StackPanel>
+				<StackPanel Grid.Column="1">
+					<TextBlock Text="Data fine ricerca"></TextBlock>
+					<telerik:RadDatePicker SelectedValue="{Binding ObjSearchDateEnd, Mode=TwoWay}"></telerik:RadDatePicker>
+				</StackPanel>
+				<StackPanel Grid.Column="2">
+					<TextBlock Text="Data inizio estrazione"></TextBlock>
+					<telerik:RadDatePicker SelectedValue="{Binding ObjScanDateStart, Mode=TwoWay}"></telerik:RadDatePicker>
+				</StackPanel>
+				<StackPanel Grid.Column="3">
+					<TextBlock Text="Campi separati da"></TextBlock>
+					<telerik:RadComboBox
+						ItemsSource="{Binding AvailableSeparationTypes}"
+						SelectedValuePath="Code"
+						DisplayMemberPath="Description"
+						SelectedValue="{Binding ObjSeparationType.Code, Mode=TwoWay}"
+						Width="150"
+						/>
+				</StackPanel>
+				<StackPanel Grid.Column="4" VerticalAlignment="Bottom">
+					<telerik:RadButton Name="btnExtract"  Content="Estrai dati"></telerik:RadButton>
+				</StackPanel>
+		</Grid>
+		</Border>
+
+		<Border Grid.Row="1" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<telerik:RadGridView	
+				Name="grdMaster" 
+				AutoGenerateColumns="False" 
+				VerticalAlignment="Top"
+				HorizontalAlignment="Stretch"
+				SelectionMode="Single"
+				ItemsSource="{Binding ObjPaymentData}"	
+				ScrollViewer.VerticalScrollBarVisibility="Auto"
+				ScrollMode="RealTime"
+				ShowGroupPanel="false"
+				IsReadOnly="True"
+				>
+				<telerik:RadGridView.Columns>
+					<telerik:GridViewToggleRowDetailsColumn />
+					<telerik:GridViewDataColumn
+						Header="Protocollo"
+						DataMemberBinding="{Binding Protocollo}"
+						Width="80"
+						ShowFilterButton="False"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Richiedente"
+						DataMemberBinding="{Binding Richiedente}"
+						Width="120"
+						ShowFilterButton="False"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="E-mail"
+						DataMemberBinding="{Binding Email}"
+						Width="120"
+						ShowFilterButton="False"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Visitatore"
+						DataMemberBinding="{Binding Visitatore}"
+						Width="120"
+						ShowFilterButton="False"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Nr. Partecipanti"
+						DataMemberBinding="{Binding Visitatori}"
+						Width="70"
+						ShowFilterButton="False"
+						/>
+
+
+					<telerik:GridViewDataColumn
+						Header="Dt. Risposta"
+						DataMemberBinding="{Binding DataRisposta, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80"
+						ShowFilterButton="False"
+						/>
+				</telerik:RadGridView.Columns>
+				<telerik:RadGridView.RowDetailsTemplate>
+					<DataTemplate>
+						<telerik:RadGridView
+							Margin="20,0,10,10"
+							Name="grdDetails"
+							AutoGenerateColumns="False" 
+							VerticalAlignment="Top"
+							HorizontalAlignment="Stretch"					
+							SelectionMode="Single"
+							ScrollViewer.VerticalScrollBarVisibility="Auto"
+							ScrollMode="RealTime"
+							ShowGroupPanel="false"	
+							IsReadOnly="True"
+							Background="White"
+							ItemsSource="{Binding Details}" >
+							<telerik:RadGridView.Columns>
+								<telerik:GridViewDataColumn 
+									Header="Data"
+									DataMemberBinding="{Binding Data}"
+									Width="80"
+									ShowFilterButton="False"
+									/>
+
+								<telerik:GridViewDataColumn
+									Header="Ora"
+									DataMemberBinding="{Binding Ora}"
+									Width="80"
+									ShowFilterButton="False"
+									/>
+
+								<telerik:GridViewDataColumn
+									Header="B. Interi"
+									DataMemberBinding="{Binding BigliettiInteri}"
+									Width="80"
+									ShowFilterButton="False"
+									/>
+
+								<telerik:GridViewDataColumn
+									Header="B. Ridotti"
+									DataMemberBinding="{Binding BigliettiRidotti}"
+									Width="80"
+									ShowFilterButton="False"
+									/>
+
+								<telerik:GridViewDataColumn
+									Header="Lingua"
+									DataMemberBinding="{Binding Lingua}"
+									Width="150"
+									ShowFilterButton="False"
+									/>
+							</telerik:RadGridView.Columns>
+						</telerik:RadGridView>
+					</DataTemplate>
+				</telerik:RadGridView.RowDetailsTemplate>
+			</telerik:RadGridView>
+		</Border>
+
+		<Border Grid.Row="2" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<telerik:RadListBox
+				ItemsSource="{Binding CSVData}"
+				>
+				
+			</telerik:RadListBox>
+		</Border>
+
+		<Border Grid.Row="3" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<Grid>				
+				<StackPanel Orientation="Horizontal">
+					<telerik:RadComboBox
+						ItemsSource="{Binding AvailableExportTypes}"
+						SelectedValuePath="ID"
+						DisplayMemberPath="Description"
+						SelectedValue="{Binding ObjExportType, Mode=TwoWay}"
+						Width="150"
+						/>
+					<telerik:RadButton Name="btnExport" Content="Esporta" Width="100" Height="25" />
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</my:BaseDetailPage>

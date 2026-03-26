@@ -1,0 +1,340 @@
+﻿<my:BaseDetailPage
+	x:Class="Presentation.wndMovementDetail"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+	xmlns:ntb="clr-namespace:NumericTextBox;assembly=NumericTextBox"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"			
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Movimento magazzino" 
+	Height="430" 
+	MinHeight="430"
+	Width="700"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"	
+        
+	>
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+
+	<Window.Resources>
+		<CollectionViewSource x:Key="cvsMovement" d:DesignSource="{d:DesignInstance ent:Movimento, CreateList=True}" />
+		<CollectionViewSource x:Key="cvsMovementDetails" d:DesignSource="{d:DesignInstance ent:Movimento, CreateList=True}" />
+		<CollectionViewSource x:Key="cvsProgressives" d:DesignSource="{d:DesignInstance ent:LK_Progressivi, CreateList=True}" />
+		<CollectionViewSource x:Key="cvsAvailableWares" d:DesignSource="{d:DesignInstance ent:Articolo, CreateList=True}" />
+	</Window.Resources>
+
+	<Grid Name="grdPrenotationDetail">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="100*"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Name="brdChoice" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid Grid.Row="0" Margin="3" DataContext="{StaticResource cvsMovement}">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="20*"></ColumnDefinition>
+					<ColumnDefinition Width="40*"></ColumnDefinition>
+					<ColumnDefinition Width="40*"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<DockPanel  HorizontalAlignment="Stretch" Grid.Column="0">
+					<Label Content="Data movimento" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+					<telerik:RadDatePicker 
+                            Name="dtpMovementDate" 
+                            SelectedValue="{
+                                Binding  Dt_Movimento, 
+                                Mode=TwoWay,
+                                ValidatesOnDataErrors=True,
+								NotifyOnValidationError=True,
+								UpdateSourceTrigger=PropertyChanged
+                                }" 
+                            Validation.Error="Validation_Error"	
+                            HorizontalAlignment="Stretch">
+					</telerik:RadDatePicker>
+				</DockPanel>
+				<DockPanel HorizontalAlignment="Stretch" Grid.Column="1">
+					<Label Content="Tipo movimento" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+					<telerik:RadComboBox 
+							Name="cmbMovementType"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							DisplayMemberPath="Descrizione"
+							ItemsSource="{Binding AvailableMovementTypes}"
+							SelectedValue="{Binding ObjMovement.Id_TipoMovimento, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="Id_TipoMovimento"
+							Validation.Error="Validation_Error"	
+							SelectionChanged="cmbMovimentType_SelectionChanged"
+							Style="{StaticResource DataRadComboBox}"
+							/>
+				</DockPanel>
+				<DockPanel Name="pnlPaymentType" HorizontalAlignment="Stretch" Grid.Column="2">
+					<Label Content="Tipo pagamento" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+					<telerik:RadComboBox 
+							Name="cmbPaymentType"
+							HorizontalAlignment="Stretch"
+							VerticalAlignment="Stretch"
+							DisplayMemberPath="Descrizione"
+							ItemsSource="{Binding AvailablePaymentTypes}"
+							SelectedValue="{Binding ObjMovement.Id_TipoPagamento, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+							SelectedValuePath="Id_TipoPagamento"
+							SelectionChanged="cmbPaymentType_SelectionChanged"
+							Validation.Error="Validation_Error"							
+							Style="{StaticResource DataRadComboBox}"
+							/>
+				</DockPanel>
+			</Grid>
+		</Border>
+		<Border Name="brdContent" Grid.Row="1" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="Auto"></RowDefinition>
+					<RowDefinition Height="150"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Grid Name="grdStore" Grid.Row="0" Margin="3" DataContext="{StaticResource cvsMovement}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="90*"></ColumnDefinition>
+						<ColumnDefinition Width="10*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="0">
+						<Label Content="Esercizio vendita" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<telerik:RadComboBox 
+								Name="cmbStores"
+								HorizontalAlignment="Stretch"
+								VerticalAlignment="Stretch"
+								DisplayMemberPath="Descrizione"
+								ItemsSource="{Binding AvailableStores}"
+								SelectedValue="{Binding ObjMovement.Id_EsercizioVendita, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}"
+								SelectedValuePath="Id_EsercizioVendita"
+								Validation.Error="Validation_Error"							
+								Style="{StaticResource DataRadComboBox}"
+								SelectionChanged="cmbStores_SelectionChanged"
+								/>
+					</DockPanel>
+					<DockPanel HorizontalAlignment="Stretch" Grid.Column="1" >
+						<Label Content="Sconto" Grid.Column="9" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+						<Label Name="txtSconto" Content="{Binding Sconto}" Style="{StaticResource DataLabel}" HorizontalAlignment="Stretch" />
+					</DockPanel>
+				</Grid>
+				<Grid Name="grdNote" Grid.Row="1" Margin="3" DataContext="{StaticResource cvsMovement}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<Label Content="Autorizzazione / Nota" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<TextBox 
+								Name="txtNota"                             
+								Text="{
+									Binding Nota, 
+									Mode=TwoWay, 
+									ValidatesOnDataErrors=True, 
+									NotifyOnValidationError=True,
+                            		UpdateSourceTrigger=PropertyChanged
+								}" 
+								Validation.Error="Validation_Error"	
+                            
+								MaxLength="100" 
+								Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+								/>
+					</StackPanel>
+				</Grid>
+				<Grid Name="grdPos" Grid.Row="2" Margin="3" DataContext="{StaticResource cvsMovement}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100*"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<Label Content="Numero POS" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<TextBox
+							Name="txtPos"  
+							MaxLength="50"
+							Text="{
+								Binding Nr_Pos, 
+								Mode=TwoWay, 
+								ValidatesOnDataErrors=True, 
+								NotifyOnValidationError=True,
+                            	UpdateSourceTrigger=PropertyChanged									
+							}" 
+							Validation.Error="Validation_Error"	
+                            Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch"
+							/>
+					</StackPanel>
+				</Grid>
+				<Grid Name="grdRiep" Grid.Row="3" Margin="3" DataContext="{StaticResource cvsMovement}">
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="100"></ColumnDefinition>
+						<ColumnDefinition Width="100"></ColumnDefinition>
+						<ColumnDefinition Width="100"></ColumnDefinition>
+						<ColumnDefinition Width="125"></ColumnDefinition>
+						<ColumnDefinition></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<Grid.RowDefinitions>
+						<RowDefinition></RowDefinition>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
+					<StackPanel Grid.Column="0" Grid.Row="0" Margin="2">
+						<Label Content="Esistenza Mag." Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<Label Name="txtEsistenzaMagazzino" Content="{Binding EsistenzaMagazzino}" Style="{StaticResource DataLabel}" HorizontalAlignment="Stretch"	/>
+					</StackPanel>
+					<StackPanel Grid.Column="1" Grid.Row="0" Margin="2">
+						<Label Content="Esistenza Uff." Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<Label Name="txtEsistenzaUfficio" Content="{Binding EsistenzaUfficio}" Style="{StaticResource DataLabel}" HorizontalAlignment="Stretch"	/>
+					</StackPanel>
+					<StackPanel Grid.Column="2" Grid.Row="0" Margin="2">
+						<Label Content="Ricevuta/Bolla" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<Border BorderBrush="Blue" BorderThickness="0.5" Margin="2">
+							<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Name="pnlProgressives">
+								<Label Name="txtRicevutaAnno" Content="{Binding ObjProgressives.Anno}" MinWidth="40" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch"	/>
+								<Label Name="txtRicevutaSimbolo" Content="{Binding ObjProgressives.Tipo}" MinWidth="20" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch"	/>
+								<Label Name="txtRicevutaNumero" Content="{Binding ObjProgressives.Progr_UltimoUscito}" MinWidth="50" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch"	/>
+							</StackPanel>
+						</Border>
+					</StackPanel>
+					<StackPanel Grid.Column="4" Grid.Row="0" Margin="2" HorizontalAlignment="Right">
+						<Label Content="Totale complessivo" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+						<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch" Name="pnlTotale">
+							<Label Name="txtTotale" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Right"	>
+								<TextBlock Text="{Binding Path=TotaleComplessivo, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" TextAlignment="Right" />
+							</Label>
+						</StackPanel>
+					</StackPanel>
+					<StackPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="5">
+						<Label Content="Nota" Style="{StaticResource CaptionLabel}" />
+						<TextBox Name="txtNotaMovimento" Text="{Binding NotaMovimento, Mode=TwoWay}" Style="{StaticResource DataTextBox}" MaxLength="100" HorizontalAlignment="Stretch" />
+					</StackPanel>
+				</Grid>
+				<Border Name="brdVisits" Grid.Row="4" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+					<Grid>
+						<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
+							<StackPanel KeyboardNavigation.TabNavigation="None">
+								<telerik:RadGridView			
+									Name="grdDetails" 
+									Height="Auto"
+									AutoGenerateColumns="False"							
+									GroupRenderMode="Flat"
+									HorizontalAlignment="Stretch"
+									SelectionMode="Single"
+  									ItemsSource="{Binding SrcMovementDetails}"	
+									ScrollViewer.VerticalScrollBarVisibility="Auto"
+									ScrollMode="RealTime"
+									BeginningEdit="grdDetails_BeginningEdit"
+									RowEditEnded="grdDetails_EditEnded"
+									ShowGroupPanel="False"	
+									>
+									<telerik:RadGridView.Columns>
+										<telerik:GridViewColumn Header="" MinWidth="80" IsFilterable="False" ShowFilterButton="False">
+											<telerik:GridViewColumn.CellTemplate>
+												<DataTemplate>
+													<telerik:RadButton 
+															Content="Elimina"
+															Click="DeleteDetail" 
+															CommandParameter="{Binding Id_Movimento}"	
+															IsEnabled="{Binding IsErasable}"
+															/>
+												</DataTemplate>
+											</telerik:GridViewColumn.CellTemplate>
+										</telerik:GridViewColumn>
+										<telerik:GridViewComboBoxColumn
+												Header="Articolo"
+												DataMemberBinding="{Binding Id_Articolo,Mode=TwoWay}"
+												SelectedValueMemberPath="Id_Articolo"
+												DisplayMemberPath="Descrizione"
+												IsFilterable="False" ShowFilterButton="False"
+												ItemsSource="{Binding AvailableWares}"
+												MinWidth="200"
+											/>
+										<telerik:GridViewDataColumn
+												Header="Quantità"
+												DataMemberBinding="{Binding Nr_Pezzi, Mode=TwoWay}"
+												IsFilterable="False"
+												ShowFilterButton="False"
+												Width="60"
+												>
+											<telerik:GridViewDataColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Nr_Pezzi, StringFormat=0}" />
+												</DataTemplate>
+											</telerik:GridViewDataColumn.CellTemplate>
+											<telerik:GridViewDataColumn.CellEditTemplate>
+												<DataTemplate>
+													<telerik:RadNumericUpDown
+															Minimum="0"
+															Maximum="10000"
+															NumberDecimalDigits="0"
+															UpdateValueEvent="PropertyChanged"
+															Value="{Binding Nr_Pezzi, Mode=TwoWay}"
+															/>
+												</DataTemplate>
+											</telerik:GridViewDataColumn.CellEditTemplate>
+										</telerik:GridViewDataColumn>
+										<telerik:GridViewDataColumn
+												Header="Pr. al pubblico"
+												DataMemberBinding="{Binding PrezzoPubblico, Mode=TwoWay}"
+												IsFilterable="False"
+												ShowFilterButton="False"
+												Width="100"
+												>
+											<telerik:GridViewDataColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding PrezzoPubblico, StringFormat=C}" />
+												</DataTemplate>
+											</telerik:GridViewDataColumn.CellTemplate>
+										</telerik:GridViewDataColumn>
+										<telerik:GridViewDataColumn
+												Header="Pr. scontato"
+												DataMemberBinding="{Binding PrezzoVendita, Mode=TwoWay}"
+												IsFilterable="False"
+												ShowFilterButton="False"
+												Width="100"
+												>
+											<telerik:GridViewDataColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding PrezzoVendita, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" />
+												</DataTemplate>
+											</telerik:GridViewDataColumn.CellTemplate>
+										</telerik:GridViewDataColumn>
+										<telerik:GridViewDataColumn
+												Header="Totale"
+												DataMemberBinding="{Binding Totale, Mode=TwoWay}"
+												IsFilterable="False"
+												ShowFilterButton="False"
+												Width="100"
+												>
+											<telerik:GridViewDataColumn.CellTemplate>
+												<DataTemplate>
+													<TextBlock Text="{Binding Totale, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" />
+												</DataTemplate>
+											</telerik:GridViewDataColumn.CellTemplate>
+										</telerik:GridViewDataColumn>
+									</telerik:RadGridView.Columns>
+								</telerik:RadGridView>
+							</StackPanel>					
+						</ScrollViewer>					
+					</Grid>
+				</Border>
+					
+			</Grid>
+		</Border>
+
+		<Border Name="brdButtons" Grid.Row="4" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<Grid x:Name="grdButtons" Margin="3" >
+				<StackPanel Orientation="Horizontal">
+					<telerik:RadButton Name="btnSave" Content="Salva" Width="100" Height="25" />
+					<telerik:RadButton Name="btnDelete" Content="Elimina" Width="100" Height="25" />
+				</StackPanel>
+			</Grid>
+		</Border>
+	</Grid>
+</my:BaseDetailPage>
+
+

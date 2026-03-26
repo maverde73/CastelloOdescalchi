@@ -1,0 +1,44 @@
+﻿<telerik:RadWindow 
+	x:Class="Presentation.wndLogin"
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+	mc:Ignorable="d"
+	Header=""
+	Height="136" 
+	Width="450" 
+	WindowStartupLocation="CenterScreen" 
+	UseLayoutRounding="True" 
+	ResizeMode="NoResize"
+	>    
+	<telerik:RadWindow.Icon>
+		<Image Source="Themes/Images/icons/blank.png" />
+	</telerik:RadWindow.Icon>
+	<Grid Margin="2">
+		<StackPanel HorizontalAlignment="Stretch" Margin="4">
+			<DockPanel Margin="2">
+				<Label Name="lblUsername" Content="Utente" MinWidth="70" Style="{StaticResource CaptionLabel}" />
+				<TextBox Name="txtUsername" Text="" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" />
+			</DockPanel>
+			<DockPanel Margin="2">
+				<Label Name="lblPassword" Content="Password" MinWidth="70" Style="{StaticResource CaptionLabel}" />
+				<PasswordBox Name="pwdPassword" Style="{StaticResource DataPwdBox}" HorizontalAlignment="Stretch"  />
+				<!--<TextBox Name="pwdPassword" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch" Text="a"  />-->
+			</DockPanel>
+			<DockPanel Margin="4">
+				<Button Name="btnLogin" Content="Login" MinWidth="100" HorizontalAlignment="Left" IsDefault="True"></Button>
+				<Label Name="lblError" Content="" />
+			</DockPanel>
+			<StackPanel Name="stpThemes" Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" Visibility="Collapsed">
+				<Label Name="LblNames" Content="Theme"></Label>
+				<ComboBox Name="cmbTheme" Width="250"></ComboBox>
+			</StackPanel>
+
+		</StackPanel>
+
+
+		
+	</Grid>
+</telerik:RadWindow>

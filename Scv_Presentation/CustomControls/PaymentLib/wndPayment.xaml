@@ -1,0 +1,364 @@
+﻿<my:BasePaymentManager 
+	x:Class="Presentation.CustomControls.PaymentLib.wndPayment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation.CustomControls.PaymentLib"	
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"	
+    Title="wndPayment"
+	Height="680" 
+	Width="470"
+	ResizeMode="NoResize" 
+	WindowStartupLocation="CenterScreen">
+	<Window.CommandBindings>
+		<CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+	</Window.CommandBindings>
+	<Grid Margin="5">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="24"></RowDefinition>
+			<RowDefinition Height="20"></RowDefinition>
+			<RowDefinition Height="115"></RowDefinition>
+            <RowDefinition Height="75"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="240"></RowDefinition>
+			<RowDefinition Height="100"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+		<Border Grid.Row="0" BorderBrush="LightGray" BorderThickness="0.1">
+			<Label Name="visitInfo" Content="{Binding VisitInfo}"></Label>
+		</Border>
+		<Border Grid.Row="1" BorderBrush="LightGray" BorderThickness="0.1">
+            <StackPanel Name="alreadyPayd" Orientation="Vertical">
+                <TextBlock VerticalAlignment="Top" FontWeight="Bold" Name="txtalreadyPayd" Text="Pagamento già effettuato" Foreground="Red"></TextBlock>
+                <TextBlock VerticalAlignment="Bottom" FontWeight="Bold"  Name="txtalreadyPayd1"  Foreground="Red"></TextBlock>
+            </StackPanel>
+		</Border>
+        <Border Grid.Row="2" BorderBrush="LightGray" BorderThickness="0.1" Margin="5">
+			<Grid Margin="5">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+					<ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+				<StackPanel Grid.Column="0" Margin="3">
+					<Label HorizontalAlignment="Center">
+						<TextBlock Text="Biglietti  interi" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+					</Label>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<StackPanel>
+							<Label Name="lblFullPriceNr" HorizontalAlignment="Center">
+								<TextBlock Text="{Binding ObjPayment.Nr_InteriPagati}" TextAlignment="Center"></TextBlock>
+							</Label>
+							<telerik:RadNumericUpDown
+								Name="nudFullPriceTickets"
+								Minimum="0"
+								Maximum="{Binding ObjMaxFullPriceTickets}"
+								NumberDecimalDigits="0"
+								UpdateValueEvent="PropertyChanged"
+								Value="{Binding ObjFullPriceTickets, Mode=TwoWay}"										
+								/>
+						</StackPanel>
+					</Border>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<Label HorizontalAlignment="Center">
+							<TextBlock Text="{Binding ObjPayment.Importo_Interi}" TextAlignment="Center"></TextBlock>							
+						</Label>
+					</Border>
+				</StackPanel>
+				<StackPanel Grid.Column="1" Margin="3">
+					<Label HorizontalAlignment="Center">
+						<TextBlock Text="Biglietti ridotti" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+					</Label>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<StackPanel>
+							<Label Name="lblReducedNr" HorizontalAlignment="Center">
+								<TextBlock Text="{Binding ObjPayment.Nr_RidottiPagati}" TextAlignment="Center"></TextBlock>
+							</Label>
+							<telerik:RadNumericUpDown
+								Name="nudReducedTickets"
+								Minimum="0"
+								Maximum="{Binding ObjMaxReducedTickets}"
+								NumberDecimalDigits="0"
+								UpdateValueEvent="PropertyChanged"
+								Value="{Binding ObjReducedTickets, Mode=TwoWay}"										
+								/>
+						</StackPanel>
+					</Border>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<Label HorizontalAlignment="Center">
+							<TextBlock Text="{Binding ObjPayment.Importo_Ridotti}" TextAlignment="Center"></TextBlock>
+						</Label>
+					</Border>
+				</StackPanel>
+                <StackPanel Grid.Column="2" Margin="3">
+                    <Label HorizontalAlignment="Center">
+                        <TextBlock Text="Biglietti scontati" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </Label>
+                    <Border BorderBrush="LightGray" BorderThickness="0.5">
+                        <StackPanel>
+                            <Label Name="lblDiscountNr" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding ObjPayment.Nr_ScontatiPagati}" TextAlignment="Center"></TextBlock>
+                            </Label>
+                            <telerik:RadNumericUpDown
+								Name="nudDiscountTickets"
+								Minimum="0"
+								Maximum="{Binding ObjMaxDiscountTickets}"
+								NumberDecimalDigits="0"
+								UpdateValueEvent="PropertyChanged"
+								Value="{Binding ObjDiscountTickets, Mode=TwoWay}"										
+								/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="LightGray" BorderThickness="0.5">
+                        <Label HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding ObjPayment.Importo_Scontati}" TextAlignment="Center"></TextBlock>
+                        </Label>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="3" Margin="3">
+                    <Label HorizontalAlignment="Center">
+                        <TextBlock Text="Biglietti cumulativi" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+                    </Label>
+                    <Border BorderBrush="LightGray" BorderThickness="0.5">
+                        <StackPanel>
+                            <Label Name="lblCumulativiNr" HorizontalAlignment="Center">
+                                <TextBlock Text="{Binding ObjPayment.Nr_CumulativiPagati}" TextAlignment="Center"></TextBlock>
+                            </Label>
+                            <telerik:RadNumericUpDown
+								Name="nudCumulativeTickets"
+								Minimum="0"
+								Maximum="{Binding ObjMaxCumulativeTickets}"
+								NumberDecimalDigits="0"
+								UpdateValueEvent="PropertyChanged"
+								Value="{Binding ObjCumulativeTickets, Mode=TwoWay}"										
+								/>
+                        </StackPanel>
+                    </Border>
+                    <Border BorderBrush="LightGray" BorderThickness="0.5">
+                        <Label HorizontalAlignment="Center">
+                            <TextBlock Text="{Binding ObjPayment.Importo_Cumulativi}" TextAlignment="Center"></TextBlock>
+                        </Label>
+                    </Border>
+                </StackPanel>
+                <StackPanel Grid.Column="4" Margin="3">
+					<Label HorizontalAlignment="Center">
+						<TextBlock Text="Totale biglietti" TextWrapping="Wrap" TextAlignment="Center"></TextBlock>
+					</Label>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<Label HorizontalAlignment="Center">
+							<TextBlock Text="{Binding ObjPayment.Nr_Biglietti}" TextAlignment="Center"></TextBlock>
+						</Label>
+					</Border>
+					<Border BorderBrush="LightGray" BorderThickness="0.5">
+						<Label HorizontalAlignment="Center">
+							<TextBlock Text="{Binding ObjPayment.Importo}" TextAlignment="Center"></TextBlock>
+						</Label>
+					</Border>
+				</StackPanel>
+			</Grid>
+		</Border>
+		<Border Name="brdPaymentParams" Grid.Row="3" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Margin="5">
+			<StackPanel Margin="5">
+				<Label Content="Tipo pagamento"></Label>
+				<telerik:RadComboBox
+					Name="cmbPaymentType"
+					SelectedValue="{Binding ObjPayment.Id_TipoPagamento, Mode=TwoWay, ValidatesOnDataErrors=True, NotifyOnValidationError=True}"
+					SelectedValuePath="Id_TipoPagamento"
+					DisplayMemberPath="Descrizione"
+					ItemsSource="{Binding AvailablePaymentTypes}"
+    				MinWidth="180"
+					Margin="3"
+					/>
+			</StackPanel>
+		</Border>
+        <Border Name="brdNote" Grid.Row="4" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Margin="5">
+			<StackPanel Margin="5">
+				<Label Content="Autorizzazione / Nota" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+				<TextBox 
+					Name="txtNota"                             
+					Text="{
+						Binding ObjPayment.Autorizzazione, 
+						Mode=TwoWay, 
+						ValidatesOnDataErrors=True, 
+						NotifyOnValidationError=True,
+						UpdateSourceTrigger=PropertyChanged
+					}" 
+					Validation.Error="Validation_Error"	                            
+					MaxLength="100" 
+					Style="{StaticResource DataTextBox}" 
+					HorizontalAlignment="Stretch"
+					/>
+			</StackPanel>
+		</Border>
+        <Border Name="brdOnlinePayment" Grid.Row="5" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Margin="5" >
+            <StackPanel  Name="stpPaymentOnLine">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                        <RowDefinition></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Margin="2" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" >
+                        <Label Content="Dati Pagamento OnLine" FontWeight="Bold"></Label>
+                    </StackPanel>
+                    <StackPanel Margin="2" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                        <telerik:RadGridView
+ 						Name="grdOnLinePaymentLog" 
+						CanUserSortColumns="False"
+						AutoGenerateColumns="False"
+                        Height="90"
+                        ShowGroupPanel="False"
+                        ScrollViewer.VerticalScrollBarVisibility="Auto"
+						SelectionMode="Single"
+  						ItemsSource="{Binding List_OnLinePaymentLog}">
+                            <telerik:RadGridView.Columns>
+                                <telerik:GridViewDataColumn
+								Header="Operazione"
+								IsFilterable="False"
+                                Width="50*"
+								DataMemberBinding="{Binding Description}"/>
+                                <telerik:GridViewDataColumn
+								Header="Successo"
+								IsFilterable="False"
+                                Width="15*"
+								DataMemberBinding="{Binding Success}"/>
+                                <telerik:GridViewDataColumn
+								Header="Data Operazione"
+								IsFilterable="False"
+                                Width="35*"
+								DataMemberBinding="{Binding EntryDate}"
+                                DataFormatString="{} {0:dd/MM/yyyy HH:mm}"/>
+                            </telerik:RadGridView.Columns>
+
+                        </telerik:RadGridView>
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="2" Grid.Column="0">
+                        <Label Content=" " FontWeight="Bold"></Label>
+                        <Button Name="btnCheckOrderStatus" HorizontalAlignment="Left" Content="Verifica Status" Width="120" Margin="3" Click="btnCheckOrderStatus_Click"></Button>
+
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="2" Grid.Column="1">
+                        <Label Content="Status Ordine"  FontWeight="Bold"></Label>
+                        <TextBox Text="{Binding ObjPayment.StatusOrdine}" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="2" Grid.Column="2">
+                        <Label Content="Numero Ordine" FontWeight="Bold"></Label>
+                        <TextBox Text="{Binding ObjPayment.NumeroOrdine}" IsReadOnly="True"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="3" Grid.Column="0">
+                        <Label Content="Rif. Transazione"  FontWeight="Bold"></Label>
+                        <TextBox Name="txtIdTransazione" Text="{Binding ObjPayment.IdTransazione}" IsReadOnly="True" MaxLength="100"></TextBox>
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="3" Grid.Column="1">
+                        <Label Content="Data Pagamento" FontWeight="Bold"></Label>
+                        <!--<TextBox Name="txtDtPagamento"  Text="{Binding Path=ObjPayment.Dt_Pagamento, StringFormat=dd/MM/yyyy HH:mm }" IsReadOnly="True"></TextBox>-->
+                        <telerik:RadDateTimePicker 
+							Name="dtpDtPagamento"
+							SelectedDate="{Binding ObjPayment.Dt_Pagamento}" IsReadOnly="True" />
+						
+						
+                    </StackPanel>
+                    <StackPanel Margin="1" Grid.Row="3" Grid.Column="2">
+                        <Label Content="Note Ordine" FontWeight="Bold"></Label>
+                        <TextBox Name="txtNoteOrdine" Text="{Binding ObjPayment.NoteOrdine}" IsReadOnly="True" MaxLength="100"></TextBox>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+        </Border>
+        <Border Name="brdButtons" Grid.Row="6" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Margin="5">
+			<StackPanel HorizontalAlignment="Left">
+				<StackPanel Orientation="Horizontal">
+					<Button Name="btnPay" Content="Effettua pagamento" Width="120" Margin="3" IsEnabled="{Binding ObjPayment.ShowPaymentButton}"></Button>
+					<Button Name="btnPrint" Content="Stampa ricevuta" Width="120" Margin="3"></Button>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Button Name="btnPayDifference" Content="Integra pagamento" Width="120" Margin="3" IsEnabled="{Binding ObjPayment.ShowPayDifferenceButton}"></Button>
+					<Button Name="btnRefund" Content="Effettua rimborso" Width="120" Margin="3"></Button>
+				</StackPanel>
+				<StackPanel Orientation="Horizontal">
+					<Button Name="btnUpdatePayment" Content="Modifica pagamento" Width="120" Margin="3" IsEnabled="{Binding ObjPayment.ShowUpdatePaymentButton}"></Button>
+					<Button Name="btnDelete" Content="Annulla pagamento" Width="120" Margin="3" IsEnabled="{Binding ObjPayment.ShowDeleteButton}"></Button>
+                    <Button Name="btnRegister" Content="Registra" Width="120" Margin="3" IsEnabled="False" Click="btnRegister_Click"></Button>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+		
+		
+		
+		<!--<Border Name="brdVisits" Grid.Row="2" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Visibility="Collapsed">
+			<Grid x:Name="grdVisits" Margin="3" >
+				<ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+					<StackPanel KeyboardNavigation.TabNavigation="None">
+						<telerik:RadGridView			
+							Name="grdPrenotationVisits" 
+							AutoGenerateColumns="False" 
+							GroupRenderMode="Flat"
+							VerticalAlignment="Top"
+							HorizontalAlignment="Stretch"
+							SelectionMode="Single"
+  							ItemsSource="{Binding ObjPayments, Mode=TwoWay}"	
+							ScrollViewer.VerticalScrollBarVisibility="Auto"
+							ScrollMode="RealTime"
+							BeginningEdit="grdVisits_BeginningEdit"
+							ShowGroupPanel="False"					
+							RowEditEnded="grdVisits_EditEnded"
+							>
+							<telerik:RadGridView.Columns>
+								<telerik:GridViewColumn Header="Delete" ShowFilterButton="False" MinWidth="80" >
+									<telerik:GridViewColumn.CellTemplate>
+										<DataTemplate>
+											<telerik:RadButton 
+												Content="Delete"
+												Click="DeleteVisit" 
+												CommandParameter="{Binding ID}"	
+												IsEnabled="{Binding IsErasable}"
+												/>
+										</DataTemplate>
+									</telerik:GridViewColumn.CellTemplate>
+								</telerik:GridViewColumn>
+								<telerik:GridViewComboBoxColumn
+									Header="Tipo di pagamento"
+									DataMemberBinding="{Binding PaymentTypeID, Mode=TwoWay}"
+									SelectedValueMemberPath="Id_TipoPagamento"
+									DisplayMemberPath="Descrizione"
+									ShowFilterButton="False"
+									ItemsSource="{Binding AvailablePaymentTypes}"
+									MinWidth="180"
+								/>
+								<telerik:GridViewDataColumn
+									Header="Importo"
+									DataMemberBinding="{Binding Amount, Mode=TwoWay}"
+									ShowFilterButton="False"
+									>
+									<telerik:GridViewDataColumn.CellTemplate>
+										<DataTemplate>
+											<TextBlock Text="{Binding Amount, StringFormat=0}" />
+										</DataTemplate>
+									</telerik:GridViewDataColumn.CellTemplate>
+									<telerik:GridViewDataColumn.CellEditTemplate>
+										<DataTemplate>
+											<telerik:RadNumericUpDown
+												Minimum="0"
+												Maximum="999999"
+												NumberDecimalDigits="2"
+												UpdateValueEvent="PropertyChanged"
+												Value="{Binding Amount, Mode=TwoWay}"											
+												/>
+										</DataTemplate>
+									</telerik:GridViewDataColumn.CellEditTemplate>
+								</telerik:GridViewDataColumn>
+							</telerik:RadGridView.Columns>
+						</telerik:RadGridView>
+					</StackPanel>
+				</ScrollViewer>
+			</Grid>
+		</Border>-->
+	</Grid>
+</my:BasePaymentManager >

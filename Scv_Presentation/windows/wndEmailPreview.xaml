@@ -1,0 +1,107 @@
+﻿<my:BaseDetailPage 
+	x:Class="Presentation.wndEmailPreview"
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"  
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"	
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    xmlns:uc="clr-namespace:Microsoft.Windows.Controls;assembly=U2UConsult.RichHtmlTextBlock"	
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Chiusura" 
+	Height="500" 
+	Width="900"
+	ResizeMode="NoResize"
+	WindowStartupLocation="CenterScreen"
+	Icon="../Themes/Images/icons/logo_us_16x16.png"
+    
+	>
+
+	<Window.Resources>
+		<uc:HtmlFormatter x:Key="HtmlFormatter" />
+		<LinearGradientBrush
+            x:Key="LavenderWhiteBrush"
+            EndPoint="0.5,1" StartPoint="0.5,0">
+			<GradientStop Color="Lavender" Offset="0" />
+			<GradientStop Color="White" Offset="1" />
+		</LinearGradientBrush>
+		<Style
+            x:Key="HtmlTextBlockStyle"
+            TargetType="uc:RichTextBox"
+            >
+			<Setter Property="Height" Value="84" />
+			<Setter Property="Margin" Value="6" />
+			<Setter Property="Padding" Value="6" />
+			<Setter Property="Background" Value="{StaticResource LavenderWhiteBrush}" />
+		</Style>
+	</Window.Resources>
+
+	<Grid Name="grd">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+			<RowDefinition Height="5"></RowDefinition>
+			<RowDefinition Height="Auto"></RowDefinition>
+		</Grid.RowDefinitions>
+
+		<Border Name="brdResipients" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+				<Label Content="A:" Style="{StaticResource CaptionLabel}" />
+				<Label Content="{Binding ObjEmail.Recipients}" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+			</StackPanel>
+		</Border>
+
+		<Border Name="brdSubject" Grid.Row="2" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+				<Label Content="Oggetto:" Style="{StaticResource CaptionLabel}" />
+				<Label Content="{Binding ObjEmail.Subject}" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+			</StackPanel>
+		</Border>
+
+		<Border Name="brdAttachments" Grid.Row="4" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+				<Label Content="Allegati:" Style="{StaticResource CaptionLabel}" />
+				<Label Content="{Binding ObjEmail.Attachments}" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" />
+			</StackPanel>
+		</Border>
+
+		<uc:RichTextBox
+            x:Name="BoundHtmlRichTextBox"
+            Style="{StaticResource HtmlTextBlockStyle}"
+            TextFormatter="{StaticResource HtmlFormatter}"
+            Text="{Binding ObjEmail.Body}"
+			Height="340"
+			ScrollViewer.CanContentScroll="True"
+			ScrollViewer.VerticalScrollBarVisibility="Visible"
+            Grid.Row="6" 
+			/>
+
+		<Border Name="brdButtons" Grid.Row="8" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+			<StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
+				<Button Name="btnSendEmail" Content="Invia email" IsDefault="True" Width="110" />
+                <Button Name="btnSendPaymentOrder" Content="Crea Ordine Pagamento" IsEnabled="False" Visibility="Collapsed" Width="150" Click="btnSendPaymentOrder_Click" />
+                <Button Name="btnPrint" Content="Stampa email" Width="110" />
+				<Button Name="btnCopy" Content="Copia email" Width="110" />
+				<RichTextBox Name="rtb" Visibility="Collapsed"></RichTextBox>
+			</StackPanel>
+		</Border>
+		<StackPanel Name="pnlNoEmailMessage" Grid.Row="10" Visibility="Collapsed">
+			<Label Content="Il richiedente è privo di email" FontFamily="Arial" Foreground="Red"></Label>
+		</StackPanel>
+	</Grid>
+</my:BaseDetailPage>
+
+

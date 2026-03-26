@@ -1,0 +1,412 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgGuidesPayRoll"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"	
+	Title="Guide">
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="10*" MinHeight="60"></RowDefinition>
+			<RowDefinition Height="75*"></RowDefinition>
+			<RowDefinition Height="22*" MinHeight="90"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Border Name="brdFilter" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<StackPanel Orientation="Horizontal">
+				<StackPanel Margin="10">
+					<Label Content="Anno" Style="{StaticResource CaptionLabel}" />
+					<telerik:RadComboBox 						
+						Name="cmbYear" 
+						Width="100"
+						Style="{StaticResource ValidationRadComboBox}"
+						ItemsSource="{Binding Years}"
+						SelectedValue="{Binding SelectedYear.Number, Mode=TwoWay}"
+						DisplayMemberPath="Description"
+						SelectedValuePath="Number"
+						/>
+				</StackPanel>
+				<StackPanel Margin="10">
+					<Label Content="Mese" Style="{StaticResource CaptionLabel}" />
+					<telerik:RadComboBox 
+						Name="cmbMonth" 
+						Width="100"
+						Style="{StaticResource ValidationRadComboBox}" 
+						ItemsSource="{Binding Months}"
+						SelectedValue="{Binding SelectedMonth.Number, Mode=TwoWay}"						
+						DisplayMemberPath="Description"
+						SelectedValuePath="Number"						
+						/>
+				</StackPanel>
+				<StackPanel Margin="10">
+					<Label Content="Collegi" Style="{StaticResource CaptionLabel}" />
+					<CheckBox 
+						Name="chkGroupByColleges" 
+						Width="100"
+						IsChecked="{Binding GroupByColleges, Mode=TwoWay}"
+						/>
+				</StackPanel>
+
+				<Border BorderBrush="Gray" BorderThickness="1" Margin="2">
+
+					<StackPanel Orientation="Horizontal">
+						<StackPanel Margin="5">
+							<Label Content="Guida" Style="{StaticResource CaptionLabel}" />
+							<telerik:RadComboBox 
+								Name="cmbGuide" 
+								Width="150"
+								Style="{StaticResource ValidationRadComboBox}" 
+								ItemsSource="{Binding AvailableGuides}"
+								SelectedValue="{Binding SelectedGuideID, Mode=TwoWay}"						
+								DisplayMemberPath="Nominativo"
+								SelectedValuePath="Id_Guida"						
+								/>
+						</StackPanel>
+						<StackPanel Orientation="Horizontal" Margin="5">
+							<telerik:RadButton Name="btnFilter"  Content="Filtra" MinWidth="100"/>
+							<telerik:RadButton Name="btnCancel"  Content="Elimina filtri" MinWidth="100"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+				<StackPanel Margin="5">
+					<Label Content="Stampa" Style="{StaticResource CaptionLabel}" />
+					<telerik:RadComboBox 
+						Name="cmbPrintWhat" 
+						Width="100"
+						Style="{StaticResource ValidationRadComboBox}" 
+						ItemsSource="{Binding AvailablePayRollPrintTypes}"
+						SelectedValue="{Binding SelectedPayRollPrintTypeID, Mode=TwoWay}"						
+						DisplayMemberPath="Description"
+						SelectedValuePath="ID"						
+						/>
+				</StackPanel>
+			</StackPanel>
+		</Border>
+		<telerik:RadGridView			
+			Name="grdMaster"
+			Grid.Row="1"
+			AutoGenerateColumns="False" 
+			VerticalAlignment="Top"
+			HorizontalAlignment="Stretch"
+			SelectionMode="Single"
+			ItemsSource="{Binding}"	
+			ScrollViewer.VerticalScrollBarVisibility="Auto"
+			ScrollMode="RealTime"
+			HeaderRowStyle="{StaticResource GridHeader}"	
+			ShowGroupPanel="False"
+			ShowColumnFooters="True"
+			>
+			<telerik:RadGridView.ColumnGroups>
+				<telerik:GridViewColumnGroup Name="Guida" Header="Guida"></telerik:GridViewColumnGroup>
+				<telerik:GridViewColumnGroup Name="Necropoli" Header="Necropoli"></telerik:GridViewColumnGroup>
+				<telerik:GridViewColumnGroup Name="Altro" Header="Altre visite"></telerik:GridViewColumnGroup>
+				<telerik:GridViewColumnGroup Name="Acconto" Header="(Acconto a saldo)"></telerik:GridViewColumnGroup>
+				<telerik:GridViewColumnGroup Name="Saldo" Header="Da ritirare"></telerik:GridViewColumnGroup>
+			</telerik:RadGridView.ColumnGroups>
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn
+					Header="Nominativo"
+					DataMemberBinding="{Binding Nominativo}"
+					MinWidth="200"
+					Width="200"
+					ColumnGroupName="Guida"
+					>
+
+					<telerik:GridViewDataColumn.Footer>
+						<TextBlock 
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="190"
+							TextAlignment="Right"
+							Text="Totali:" />
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+
+				<telerik:GridViewDataColumn
+					Header="Nr."
+					DataMemberBinding="{Binding NrNecropoli}"
+					Width="60"
+					TextAlignment="Right"
+					ColumnGroupName="Necropoli"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="NrNecropoli" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="50"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+
+				<telerik:GridViewDataColumn
+					Header="Totale"
+					UniqueName="totNecropoli"
+					DataMemberBinding="{Binding TotaleNecropoli,  StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="100"
+					TextAlignment="Right"						
+					ColumnGroupName="Necropoli"
+					IsResizable="False"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="TotaleNecropoli" ResultFormatString="{}{0:c}" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="92"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+				<telerik:GridViewDataColumn
+					Header="Nr."
+					DataMemberBinding="{Binding NrAltro}"
+					Width="60"
+					TextAlignment="Right"					
+					ColumnGroupName="Altro"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="NrAltro" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="50"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+				<telerik:GridViewDataColumn
+					Header="Totale"
+					DataMemberBinding="{Binding TotaleAltro,  StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="100"
+					TextAlignment="Right"					
+					ColumnGroupName="Altro"
+					IsResizable="False"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="TotaleAltro" ResultFormatString="{}{0:c}" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="92"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+				<telerik:GridViewDataColumn
+					Header=""
+					DataMemberBinding="{Binding AccontoAltro,  StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="100"
+					TextAlignment="Right"					
+					ColumnGroupName="Acconto"
+					IsResizable="False"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="AccontoAltro" ResultFormatString="{}{0:c}" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="92"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+
+				<telerik:GridViewDataColumn
+					Header=""
+					DataMemberBinding="{Binding Saldo,  StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+					Width="100"
+					TextAlignment="Right"					
+					ColumnGroupName="Saldo"
+					IsResizable="False"
+					>
+					<telerik:GridViewDataColumn.AggregateFunctions>
+						<telerik:SumFunction SourceField="Saldo" ResultFormatString="{}{0:c}" />
+					</telerik:GridViewDataColumn.AggregateFunctions>
+					<telerik:GridViewDataColumn.Footer>
+						<telerik:AggregateResultsList
+							ItemsSource="{Binding}"
+							VerticalAlignment="Center"
+							HorizontalAlignment="Stretch"
+							Width="92"
+							>
+							<ItemsControl.ItemTemplate>
+								<DataTemplate>
+									<StackPanel>
+										<TextBlock 
+											VerticalAlignment="Center"
+											HorizontalAlignment="Stretch"
+											TextAlignment="Right"
+											Text="{Binding FormattedValue}" />
+									</StackPanel>
+								</DataTemplate>
+							</ItemsControl.ItemTemplate>
+						</telerik:AggregateResultsList>
+					</telerik:GridViewDataColumn.Footer>
+				</telerik:GridViewDataColumn>
+			</telerik:RadGridView.Columns>
+		</telerik:RadGridView>
+		<Border Grid.Row="2" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1" Width="500" Height="90" HorizontalAlignment="Left">
+			<Grid Margin="5" Grid.Row="2">
+				<Grid.ColumnDefinitions>
+					<ColumnDefinition Width="110"></ColumnDefinition>
+					<ColumnDefinition Width="90"></ColumnDefinition>
+					<ColumnDefinition Width="90"></ColumnDefinition>
+					<ColumnDefinition Width="90"></ColumnDefinition>
+					<ColumnDefinition Width="90"></ColumnDefinition>
+				</Grid.ColumnDefinitions>
+				<Grid.RowDefinitions>
+					<RowDefinition Height="25"></RowDefinition>
+					<RowDefinition Height="25"></RowDefinition>
+					<RowDefinition Height="25"></RowDefinition>
+				</Grid.RowDefinitions>
+				<Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="3" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Top" Margin="2">
+						<Label Content="Da ritirare:" Style="{StaticResource CaptionLabel}" />
+						<TextBlock Text="{Binding Total, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Style="{StaticResource BoldLabel}" FontSize="16" />
+					</StackPanel>
+				</Border>
+
+				<Border Grid.Column="1" Grid.Row="0" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" Margin="2">
+						<Label Content="Tagli:" Style="{StaticResource CaptionLabel}" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="2" Grid.Row="0" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[0].Cut, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="3" Grid.Row="0" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[1].Cut, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="4" Grid.Row="0" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[2].Cut, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+
+				<Border Grid.Column="1" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" Margin="2">
+						<Label Content="Numero pezzi:" Style="{StaticResource CaptionLabel}" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="2" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[0].Pieces}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="3" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[1].Pieces}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="4" Grid.Row="1" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[2].Pieces}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+
+				<Border Grid.Column="1" Grid.Row="2" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center">
+						<Label Content="Valore:" Style="{StaticResource CaptionLabel}" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="2" Grid.Row="2" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[0].Total, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="3" Grid.Row="2" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[1].Total, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+				<Border Grid.Column="4" Grid.Row="2" BorderBrush="LightGray" BorderThickness="1">
+					<StackPanel VerticalAlignment="Center" HorizontalAlignment="Stretch" Margin="2">
+						<TextBlock Text="{Binding MoneyCuts[2].Total, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" FontSize="14" HorizontalAlignment="Right" />
+					</StackPanel>
+				</Border>
+			</Grid>
+
+		</Border>
+	</Grid>
+</my:BaseContentPage>

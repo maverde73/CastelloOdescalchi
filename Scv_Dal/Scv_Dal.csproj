@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{9B7B25B2-D976-4D3C-AAA4-04FD43E4A38A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Scv_Dal</RootNamespace>
+    <AssemblyName>Scv_Dal</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="Microsoft.Office.Interop.Outlook, Version=14.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>False</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Classes\Articolo_Dal.cs" />
+    <Compile Include="Classes\Biglietto_Dal.cs" />
+    <Compile Include="Classes\EasyTicketing_DAL.cs" />
+    <Compile Include="Classes\Email_Dal.cs" />
+    <Compile Include="Classes\EsercizioVendita_Dal.cs" />
+    <Compile Include="Classes\Fattura_Dal.cs" />
+    <Compile Include="Classes\GuidaDisponibile_Dal.cs" />
+    <Compile Include="Classes\GuidaLingua_Dal.cs" />
+    <Compile Include="Classes\Guida_Dal.cs" />
+    <Compile Include="Classes\Helper_Dal.cs" />
+    <Compile Include="Classes\LK_Chiusura_Dal.cs" />
+    <Compile Include="Classes\LK_Citta_Dal.cs" />
+    <Compile Include="Classes\LK_Collegio_Dal.cs" />
+    <Compile Include="Classes\LK_DescrizioneLingua_Dal.cs" />
+    <Compile Include="Classes\LK_Lingua_Dal.cs" />
+    <Compile Include="Classes\LK_Organizzazione_Dal.cs" />
+    <Compile Include="Classes\LK_Progressivi_Dal.cs" />
+    <Compile Include="Classes\LK_TestoStandard_Dal.cs" />
+    <Compile Include="Classes\LK_TIpoPagamento_Dal.cs" />
+    <Compile Include="Classes\LK_TipoRisposta_Dal.cs" />
+    <Compile Include="Classes\LK_TipoArticolo_Dal.cs" />
+    <Compile Include="Classes\LK_TipoConferma_Dal.cs" />
+    <Compile Include="Classes\LK_TipoMovimento_Dal.cs" />
+    <Compile Include="Classes\LK_TipoVisita_Dal.cs" />
+    <Compile Include="Classes\LK_TItolo_Dal.cs" />
+    <Compile Include="Classes\Location_Dal.cs" />
+    <Compile Include="Classes\Mailer.cs" />
+    <Compile Include="Classes\MailHelper_Outlook.cs" />
+    <Compile Include="Classes\MandatoGuida_Dal.cs" />
+    <Compile Include="Classes\Mandato_Dal.cs" />
+    <Compile Include="Classes\MoneyCut_Dal.cs" />
+    <Compile Include="Classes\Movimento_Dal.cs" />
+    <Compile Include="Classes\Pagamento_Dal.cs" />
+    <Compile Include="Classes\PageTemplates_Dal.cs" />
+    <Compile Include="Classes\Parametri_Dal.cs" />
+    <Compile Include="Classes\Receipt_Dal.cs" />
+    <Compile Include="Classes\Ricevuta_Dal.cs" />
+    <Compile Include="Classes\Richiedente_Dal.cs" />
+    <Compile Include="Classes\Stats_Dal.cs" />
+    <Compile Include="Classes\Themes_Dal.cs" />
+    <Compile Include="Classes\LK_User_Dal.cs" />
+    <Compile Include="Classes\Prenotazione_Dal.cs" />
+    <Compile Include="Classes\VisitaPrenotata_Dal.cs" />
+    <Compile Include="Classes\VisitaProgrammata_Dal.cs" />
+    <Compile Include="interfaces\IDal.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Scv_Entities\Scv_Entities.csproj">
+      <Project>{C9F6A5C9-6383-49EA-B646-67A6452D3A14}</Project>
+      <Name>Scv_Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scv_Model\Scv_Model.csproj">
+      <Project>{D2B20A16-7689-4120-91BB-D691AD6DC620}</Project>
+      <Name>Scv_Model</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

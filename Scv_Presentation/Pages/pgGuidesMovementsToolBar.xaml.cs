@@ -1,0 +1,88 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Windows;
+using System.Windows.Controls;
+using System.Windows.Data;
+using System.Windows.Documents;
+using System.Windows.Input;
+using System.Windows.Media;
+using System.Windows.Media.Imaging;
+using System.Windows.Navigation;
+using System.Windows.Shapes;
+using Scv_Model;
+
+namespace Presentation.Pages
+{
+	/// <summary>
+	/// Interaction logic for pgGuidesMovementsToolBar.xaml
+	/// </summary>
+	public partial class pgGuidesMovementsToolBar : BaseToolBarPage
+	{
+		public pgGuidesMovementsToolBar()
+		{
+			InitializeComponent();
+			rib.CollapseThresholdSize = new Size(1, 1);
+			btnNew.Click += new RoutedEventHandler(btnNew_Click);
+			//btnDelete.Click += new RoutedEventHandler(btnDelete_Click);
+			btnPrint.Click += new RoutedEventHandler(btnPrint_Click);
+			btnPrintAll.Click += new RoutedEventHandler(btnPrintAll_Click);
+
+			btnPrint.IsEnabled = false;
+			//btnDelete.IsEnabled = false;
+		}
+
+		void btnNew_Click(object sender, RoutedEventArgs e)
+		{
+			ContentPageCommandEventArgs args = new ContentPageCommandEventArgs();
+
+			args.CommandType = ContentPageCommandType.New;
+			args.PageTemplateName = "pgGuidesMovements.xaml";
+			MenuCommand(args);
+		}
+
+		void btnDelete_Click(object sender, RoutedEventArgs e)
+		{
+			ContentPageCommandEventArgs args = new ContentPageCommandEventArgs();
+
+			args.CommandType = ContentPageCommandType.Delete;
+			args.PageTemplateName = "pgGuidesMovements.xaml";
+			MenuCommand(args);
+		}
+
+
+		void btnPrint_Click(object sender, RoutedEventArgs e)
+		{
+			ContentPageCommandEventArgs args = new ContentPageCommandEventArgs();
+			args.CommandArgument = "print";
+
+			args.CommandType = ContentPageCommandType.Print;
+			args.PageTemplateName = "pgGuidesMovements.xaml";
+			MenuCommand(args);
+		}
+
+		void btnPrintAll_Click(object sender, RoutedEventArgs e)
+		{
+			ContentPageCommandEventArgs args = new ContentPageCommandEventArgs();
+			args.CommandArgument = "printall";
+
+			args.CommandType = ContentPageCommandType.Print;
+			args.PageTemplateName = "pgGuidesMovements.xaml";
+			MenuCommand(args);
+		}
+
+
+		protected override void MenuCommand(ContentPageCommandEventArgs e)
+		{
+			if (OnMenuCommand != null)
+				OnMenuCommand(this, e);
+		}
+
+		public override void SetButtons(ContentPageCommandEventArgs e)
+		{
+			//btnDelete.IsEnabled = e.SelectedIDs.Count > 0;
+			btnPrint.IsEnabled = e.SelectedIDs.Count > 0;
+		}
+	}
+}

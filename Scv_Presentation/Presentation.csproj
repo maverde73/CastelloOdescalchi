@@ -1,0 +1,1337 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{027D520A-C821-4AD7-B5F3-25DBF4A0C9D9}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Presentation</RootNamespace>
+    <AssemblyName>Presentation</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>
+    </TargetFrameworkProfile>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SccProvider>SAK</SccProvider>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <PlatformTarget>x86</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Accessibility">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+    </Reference>
+    <Reference Include="ClosedXML, Version=0.76.0.0, Culture=neutral, PublicKeyToken=fd1eb21b62ae805b, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\ClosedXML.dll</HintPath>
+    </Reference>
+    <Reference Include="CustomPagerManager">
+      <HintPath>..\packages\CustomPagerManager.dll</HintPath>
+    </Reference>
+    <Reference Include="DocumentFormat.OpenXml, Version=2.5.5631.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\DocumentFormat.OpenXml.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.ReportViewer.WinForms, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="NumericTextBox">
+      <HintPath>..\packages\NumericTextBox.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationFramework.Aero" />
+    <Reference Include="PresentationFramework.Classic" />
+    <Reference Include="PresentationFramework.Luna" />
+    <Reference Include="PresentationFramework.Royale" />
+    <Reference Include="ShiftManager">
+      <HintPath>..\packages\ShiftManager.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls">
+      <HintPath>..\packages\Telerik.Windows.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Data">
+      <HintPath>..\packages\Telerik.Windows.Controls.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.EntityFramework">
+      <HintPath>..\packages\Telerik.Windows.Controls.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.GridView">
+      <HintPath>..\packages\Telerik.Windows.Controls.GridView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Input">
+      <HintPath>..\packages\Telerik.Windows.Controls.Input.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Navigation">
+      <HintPath>..\packages\Telerik.Windows.Controls.Navigation.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.RibbonView">
+      <HintPath>..\packages\Telerik.Windows.Controls.RibbonView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.ScheduleView">
+      <HintPath>..\packages\Telerik.Windows.Controls.ScheduleView.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Controls.Spreadsheet">
+      <HintPath>..\packages\Telerik.Windows.Controls.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Data">
+      <HintPath>..\packages\Telerik.Windows.Data.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents">
+      <HintPath>..\packages\Telerik.Windows.Documents.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Core">
+      <HintPath>..\packages\Telerik.Windows.Documents.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Documents.Spreadsheet">
+      <HintPath>..\packages\Telerik.Windows.Documents.Spreadsheet.dll</HintPath>
+    </Reference>
+    <Reference Include="Telerik.Windows.Maths">
+      <HintPath>..\packages\Telerik.Windows.Maths.dll</HintPath>
+    </Reference>
+    <Reference Include="U2UConsult.RichHtmlTextBlock">
+      <HintPath>..\packages\U2UConsult.RichHtmlTextBlock.dll</HintPath>
+    </Reference>
+    <Reference Include="UIAutomationProvider" />
+    <Reference Include="UIAutomationTypes" />
+    <Reference Include="VisitsSummaryManager">
+      <HintPath>..\packages\VisitsSummaryManager.dll</HintPath>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="WindowsFormsIntegration" />
+    <Reference Include="WpfPasswordBox">
+      <HintPath>..\packages\WpfPasswordBox.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Compile Include="Classes\BaseDetailPage.cs" />
+    <Compile Include="Classes\BaseParamWindow.cs" />
+    <Compile Include="Classes\BasePrintPage.cs" />
+    <Compile Include="Classes\BaseUserControl.cs" />
+    <Compile Include="Classes\BooleanOrConverter.cs" />
+    <Compile Include="Classes\CustomScheduleViewDragDropBehavior.cs" />
+    <Compile Include="Classes\ExcelReport.cs" />
+    <Compile Include="Classes\MyColumnsBindingBehavior.cs" />
+    <Compile Include="Classes\Ticket.cs" />
+    <Compile Include="CustomControls\PaymentLib\BasePaymentManager.cs" />
+    <Compile Include="CustomControls\PaymentLib\OnlinePayment.cs" />
+    <Compile Include="CustomControls\PaymentLib\PaymentItem.cs" />
+    <Compile Include="CustomControls\PaymentLib\PaymentRange.cs" />
+    <Compile Include="CustomControls\PaymentLib\PaymentViewModel.cs" />
+    <Compile Include="CustomControls\PaymentLib\Receipt.cs" />
+    <Compile Include="CustomControls\PaymentLib\wndPayment.xaml.cs">
+      <DependentUpon>wndPayment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Helpers\Helpers.cs" />
+    <Compile Include="LocalPrinter\DummyPrinter.cs" />
+    <Compile Include="Pages\pgEasyTicketing.xaml.cs">
+      <DependentUpon>pgEasyTicketing.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgEasyTicketingToolBar.xaml.cs">
+      <DependentUpon>pgEasyTicketingToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesAssignment.xaml.cs">
+      <DependentUpon>pgGuidesAssignment.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgBills.xaml.cs">
+      <DependentUpon>pgBills.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgBillsToolBar.xaml.cs">
+      <DependentUpon>pgBillsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgEvidenzeGiornaliere.xaml.cs">
+      <DependentUpon>pgEvidenzeGiornaliere.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgEvidenzeGiornaliereToolBar.xaml.cs">
+      <DependentUpon>pgEvidenzeGiornaliereToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgFirmaGuide.xaml.cs">
+      <DependentUpon>pgFirmaGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgFirmaGuideToolBar.xaml.cs">
+      <DependentUpon>pgFirmaGuideToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesAssignmentToolBar.xaml.cs">
+      <DependentUpon>pgGuidesAssignmentToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesMovements.xaml.cs">
+      <DependentUpon>pgGuidesMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesMovementsToolBar.xaml.cs">
+      <DependentUpon>pgGuidesMovementsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesPayRoll.xaml.cs">
+      <DependentUpon>pgGuidesPayRoll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesPayRollToolBar.xaml.cs">
+      <DependentUpon>pgGuidesPayRollToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgInventario.xaml.cs">
+      <DependentUpon>pgInventario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgInventarioToolBar.xaml.cs">
+      <DependentUpon>pgInventarioToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgInvoices.xaml.cs">
+      <DependentUpon>pgInvoices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgInvoicesToolBar.xaml.cs">
+      <DependentUpon>pgInvoicesToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgMandato.xaml.cs">
+      <DependentUpon>pgMandato.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgMandatoToolBar.xaml.cs">
+      <DependentUpon>pgMandatoToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPagamentiAnnullati.xaml.cs">
+      <DependentUpon>pgPagamentiAnnullati.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPagamentiAnnullatiToolBar.xaml.cs">
+      <DependentUpon>pgPagamentiAnnullatiToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPrivateSellMovements.xaml.cs">
+      <DependentUpon>pgPrivateSellMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPrivateSellMovementsToolBar.xaml.cs">
+      <DependentUpon>pgPrivateSellMovementsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgScheduledTours.xaml.cs">
+      <DependentUpon>pgScheduledTours.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgScheduledToursToolBar.xaml.cs">
+      <DependentUpon>pgScheduledToursToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsClosings.xaml.cs">
+      <DependentUpon>pgSettingsClosings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsClosingsToolBar.xaml.cs">
+      <DependentUpon>pgSettingsClosingsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsPersonal.xaml.cs">
+      <DependentUpon>pgSettingsPersonal.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsPersonalToolBar.xaml.cs">
+      <DependentUpon>pgSettingsPersonalToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsUsers.xaml.cs">
+      <DependentUpon>pgSettingsUsers.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsUsersToolBar.xaml.cs">
+      <DependentUpon>pgSettingsUsersToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsVisitTypes.xaml.cs">
+      <DependentUpon>pgSettingsVisitTypes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsVisitTypesToolBar.xaml.cs">
+      <DependentUpon>pgSettingsVisitTypesToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgStats.xaml.cs">
+      <DependentUpon>pgStats.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgStatsToolBar.xaml.cs">
+      <DependentUpon>pgStatsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgStores.xaml.cs">
+      <DependentUpon>pgStores.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgStoresToolBar.xaml.cs">
+      <DependentUpon>pgStoresToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgTicketOffice.xaml.cs">
+      <DependentUpon>pgTicketOffice.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgTicketOfficeToolBar.xaml.cs">
+      <DependentUpon>pgTicketOfficeToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgWarehouseMovements.xaml.cs">
+      <DependentUpon>pgWarehouseMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgWarehouseMovementsToolBar.xaml.cs">
+      <DependentUpon>pgWarehouseMovementsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgWarehouseToolBar.xaml.cs">
+      <DependentUpon>pgWarehouseToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="viewmodels\CancelTicketViewModels.cs" />
+    <Compile Include="viewmodels\ChangeMovementPaymentTypeViewModel.cs" />
+    <Compile Include="viewmodels\ClosingsViewModel.cs" />
+    <Compile Include="viewmodels\EasyTicketingViewModel.cs" />
+    <Compile Include="viewmodels\ExtractPaymentDataViewModel.cs" />
+    <Compile Include="viewmodels\FatturaViewModel.cs" />
+    <Compile Include="viewmodels\GuideAssignmentViewModel2.cs" />
+    <Compile Include="viewmodels\GuideMovementViewModel.cs" />
+    <Compile Include="viewmodels\ScheduledToursViewModel.cs" />
+    <Compile Include="viewmodels\ScheduleToursViewModel.cs" />
+    <Compile Include="viewmodels\EFViewModel.cs" />
+    <Compile Include="viewmodels\EmailPreviewViewModel.cs" />
+    <Compile Include="viewmodels\GoodsViewModel.cs" />
+    <Compile Include="Classes\GuideLanguages.cs" />
+    <Compile Include="viewmodels\GuideViewModel.cs" />
+    <Compile Include="Classes\Helper.cs" />
+    <Compile Include="viewmodels\MandatoViewModel.cs" />
+    <Compile Include="viewmodels\MovementViewModel.cs" />
+    <Compile Include="viewmodels\PrenotationViewModel.cs" />
+    <Compile Include="viewmodels\RefundViewModel.cs" />
+    <Compile Include="viewmodels\ScheduledToursListViewModel.cs" />
+    <Compile Include="CustomControls\ActionMode.cs" />
+    <Compile Include="CustomControls\BaseControl.cs" />
+    <Compile Include="CustomControls\BehaviorMode.cs" />
+    <Compile Include="CustomControls\ConfirmationType\classes\ConfirmationTypeViewModel.cs" />
+    <Compile Include="CustomControls\ConfirmationType\ConfirmationType.xaml.cs">
+      <DependentUpon>ConfirmationType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\CustomKeyboardCommandProvider\CustomKeyboardCommandProvider.cs" />
+    <Compile Include="CustomControls\DataMode.cs" />
+    <Compile Include="CustomControls\LanguageManager\classes\LanguageViewModel.cs" />
+    <Compile Include="CustomControls\LanguageManager\LanguageManager.xaml.cs">
+      <DependentUpon>LanguageManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\LocationManager\classes\LocationViewModel.cs" />
+    <Compile Include="CustomControls\LocationManager\LocationManager.xaml.cs">
+      <DependentUpon>LocationManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\NumericUpDown\NumericUpDown.xaml.cs">
+      <DependentUpon>NumericUpDown.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\OrganizationManager\classes\OrganizationViewModel.cs" />
+    <Compile Include="CustomControls\OrganizationManager\OrganizationManager.xaml.cs">
+      <DependentUpon>OrganizationManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\PetitionerManager\classes\PetitionerSearchItem.cs" />
+    <Compile Include="CustomControls\PetitionerManager\classes\PetitionerViewModel.cs" />
+    <Compile Include="CustomControls\PetitionerManager\PetitionerManager.xaml.cs">
+      <DependentUpon>PetitionerManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\TitleManager\classes\TitleViewModel.cs" />
+    <Compile Include="CustomControls\TitleManager\TitleManager.xaml.cs">
+      <DependentUpon>TitleManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ucLogin.xaml.cs">
+      <DependentUpon>ucLogin.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\ucOutLookBar.xaml.cs">
+      <DependentUpon>ucOutLookBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CustomControls\VisitTypeManager\classes\VisitTypeViewModel.cs" />
+    <Compile Include="CustomControls\VisitTypeManager\VisitTypeManager.xaml.cs">
+      <DependentUpon>VisitTypeManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGoods.xaml.cs">
+      <DependentUpon>pgGoods.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGoodsMenu.xaml.cs">
+      <DependentUpon>pgGoodsMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGoodsToolBar.xaml.cs">
+      <DependentUpon>pgGoodsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPetitionersMenu.xaml.cs">
+      <DependentUpon>pgPetitionersMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgPetitionersToolBar.xaml.cs">
+      <DependentUpon>pgPetitionersToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettings.xaml.cs">
+      <DependentUpon>pgSettings.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsMenu.xaml.cs">
+      <DependentUpon>pgSettingsMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgSettingsToolBar.xaml.cs">
+      <DependentUpon>pgSettingsToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="viewmodels\StatsViewModel.cs" />
+    <Compile Include="viewmodels\StoreViewModel.cs" />
+    <Compile Include="viewmodels\TiketViewModel.cs" />
+    <Compile Include="viewmodels\UserViewModel.cs" />
+    <Compile Include="viewmodels\VisitTypeViewModel.cs" />
+    <Compile Include="windows\wndCancelTickets.xaml.cs">
+      <DependentUpon>wndCancelTickets.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndExtractPaymentData.xaml.cs">
+      <DependentUpon>wndExtractPaymentData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintFattura.xaml.cs">
+      <DependentUpon>wndPrintFattura.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesAssignmentList.xaml.cs">
+      <DependentUpon>wndPrintGuidesAssignmentList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndScheduleTours.xaml.cs">
+      <DependentUpon>wndScheduleTours.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndChangeMovementPaymentType.xaml.cs">
+      <DependentUpon>wndChangeMovementPaymentType.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrivateMovementsList.xaml.cs">
+      <DependentUpon>wndPrivateMovementsList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintAssegnazioneGuideVisite.xaml.cs">
+      <DependentUpon>wndPrintAssegnazioneGuideVisite.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintReceipt.xaml.cs">
+      <DependentUpon>wndPrintReceipt.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintSintesiArticoli.xaml.cs">
+      <DependentUpon>wndPrintSintesiArticoli.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrivateMovements.xaml.cs">
+      <DependentUpon>wndPrivateMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndClosingsDetail.xaml.cs">
+      <DependentUpon>wndClosingsDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndEmailPreview.xaml.cs">
+      <DependentUpon>wndEmailPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndGoodiesDetail.xaml.cs">
+      <DependentUpon>wndGoodiesDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndGuideDetail.xaml.cs">
+      <DependentUpon>wndGuideDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndGuideMovementDetail.xaml.cs">
+      <DependentUpon>wndGuideMovementDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndMovementDetail.xaml.cs">
+      <DependentUpon>wndMovementDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrenotationDetail.xaml.cs">
+      <DependentUpon>wndPrenotationDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintDeliveredBills.xaml.cs">
+      <DependentUpon>wndPrintDeliveredBills.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintEmailPreview.xaml.cs">
+      <DependentUpon>wndPrintEmailPreview.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintFirmaGuide.xaml.cs">
+      <DependentUpon>wndPrintFirmaGuide.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuideMovement.xaml.cs">
+      <DependentUpon>wndPrintGuideMovement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesMovements.xaml.cs">
+      <DependentUpon>wndPrintGuidesMovements.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesPayroll.xaml.cs">
+      <DependentUpon>wndPrintGuidesPayroll.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesPayRollEnvelopes.xaml.cs">
+      <DependentUpon>wndPrintGuidesPayRollEnvelopes.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesPayrollForSigns.xaml.cs">
+      <DependentUpon>wndPrintGuidesPayrollForSigns.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintGuidesPayRollReceipts.xaml.cs">
+      <DependentUpon>wndPrintGuidesPayRollReceipts.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintInventario.xaml.cs">
+      <DependentUpon>wndPrintInventario.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintInvoices.xaml.cs">
+      <DependentUpon>wndPrintInvoices.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintMandatoAmministrazione.xaml.cs">
+      <DependentUpon>wndPrintMandatoAmministrazione.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintMandatoUfficioScavi.xaml.cs">
+      <DependentUpon>wndPrintMandatoUfficioScavi.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndPrintMovement.xaml.cs">
+      <DependentUpon>wndPrintMovement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndStoreDetail.xaml.cs">
+      <DependentUpon>wndStoreDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndTicketDetails.xaml.cs">
+      <DependentUpon>wndTicketDetails.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndUserDetail.xaml.cs">
+      <DependentUpon>wndUserDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndVisitRefund.xaml.cs">
+      <DependentUpon>wndVisitRefund.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndVisitTypeDetail.xaml.cs">
+      <DependentUpon>wndVisitTypeDetail.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndWarehousePrintList.xaml.cs">
+      <DependentUpon>wndWarehousePrintList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="windows\wndYearMonth.xaml.cs">
+      <DependentUpon>wndYearMonth.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="wndLogin.xaml.cs">
+      <DependentUpon>wndLogin.xaml</DependentUpon>
+    </Compile>
+    <Page Include="CustomControls\ConfirmationType\ConfirmationType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\LanguageManager\LanguageManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\LocationManager\LocationManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\NumericUpDown\NumericUpDown.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\OrganizationManager\OrganizationManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\PaymentLib\wndPayment.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\PetitionerManager\PetitionerManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\TitleManager\TitleManager.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="CustomControls\ucLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\ucOutLookBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CustomControls\VisitTypeManager\VisitTypeManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="MainWindow.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\BaseContentPage.cs" />
+    <Compile Include="Classes\BaseMenuPage.cs" />
+    <Compile Include="Classes\BaseToolBarPage.cs" />
+    <Compile Include="MainWindow.xaml.cs">
+      <DependentUpon>MainWindow.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Page Include="Pages\pgEasyTicketing.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgEasyTicketingToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesAssignment.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgBills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgBillsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgBooking.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgBookingMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgBookingToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgEvidenzeGiornaliere.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgEvidenzeGiornaliereToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgFirmaGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgFirmaGuideToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuides.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesAssignmentToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesMovements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesMovementsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesPayRoll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesPayRollToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGuidesToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgFooter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgGoods.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgGoodsMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgGoodsToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgInventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgInventarioToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgInvoices.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgInvoicesToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgMandato.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgMandatoToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPagamentiAnnullati.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPagamentiAnnullatiToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPetitionersMenu.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPetitionersToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPrivateSellMovements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgPrivateSellMovementsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgScheduledTours.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgScheduledToursToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettings.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgSettingsClosings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsClosingsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsPersonal.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsPersonalToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsUsers.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgSettingsToolBar.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgSettingsUsersToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsVisitTypes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgSettingsVisitTypesToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgStats.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Pages\pgStatsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgStores.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgStoresToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgTicketOffice.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgTicketOfficeToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgWarehouseMovements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgWarehouseMovementsToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\pgWarehouseToolBar.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\CommonStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\ScvStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Themes\Styles\SimpleStyles.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndCancelTickets.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndExtractPaymentData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintFattura.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesAssignmentList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndScheduleTours.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\wndChangeMovementPaymentType.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrivateMovementsList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\wndPrintAssegnazioneGuideVisite.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintReceipt.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintSintesiArticoli.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrivateMovements.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\wndClosingsDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndEmailPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndGoodiesDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndGuideDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndGuideMovementDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndMovementDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrenotationDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintDeliveredBills.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintEmailPreview.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintFirmaGuide.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuideMovement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesMovements.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesPayroll.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesPayRollEnvelopes.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesPayrollForSigns.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintGuidesPayRollReceipts.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintInventario.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintInvoices.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintMandatoAmministrazione.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintMandatoUfficioScavi.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndPrintMovement.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="windows\wndStoreDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndTicketDetails.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndUserDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndVisitRefund.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndVisitTypeDetail.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndWarehousePrintList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="windows\wndYearMonth.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="wndLogin.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Pages\pgBooking.xaml.cs">
+      <DependentUpon>pgBooking.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgBookingMenu.xaml.cs">
+      <DependentUpon>pgBookingMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgBookingToolBar.xaml.cs">
+      <DependentUpon>pgBookingToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuides.xaml.cs">
+      <DependentUpon>pgGuides.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesMenu.xaml.cs">
+      <DependentUpon>pgGuidesMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgGuidesToolBar.xaml.cs">
+      <DependentUpon>pgGuidesToolBar.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\pgFooter.xaml.cs">
+      <DependentUpon>pgFooter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <Content Include="BocaPrintTemplate.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_attachments\att_01.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_attachments\att_02.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_attachments\att_01_exclude.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_attachments\att_02_exclude.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="email_attachments\att_03_exclude.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\WarehouseMovements.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\Movement.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\GuideMovement.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\GuidesMovements.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\DeliveredBills.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\GuidesPayroll.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\PayRollReceipts.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\PayRollEnvelopes.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\Invoices.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\Email.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\GuidesPayrollForSigns.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\BillsMovements.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\MandatoUfficioScavi.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\MandatoAmministrazione.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\Inventario.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\FirmaGuide.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\PrivateMovements.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\receipt.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\AssegnazioneGuide.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\SintesiArticoli.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\PrivateMovementsList.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\ReceiptA5Landscape.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\GuidesAssignmentList.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\Fattura.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="windows\reports\rptStat.rdlc">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <EmbeddedResource Include="reports\AssegnazioneGuide.rdlc" />
+    <EmbeddedResource Include="reports\BillsMovements.rdlc" />
+    <EmbeddedResource Include="reports\DeliveredBills.rdlc" />
+    <EmbeddedResource Include="reports\Email.rdlc" />
+    <EmbeddedResource Include="reports\Fattura.rdlc" />
+    <EmbeddedResource Include="reports\FirmaGuide.rdlc" />
+    <EmbeddedResource Include="reports\GuideMovement.rdlc" />
+    <EmbeddedResource Include="reports\GuidesAssignmentList.rdlc" />
+    <EmbeddedResource Include="reports\GuidesMovements.rdlc" />
+    <EmbeddedResource Include="reports\GuidesPayroll.rdlc" />
+    <EmbeddedResource Include="reports\GuidesPayrollForSigns.rdlc" />
+    <EmbeddedResource Include="reports\Inventario.rdlc" />
+    <EmbeddedResource Include="reports\Invoices.rdlc" />
+    <EmbeddedResource Include="reports\MandatoAmministrazione.rdlc" />
+    <EmbeddedResource Include="reports\MandatoUfficioScavi.rdlc" />
+    <EmbeddedResource Include="reports\Movement.rdlc" />
+    <EmbeddedResource Include="reports\PayRollEnvelopes.rdlc" />
+    <EmbeddedResource Include="reports\PayRollReceipts.rdlc" />
+    <EmbeddedResource Include="reports\PrivateMovements.rdlc" />
+    <EmbeddedResource Include="reports\PrivateMovementsList.rdlc" />
+    <EmbeddedResource Include="reports\receipt.rdlc" />
+    <EmbeddedResource Include="reports\ReceiptA5Landscape.rdlc" />
+    <EmbeddedResource Include="reports\rptStat.rdlc" />
+    <EmbeddedResource Include="reports\SintesiArticoli.rdlc" />
+    <EmbeddedResource Include="reports\WarehouseMovements.rdlc" />
+    <None Include="app.config">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="ClassDiagram1.cd" />
+    <None Include="packages.config" />
+    <None Include="Properties\DataSources\BaseContentPage.datasource" />
+    <None Include="Properties\DataSources\BasePrintPage.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.Articolo.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.EF_Petitioner.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.Invoice.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.Movimento.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.Richiedente.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_Articoli.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_AssegnazioniGuideVisite.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_EvidenzeGiornaliere.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_EvidenzeGiornaliereGroup.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_GuideIncaricate.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_Mandato.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_MandatoGuida.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_Movimento.datasource" />
+    <None Include="Properties\DataSources\Scv_Entities.V_SintesiArticoli.datasource" />
+    <None Include="Properties\DataSources\Scv_Model.EmailPreviewItem.datasource" />
+    <None Include="Properties\DataSources\Scv_Model.GuidePayRollPrintItem.datasource" />
+    <None Include="Properties\DataSources\Scv_Model.PrintMandatoArgs.datasource" />
+    <None Include="Properties\DataSources\Scv_Model.PrintReceiptArgs.datasource" />
+    <None Include="Properties\DataSources\Scv_Model.ReceiptVisitPage.datasource" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <AppDesigner Include="Properties\" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Scv_Dal\Scv_Dal.csproj">
+      <Project>{9B7B25B2-D976-4D3C-AAA4-04FD43E4A38A}</Project>
+      <Name>Scv_Dal</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scv_Entities\Scv_Entities.csproj">
+      <Project>{C9F6A5C9-6383-49EA-B646-67A6452D3A14}</Project>
+      <Name>Scv_Entities</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\SCV_FSP_PaymentServiceBO\SCV_FSP_PaymentServiceBO.csproj">
+      <Project>{f730cfdc-637d-4b68-b950-45fbd90d6bee}</Project>
+      <Name>SCV_FSP_PaymentServiceBO</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scv_Model\Scv_Model.csproj">
+      <Project>{D2B20A16-7689-4120-91BB-D691AD6DC620}</Project>
+      <Name>Scv_Model</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Scv_Printer\Scv_Printer.csproj">
+      <Project>{AB5FE5BE-02B4-457B-A882-747A297AB903}</Project>
+      <Name>Scv_Printer</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Images\ButtonIcons\archive_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\archive_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\add-item.png" />
+    <Resource Include="Themes\Images\ButtonIcons\add-tickets.png" />
+    <Resource Include="Themes\Images\ButtonIcons\undo_16.png" />
+    <Content Include="Themes\Images\ButtonIcons\booking_32.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\newTableItem_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\booking_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Calendar_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Documents-icon.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Documents-icon32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Documents-icon48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Documents-icon64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Personnel_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\print_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Stats_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Users_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\price_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\warehouse_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\OpenItem_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\DeleteItem_96.png" />
+    <Resource Include="Themes\Images\ButtonIcons\schedule_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\schedule_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_new_off.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_new_on.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_delete_off.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_delete_on.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_edit_off.png" />
+    <Resource Include="Themes\Images\ButtonIcons\icn_edit_on.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Books_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Books_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Settings_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\Settings_24.png" />
+    <Resource Include="Themes\Images\icons\logo_90x90_rgb.png" />
+    <Resource Include="Themes\Images\icons\logo_thera.png" />
+    <Resource Include="Themes\Images\icons\logo_thera_24x16.png" />
+    <Resource Include="Themes\Images\icons\logo_thera_48x48.png" />
+    <Resource Include="Themes\Images\icons\logo_us_24x24.png" />
+    <Resource Include="Themes\Images\icons\logo_us_48x48.png" />
+    <Resource Include="Themes\Images\icons\logo_us_16x16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\delete_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\save-items.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_128.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_24.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_32.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_48.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_64.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_72.png" />
+    <Resource Include="Themes\Images\ButtonIcons\mail_96.png" />
+    <Resource Include="Themes\Images\icons\StemmaOdescalchi-32x35.gif" />
+    <Resource Include="Themes\Images\icons\blank.png" />
+    <Resource Include="Themes\Images\ButtonIcons\tickets_16.png" />
+    <Resource Include="Themes\Images\ButtonIcons\tickets_24.png" />
+    <Resource Include="Themes\Images\icons\logo_app_16x16.png" />
+    <Resource Include="Themes\Images\icons\StemmaOdescalchi286x186.png" />
+    <Resource Include="Themes\Images\icons\app_ico.ico" />
+    <Content Include="xml\PageTemplates.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

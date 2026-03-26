@@ -1,0 +1,1 @@
+﻿<%@ ServiceHost Language="C#" Debug="true" Service="SCV_FSP_PaymentServiceBO.PaymentServiceBO" CodeBehind="PaymentServiceBO.svc.cs" %>

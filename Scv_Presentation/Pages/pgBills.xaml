@@ -1,0 +1,239 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgBills"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"	
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+	Title="Guide">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="60"></RowDefinition>
+			<RowDefinition></RowDefinition>
+			<RowDefinition Height="30"></RowDefinition>
+			<RowDefinition Height="24"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Border Name="brdFilter" Grid.Row="0" BorderBrush="Blue" BorderThickness="1" Background="#f1f1f1">
+			<StackPanel Orientation="Horizontal">
+				<StackPanel Margin="27,10,10,10">
+					<Label Content="Tutte" Style="{StaticResource CaptionLabel}" />
+					<CheckBox Name="chkAll" Margin="28,3,0,0" />
+				</StackPanel>
+				<StackPanel Margin="10">
+					<Label Content="Anno" Style="{StaticResource CaptionLabel}" />
+					<telerik:RadComboBox
+						Name="cmbYear"
+						Width="100"
+						Style="{StaticResource ValidationRadComboBox}"
+						ItemsSource="{Binding Years}"
+						SelectedValue="{Binding SelectedYear.Number, Mode=TwoWay}"
+						DisplayMemberPath="Description"
+						SelectedValuePath="Number"
+						/>
+				</StackPanel>
+				<StackPanel Margin="10">
+					<Label Content=" Fino al mese di" Style="{StaticResource CaptionLabel}" />
+					<telerik:RadComboBox 
+						Name="cmbMonth" 
+						Width="100"
+						Style="{StaticResource ValidationRadComboBox}" 
+						ItemsSource="{Binding Months}"
+						SelectedValue="{Binding SelectedMonth.Number, Mode=TwoWay}"						
+						DisplayMemberPath="Description"
+						SelectedValuePath="Number"						
+						/>
+				</StackPanel>
+
+				<Border BorderBrush="Gray" BorderThickness="1" Margin="2">
+					<StackPanel Orientation="Horizontal">
+						<StackPanel Margin="5">
+							<Label Content="Esercizio di vendita" Style="{StaticResource CaptionLabel}" />
+							<telerik:RadComboBox 
+								Name="cmbStore" 
+								Width="200"
+								Style="{StaticResource ValidationRadComboBox}" 
+								ItemsSource="{Binding AvailableStores}"
+								SelectedValue="{Binding SelectedStoreID, Mode=TwoWay}"						
+								DisplayMemberPath="Descrizione"
+								SelectedValuePath="Id_EsercizioVendita"						
+								/>
+						</StackPanel>
+						<StackPanel Margin="5">
+							<Label Content="Stato bolle" Style="{StaticResource CaptionLabel}" />
+							<telerik:RadComboBox 
+								Name="cmbBillStatus" 
+								Width="100"
+								Style="{StaticResource ValidationRadComboBox}" 
+								ItemsSource="{Binding AvailableStatus}"
+								SelectedValue="{Binding SelectedBillStatusID, Mode=TwoWay}"						
+								DisplayMemberPath="Description"
+								SelectedValuePath="ID"						
+								/>
+						</StackPanel>
+
+						<StackPanel Orientation="Horizontal" Margin="5">
+							<telerik:RadButton Name="btnFilter"  Content="Filtra" MinWidth="100"/>
+							<telerik:RadButton Name="btnCancel"  Content="Elimina filtri" MinWidth="100"/>
+						</StackPanel>
+					</StackPanel>
+				</Border>
+			</StackPanel>
+		</Border>
+
+		<ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
+			<telerik:RadGridView	
+				Name="grdMaster" 
+				AutoGenerateColumns="False" 
+				VerticalAlignment="Top"
+				HorizontalAlignment="Stretch"
+				SelectionMode="Extended"
+				ItemsSource="{Binding MasterTable}"	
+				ScrollViewer.VerticalScrollBarVisibility="Auto"
+				ScrollMode="RealTime"
+				ShowGroupPanel="false"		
+				RowLoaded="grdMaster_RowLoaded"					 
+			>
+				<telerik:RadGridView.Columns>
+					<telerik:GridViewToggleRowDetailsColumn />
+
+					<telerik:GridViewSelectColumn
+						Name="selector"
+						Header="Da fatturare"
+						Width="100"
+						IsEnabled="{Binding CanBeInvoice}"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Stato Bolla"
+						DataMemberBinding="{Binding Status}"
+						Width="110"
+						/>
+
+					<telerik:GridViewDataColumn 
+						Header="Esercizio di vendita"
+						DataMemberBinding="{Binding Store}"
+						Width="200"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Anno"
+						DataMemberBinding="{Binding Year}"
+						Width="80"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Nr. Bolla"
+						DataMemberBinding="{Binding Document}"
+						Width="100"
+						/>
+
+					<telerik:GridViewDataColumn
+						Header="Tot. Bolla"
+						DataMemberBinding="{Binding Total, StringFormat=c, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+						Width="80"
+						/>
+
+				</telerik:RadGridView.Columns>
+				<telerik:RadGridView.RowDetailsTemplate>
+					<DataTemplate>
+						<telerik:RadGridView
+						Margin="20,0,10,10"
+						Name="grdDetails"
+						AutoGenerateColumns="False" 
+						VerticalAlignment="Top"
+						HorizontalAlignment="Stretch"						
+						SelectionMode="Single"
+						ScrollViewer.VerticalScrollBarVisibility="Auto"
+						ScrollMode="RealTime"
+						ShowGroupPanel="false"	
+						IsReadOnly="True"
+						Background="White"
+						ItemsSource="{Binding}" >
+							<telerik:RadGridView.Columns>
+								<telerik:GridViewDataColumn 
+								Header="ISBN"
+								DataMemberBinding="{Binding ISBN}"
+								Width="100"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="Articolo"
+								DataMemberBinding="{Binding Article}"
+								Width="200"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="Tipo Articolo"
+								DataMemberBinding="{Binding ArticleType}"
+								Width="150"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="Nr.Pezzi"
+								DataMemberBinding="{Binding Quantity}"
+								Width="100"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="Pr. pubblico"
+								DataMemberBinding="{Binding PublicPrice, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+								Width="100"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="Pr. scontato"
+								DataMemberBinding="{Binding Price, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"
+								Width="100"
+								ShowFilterButton="False"
+								/>
+
+								<telerik:GridViewDataColumn
+								Header="totale."
+								DataMemberBinding="{Binding Total, StringFormat=C, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"                    
+								Width="100"
+								ShowFilterButton="False"
+								/>
+							</telerik:RadGridView.Columns>
+						</telerik:RadGridView>
+					</DataTemplate>
+				</telerik:RadGridView.RowDetailsTemplate>
+
+				<telerik:RadContextMenu.ContextMenu>
+					<telerik:RadContextMenu 
+					x:Name="ContextMenu" 
+					ItemClick="contextMenu_Click" 
+					Opening="contextMenu_Opening">
+						<telerik:RadMenuItem Name="mnuPrint" Header="Stampa" CommandParameter="printSelected">
+							<telerik:RadMenuItem.IconTemplate>
+								<DataTemplate>
+									<Image Source="../Themes/Images/ButtonIcons/print_16.png" Stretch="UniformToFill"/>
+								</DataTemplate>
+							</telerik:RadMenuItem.IconTemplate>
+						</telerik:RadMenuItem>
+					</telerik:RadContextMenu>
+				</telerik:RadContextMenu.ContextMenu>
+			</telerik:RadGridView>
+		</ScrollViewer>
+		<telerik:RadDataPager 
+			Name="gridPager"
+			Grid.Row="2"
+			Source="{Binding Items, ElementName=grdMaster}"
+			DisplayMode="All"
+			AutoEllipsisMode="Both"
+			NumericButtonCount="10"
+			IsTotalItemCountFixed="True"
+			/>
+		<telerik:RadButton Name="btnInvoices" Content="Registra fatture per le bolle selezionate" Grid.Row="3" Width="300" HorizontalAlignment="Left"></telerik:RadButton>
+	</Grid>
+</my:BaseContentPage>

@@ -1,0 +1,85 @@
+﻿<my:BaseToolBarPage 
+	x:Class="Presentation.Pages.pgGuidesAssignmentToolBar"
+    xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="300"
+	xmlns:my="clr-namespace:Presentation"
+	Title="Guide">
+
+	<Grid>
+		<telerik:RadRibbonView
+			Name="rib"
+			Title="Prenotazioni"
+			ApplicationName="Scv"
+			VerticalAlignment="top"
+			HorizontalAlignment="Stretch"
+			TitleBarVisibility="Collapsed"
+			>
+			<telerik:RadRibbonTab Header="Home">
+				<telerik:RadRibbonGroup Header="Assegnazione guide">
+					<telerik:RadRibbonButton 
+						Name="btnAllAvv"
+						Width="Auto"
+						Height="45" 
+						BorderThickness="0.3" 
+						HorizontalContentAlignment="Center" 
+						Padding="3" 
+						Margin="3,0,0,0"
+						>
+						<StackPanel Width="100" Height="40" Orientation="Vertical">
+							<Image Width="16" Height="16" Source="/Themes/Images/ButtonIcons/mail_16.png" Stretch="Fill"/>
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Avverti tutti" TextWrapping="Wrap"/>
+						</StackPanel>
+					</telerik:RadRibbonButton>
+					<telerik:RadRibbonButton 
+							Name="btnAllAcc" 
+							Width="Auto"
+							Height="45" 
+							BorderThickness="0.3" 
+							HorizontalContentAlignment="Center" 
+							Padding="3" 
+							Margin="3,0,0,0"
+							Visibility="Collapsed"
+							>
+						<StackPanel Width="100" Height="40" Orientation="Vertical">
+							<Image Width="16" Height="16" Source="/Themes/Images/ButtonIcons/mail_16.png" Stretch="Fill"/>
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Accetta tutti" TextWrapping="Wrap"/>
+						</StackPanel>
+					</telerik:RadRibbonButton>
+					<telerik:RadRibbonButton 
+							Name="btnSend" 
+							Width="Auto"
+							Height="45" 
+							BorderThickness="0.3" 
+							HorizontalContentAlignment="Center" 
+							Padding="3" 
+							Margin="3,0,0,0"
+							>
+						<StackPanel Width="100" Height="40" Orientation="Vertical">
+							<Image Width="16" Height="16" Source="/Themes/Images/ButtonIcons/mail_16.png" Stretch="Fill"/>
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Invia notifiche" TextWrapping="Wrap"/>
+						</StackPanel>
+					</telerik:RadRibbonButton>
+					<telerik:RadRibbonButton 
+							Name="btnPrintAll" 
+							Width="Auto"
+							Height="45" 
+							BorderThickness="0.3" 
+							HorizontalContentAlignment="Center" 
+							Padding="3" 
+							Margin="3,0,0,0"
+							>
+						<StackPanel Width="100" Height="40" Orientation="Vertical">
+							<Image Width="16" Height="16" Source="/Themes/Images/ButtonIcons/print_16.png" Stretch="Fill"/>
+							<TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" Text="Stampa lista" TextWrapping="Wrap"/>
+						</StackPanel>
+					</telerik:RadRibbonButton>
+				</telerik:RadRibbonGroup>
+			</telerik:RadRibbonTab>
+		</telerik:RadRibbonView>
+	</Grid>
+</my:BaseToolBarPage>

@@ -1,0 +1,143 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgSettingsClosings"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	Title="Guide">
+
+	<Grid Margin="10">
+		<Grid.RowDefinitions>
+			<RowDefinition Height="50"></RowDefinition>
+			<RowDefinition></RowDefinition>
+		</Grid.RowDefinitions>
+		<telerik:RadGridView			
+			Name="grdMaster" 
+			Grid.Row="1"
+			AutoGenerateColumns="False" 
+			VerticalAlignment="Top"
+			HorizontalAlignment="Stretch"
+			SelectionMode="Single"
+			ItemsSource="{Binding}"	
+			ScrollViewer.VerticalScrollBarVisibility="Auto"
+			ScrollMode="RealTime"
+			>
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn 
+					Header="Anno"
+					DataMemberBinding="{Binding Anno}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn 
+					Header="Mese"
+					DataMemberBinding="{Binding Mese}"
+					Width="70"
+					/>
+				
+				<telerik:GridViewDataColumn 
+					Header="Giorno"
+					DataMemberBinding="{Binding Giorno}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="AM"
+					DataMemberBinding="{Binding Fl_AM}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="PM"
+					DataMemberBinding="{Binding Fl_PM}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="Fisso"
+					DataMemberBinding="{Binding Fl_Fisso}"
+					Width="70"
+					/>
+
+				<telerik:GridViewDataColumn
+					Header="Nota"
+					DataMemberBinding="{Binding Nota}"
+					/>
+
+			</telerik:RadGridView.Columns>
+			<telerik:RadContextMenu.ContextMenu>
+				<telerik:RadContextMenu 
+					x:Name="ContextMenu" 
+					ItemClick="contextMenu_Click" 
+					Opening="contextMenu_Opening">
+					<telerik:RadMenuItem Name="mnuOpen" Header="Apri" CommandParameter="open">
+						<telerik:RadMenuItem.IconTemplate>
+							<DataTemplate>
+								<Image Source="../Themes/Images/ButtonIcons/OpenItem_16.png" Stretch="UniformToFill"/>
+							</DataTemplate>
+						</telerik:RadMenuItem.IconTemplate>
+					</telerik:RadMenuItem>
+					<telerik:RadMenuItem Name="mnuDelete" Header="Elimina" CommandParameter="delete">
+						<telerik:RadMenuItem.IconTemplate>
+							<DataTemplate>
+								<Image Source="../Themes/Images/ButtonIcons/DeleteItem_16.png" Stretch="UniformToFill"/>
+							</DataTemplate>
+						</telerik:RadMenuItem.IconTemplate>
+					</telerik:RadMenuItem>
+				</telerik:RadContextMenu>
+			</telerik:RadContextMenu.ContextMenu>
+		</telerik:RadGridView>
+		<StackPanel Grid.Row="0">
+			<Border BorderBrush="LightGray" BorderThickness="0.5">
+				<Grid>
+					<Grid.RowDefinitions>
+						<RowDefinition></RowDefinition>
+					</Grid.RowDefinitions>
+					<Grid.ColumnDefinitions>
+						<ColumnDefinition Width="150"></ColumnDefinition>
+						<ColumnDefinition Width="150"></ColumnDefinition>
+						<ColumnDefinition Width="150"></ColumnDefinition>
+						<ColumnDefinition Width="150"></ColumnDefinition>
+					</Grid.ColumnDefinitions>
+					<StackPanel>
+						<Label Content="Duplicazione date fisse"></Label>
+					</StackPanel>
+					<StackPanel Grid.Column="1">
+						<Label Content="Anno di partenza"></Label>
+						<telerik:RadComboBox 
+							Name="cmbSourceYear" 
+							Style="{StaticResource ValidationRadComboBox}"
+							Width="150"
+							ItemsSource="{Binding AvailableSourceYears}"
+							SelectedValue="{Binding SelectedSourceYear.Number, Mode=TwoWay}"
+							DisplayMemberPath="Description"
+							SelectedValuePath="Number"
+							/>
+					</StackPanel>
+					<StackPanel Grid.Column="2">
+						<Label Content="Anno di destinazione"></Label>
+						<telerik:RadComboBox 
+							Name="cmbDestinationYear" 
+							Style="{StaticResource ValidationRadComboBox}"
+							Width="150"
+							ItemsSource="{Binding AvailableDestinationYears}"
+							SelectedValue="{Binding SelectedDestinationYear.Number, Mode=TwoWay}"
+							DisplayMemberPath="Description"
+							SelectedValuePath="Number"
+							/>
+					</StackPanel>
+					<StackPanel Grid.Column="3">
+						<Label Height="25"></Label>
+						<telerik:RadButton Name="btnDuplicate" Content="Duplica">
+						
+						</telerik:RadButton>
+					</StackPanel>
+				</Grid>				
+			</Border>
+		</StackPanel>
+	</Grid>
+	</my:BaseContentPage>

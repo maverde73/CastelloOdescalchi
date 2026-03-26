@@ -1,0 +1,40 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.cache
+*.dll.config
+TestResults/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+.venv*/
+
+# Buildozer / Android
+.buildozer/
+simulator/kivy_app/.buildozer/
+simulator/kivy_app/bin/
+
+# APK binaries
+*.apk
+
+# IDE
+.idea/
+.vscode/
+*.swp
+
+# Logs
+*.log
+
+# Docker volumes
+sqldata/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# NuGet (keep packages/ as it contains vendor DLLs)
+# packages/ is tracked — contains manually managed vendor dependencies

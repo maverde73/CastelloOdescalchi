@@ -1,0 +1,147 @@
+﻿<my:BaseDetailPage 
+	x:Class="Presentation.wndVisitTypeDetail"
+	xmlns:my1="clr-namespace:ShiftManager;assembly=ShiftManager"  
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+	xmlns:telerik2="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls" 
+	xmlns:telerikGrid="clr-namespace:Telerik.Windows.Controls;assembly=Telerik.Windows.Controls.GridView"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	xmlns:my="clr-namespace:Presentation"
+	xmlns:local="clr-namespace:Presentation"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+    mc:Ignorable="d" 
+	xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	xmlns:ent="clr-namespace:Scv_Entities;assembly=Scv_Entities"
+    Title="Tipologie Visite" 
+	Height="280" 
+	Width="630"
+	ResizeMode="NoResize"
+	Icon="../Themes/Images/icons/logo_us_16x16.png">
+    <Window.CommandBindings>
+        <CommandBinding Command="New" CanExecute="Confirm_CanExecute" Executed="Confirm_Executed" />
+    </Window.CommandBindings>
+
+    <Grid Name="grdVisitTypeDetail">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="5"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Border Grid.Row="0" BorderBrush="Blue"  BorderThickness="1" Background="#f1f1f1">
+            <Grid  Margin="10" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                    <RowDefinition Height="Auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.Row="0" Margin="3" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="300"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                        <ColumnDefinition Width="100"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <DockPanel Grid.Column="0" >
+                        <Label Content="Nome" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+                        <TextBox Name="txtNome" Validation.Error="Validation_Error"
+                                 Text="{Binding ObjTipoVisita.Descrizione, 
+								                Mode=TwoWay, 
+    								            ValidatesOnDataErrors=True,
+								                NotifyOnValidationError=True,
+								                UpdateSourceTrigger=PropertyChanged}" MaxLength="50" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+
+                        </TextBox>
+                    </DockPanel>
+                    <DockPanel Grid.Column="1" >
+                        <Label Content="Simbolo" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+                        <TextBox Name="txtSimbolo" Validation.Error="Validation_Error" 
+                                 Text="{Binding ObjTipoVisita.Simbolo, 
+								                Mode=TwoWay, 
+    								            ValidatesOnDataErrors=True,
+								                NotifyOnValidationError=True,
+								                UpdateSourceTrigger=PropertyChanged}" MaxLength="5" Style="{StaticResource DataTextBox}" HorizontalAlignment="Stretch">
+
+                        </TextBox>
+                    </DockPanel>
+                    <DockPanel Grid.Column="2">
+                        <Label Content="Ordine" Style="{StaticResource CaptionLabel}" HorizontalAlignment="Stretch" DockPanel.Dock="Top" />
+                        <telerik:RadNumericUpDown
+							Name="nudOrdine"
+							Minimum="0"
+							Maximum="999"
+							Validation.Error="Validation_Error"
+   							Style="{StaticResource DataRadNumericUpDown}"
+							NumberDecimalDigits="0"
+							Value="{Binding ObjTipoVisita.Ordine,
+								Mode=TwoWay, 
+								ValidatesOnDataErrors=True,
+								NotifyOnValidationError=True,
+								UpdateSourceTrigger=PropertyChanged}"/>
+			        </DockPanel>
+                </Grid>
+                <telerik:RadGridView 
+							    Name="grdTicketTypes"
+								CanUserSortColumns="False"								
+							    AutoGenerateColumns="False" 
+							    SelectionMode="Single"
+							    ShowGroupPanel="False"					
+  							    ItemsSource="{Binding SrcTickets}"
+                                RowIndicatorVisibility="Collapsed"
+                                ScrollViewer.CanContentScroll="true"
+                                 ScrollViewer.VerticalScrollBarVisibility="Auto"
+                             	ScrollMode="RealTime" Grid.Row="1" HorizontalAlignment="Stretch">
+                    <telerik:RadGridView.Columns>
+                        <telerik:GridViewDataColumn UniqueName="TipoBiglietto" Header="Tipo Biglietto" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding Tipo, FallbackValue=''}" Width="60*" >
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBlock Text="{Binding Tipo, FallbackValue=''}"></TextBlock>
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                        <telerik:GridViewDataColumn TextAlignment="Center" UniqueName="Attivo" Header="Attivo" IsReadOnly="True"  IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Attivo, FallbackValue=''}" Width="20*" >
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate>
+                                    <StackPanel HorizontalAlignment="Center">
+                                        <CheckBox  IsChecked="{Binding Attivo, 
+								            Mode=TwoWay, 
+								            ValidatesOnDataErrors=True,
+								            NotifyOnValidationError=True,
+								            UpdateSourceTrigger=PropertyChanged }" />
+                                    </StackPanel>
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                        <telerik:GridViewDataColumn UniqueName="Prezzo" Header="Prezzo" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding Prezzo, FallbackValue=''}" Width="20*">
+                            <telerik:GridViewDataColumn.CellTemplate>
+                                <DataTemplate>
+                                    <TextBox Text="{Binding Prezzo, 
+								               Mode=TwoWay, 
+    								           ValidatesOnDataErrors=False,
+								               NotifyOnValidationError=False,
+								               UpdateSourceTrigger=PropertyChanged}"
+                                               IsEnabled="{Binding PrezzoIsEnabled}"/>
+                                </DataTemplate>
+                            </telerik:GridViewDataColumn.CellTemplate>
+                        </telerik:GridViewDataColumn>
+                    </telerik:RadGridView.Columns>
+                </telerik:RadGridView>
+            </Grid>
+        </Border>
+
+        <Border Name="brdButtons" Grid.Row="2" BorderBrush="#ffffff" BorderThickness="0" Background="#ffffff">
+            <Grid x:Name="grdButtons" Margin="3" >
+                <StackPanel Orientation="Horizontal">
+                    <telerik:RadButton Name="btnSave" Content="Salva" Width="100" Height="25" />
+                    <telerik:RadButton Name="btnDelete" Content="Elimina" Width="100" Height="25" />
+                </StackPanel>
+            </Grid>
+        </Border>
+    </Grid>
+</my:BaseDetailPage>
+
+

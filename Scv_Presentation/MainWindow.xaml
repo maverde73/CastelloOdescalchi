@@ -1,0 +1,66 @@
+﻿<Window x:Class="Presentation.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" 
+		Height="350" 
+		Width="525"
+		WindowState="Maximized" 
+		WindowStartupLocation="CenterScreen"
+		Icon="Themes/Images/icons/logo_app_16x16.png"
+		>
+	
+	<Grid>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="125" /><!-- toolbar -->
+			<RowDefinition Height="5*" /><!-- menu, context buttons & contents -->
+			<RowDefinition Height="30" /><!-- status bar -->
+		</Grid.RowDefinitions>
+		
+		<!-- toolbar -->
+		<Border
+			BorderThickness="0 0 0 3"
+			BorderBrush="#a0c3e6"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"		
+			Grid.Column="0" 
+			Grid.Row="0"
+			>
+		<Frame Name="frmHeader" Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" NavigationUIVisibility="Hidden"></Frame>		
+		</Border>
+
+        <Grid Grid.Row="1" x:Name="LayoutRoot" >
+            <Grid.Resources/>
+
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+               <!--outlook bar-->
+				<Border BorderBrush="#ffffff" Grid.Column="0" BorderThickness="1" Background="White" Margin="0,9,3,9">
+					<Frame Name="frmMenu" NavigationUIVisibility="Hidden" />
+				</Border>
+				<Border BorderBrush="#918D8F" Grid.Column="1" BorderThickness="1" Background="White" Margin="3,10,0,10">
+                    <Grid>
+                        <!-- contents -->
+                        <Frame Name="frmContent"  NavigationUIVisibility="Hidden" />
+                    </Grid>
+                </Border>
+            </Grid>
+        </Grid>
+
+
+        <!-- status bar -->
+        <Border
+			BorderThickness="0 3 0 0"
+			BorderBrush="#a0c3e6"
+			HorizontalAlignment="Stretch"
+			VerticalAlignment="Stretch"	
+			Grid.Column="0" 
+			Grid.Row="3"
+			>
+            <Frame Name="frmFooter" Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" BorderBrush="#a0c3e6" NavigationUIVisibility="Hidden"></Frame>
+        </Border>
+    </Grid>
+</Window>

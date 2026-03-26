@@ -1,0 +1,344 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<PageTemplates>
+
+  
+  <PageTemplate>
+	<ID>0</ID>
+	<ContentPageUrl>ucOutLookBar.xaml</ContentPageUrl>
+	<ContentPageTitle>OutLookBar</ContentPageTitle>
+	<ContentPageName>outlookbar</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl></ToolBarPageUrl>
+	<ButtonText></ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  
+</PageTemplate>
+  
+
+  <PageTemplate>
+	<ID>1</ID>
+	<ContentPageUrl>pgBooking.xaml</ContentPageUrl>
+	<ContentPageTitle>Prenotazioni</ContentPageTitle>
+	<ContentPageName>booking</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgBookingToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Prenotazioni</ButtonText>
+	<ButtonIconFileName>booking_32.png</ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>2</ID>
+	<ContentPageUrl>pgGuides.xaml</ContentPageUrl>
+	<ContentPageTitle>Guide</ContentPageTitle>
+	<ContentPageName>guides</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgGuidesToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Guide</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>3</ID>
+	<ContentPageUrl>pgStores.xaml</ContentPageUrl>
+	<ContentPageTitle>Esercizi di Vendita</ContentPageTitle>
+	<ContentPageName>stores</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgStoresToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Esercizi di Vendita</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+    <ID>4</ID>
+    <ContentPageUrl>pgGoods.xaml</ContentPageUrl>
+    <ContentPageTitle>Articoli</ContentPageTitle>
+    <ContentPageName>goods</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgGoodsToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Articoli</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+    <ID>5</ID>
+    <ContentPageUrl>pgSettingsPersonal.xaml</ContentPageUrl>
+    <ContentPageTitle>Dati personali</ContentPageTitle>
+	  <ContentPageName>settings_personal</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgSettingsPersonalToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Impostazioni</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>6</ID>
+	<ContentPageUrl>pgSettingsUsers.xaml</ContentPageUrl>
+	<ContentPageTitle>Utenti</ContentPageTitle>
+	<ContentPageName>settings_users</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgSettingsUsersToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Impostazioni</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>7</ID>
+	<ContentPageUrl>pgSettingsClosings.xaml</ContentPageUrl>
+	<ContentPageTitle>Chiusure</ContentPageTitle>
+	<ContentPageName>settings_closings</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgSettingsClosingsToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Impostazioni</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>8</ID>
+	<ContentPageUrl>pgSettingsPersonal.xaml</ContentPageUrl>
+	<ContentPageTitle>Dati personali</ContentPageTitle>
+	<ContentPageName>settings_personal</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgSettingsPersonalToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Impostazioni</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>9</ID>
+	<ContentPageUrl>pgWarehouse.xaml</ContentPageUrl>
+	<ContentPageTitle>Generale</ContentPageTitle>
+	<ContentPageName>warehouse</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgWarehouseToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Magazzino</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>10</ID>
+	<ContentPageUrl>pgWarehouseMovements.xaml</ContentPageUrl>
+	<ContentPageTitle>Movimenti</ContentPageTitle>
+	<ContentPageName>warehouse_movements</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgWarehouseMovementsToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Magazzino</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>11</ID>
+	<ContentPageUrl>pgGuidesMovements.xaml</ContentPageUrl>
+	<ContentPageTitle>Movimenti</ContentPageTitle>
+	<ContentPageName>guides_movements</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgGuidesMovementsToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Mandato</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>12</ID>
+	<ContentPageUrl>pgGuidesPayRoll.xaml</ContentPageUrl>
+	<ContentPageTitle>Buste paga guide</ContentPageTitle>
+	<ContentPageName>guides_payroll</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgGuidesPayRollToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Buste paga guide</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>13</ID>
+	<ContentPageUrl>pgGuidesAssignment.xaml</ContentPageUrl>
+	<ContentPageTitle>Assegnazioni guide</ContentPageTitle>
+	<ContentPageName>guides_assignment</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgGuidesAssignmentToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Assegnazioni guide</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>1</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>14</ID>
+	<ContentPageUrl>pgEvidenzeGiornaliere.xaml</ContentPageUrl>
+	<ContentPageTitle>Cerca Visite</ContentPageTitle>
+	<ContentPageName>evidenze_giornaliere</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgEvidenzeGiornaliereToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Evidenze Giornaliere</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>15</ID>
+	<ContentPageUrl>pgBills.xaml</ContentPageUrl>
+	<ContentPageTitle>Bolle consegnate</ContentPageTitle>
+	<ContentPageName>bills</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgBillsToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Bolle consegnate</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>16</ID>
+	<ContentPageUrl>pgInvoices.xaml</ContentPageUrl>
+	<ContentPageTitle>Fatture</ContentPageTitle>
+	<ContentPageName>invoices</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgInvoicesToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Fatture</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>17</ID>
+	<ContentPageUrl>pgTicketOffice.xaml</ContentPageUrl>
+	<ContentPageTitle>Emissione per visite</ContentPageTitle>
+	<ContentPageName>ticketoffice</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgTicketOfficeToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Biglietteria</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>18</ID>
+	<ContentPageUrl>pgPrivateSellMovements.xaml</ContentPageUrl>
+	<ContentPageTitle>Vendite a privati</ContentPageTitle>
+	<ContentPageName>privatesell_movements</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgPrivateSellMovementsToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Magazzino</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>19</ID>
+	<ContentPageUrl>pgMandato.xaml</ContentPageUrl>
+	<ContentPageTitle>Gestione</ContentPageTitle>
+	<ContentPageName>mandato_gestione</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgMandatoToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Mandato</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>20</ID>
+	<ContentPageUrl>pgInventario.xaml</ContentPageUrl>
+	<ContentPageTitle>Inventario</ContentPageTitle>
+	<ContentPageName>inventario</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgInventarioToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Inventario</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>21</ID>
+	<ContentPageUrl>pgFirmaGuide.xaml</ContentPageUrl>
+	<ContentPageTitle>Firma guide</ContentPageTitle>
+	<ContentPageName>firmaguide</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgFirmaGuideToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Firma guide</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+	<ID>21</ID>
+	<ContentPageUrl>pgPagamentiAnnullati.xaml</ContentPageUrl>
+	<ContentPageTitle>Pagamenti annullati</ContentPageTitle>
+	<ContentPageName>pagamentiannullati</ContentPageName>
+	<MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+	<ToolBarPageUrl>pgPagamentiAnnullatiToolBar.xaml</ToolBarPageUrl>
+	<ButtonText>Pagamenti annullati</ButtonText>
+	<ButtonIconFileName></ButtonIconFileName>
+	<Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+    <ID>22</ID>
+    <ContentPageUrl>pgEasyTicketing.xaml</ContentPageUrl>
+    <ContentPageTitle>Emissione Diretta</ContentPageTitle>
+    <ContentPageName>ticketing</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgEasyTicketingToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Biglietteria Rapida</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+    <Dynamic>0</Dynamic>
+  </PageTemplate>
+
+  <PageTemplate>
+    <ID>23</ID>
+    <ContentPageUrl>pgSettingsVisitTypes.xaml</ContentPageUrl>
+    <ContentPageTitle>Tipologie Visite</ContentPageTitle>
+    <ContentPageName>settings_visittypes</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgSettingsVisitTypesToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Tipologie Visite</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+    <Dynamic>0</Dynamic>
+  </PageTemplate>
+  <PageTemplate>
+    <ID>24</ID>
+    <ContentPageUrl>pgScheduledTours.xaml</ContentPageUrl>
+    <ContentPageTitle>Visite</ContentPageTitle>
+    <ContentPageName>scheduled_tours</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgScheduledToursToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Visite Programmate</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+    <Dynamic>0</Dynamic>
+  </PageTemplate>
+  <PageTemplate>
+    <ID>5</ID>
+    <ContentPageUrl>pgStats.xaml</ContentPageUrl>
+    <ContentPageTitle>Statistiche</ContentPageTitle>
+    <ContentPageName>statistics</ContentPageName>
+    <MenuPageUrl>ucOutLookBar.xaml</MenuPageUrl>
+    <ToolBarPageUrl>pgStatsToolBar.xaml</ToolBarPageUrl>
+    <ButtonText>Statistiche</ButtonText>
+    <ButtonIconFileName></ButtonIconFileName>
+    <Dynamic>1</Dynamic>
+  </PageTemplate>
+
+
+
+  <PageTemplate>
+    <ID>0</ID>
+    <ContentPageUrl>pgFooter.xaml</ContentPageUrl>
+    <ContentPageTitle>Footer</ContentPageTitle>
+    <ContentPageName>footer</ContentPageName>
+    <MenuPageUrl></MenuPageUrl>
+    <ToolBarPageUrl></ToolBarPageUrl>
+    <Dynamic>0</Dynamic>
+
+  </PageTemplate>
+  
+
+
+</PageTemplates>

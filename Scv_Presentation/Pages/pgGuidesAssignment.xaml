@@ -1,0 +1,148 @@
+﻿<my:BaseContentPage 
+	x:Class="Presentation.Pages.pgGuidesAssignment"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	xmlns:telerik="http://schemas.telerik.com/2008/xaml/presentation"
+    xmlns:helpers="clr-namespace:Presentation.Helpers"	
+	xmlns:sysglb="clr-namespace:System.Globalization;assembly=mscorlib"		
+    mc:Ignorable="d" 
+    d:DesignHeight="300" d:DesignWidth="800"
+	xmlns:my="clr-namespace:Presentation"
+	IsEnabled="{Binding IsEnabled}"
+	Title="Guide">
+
+	<Grid Margin="10" VirtualizingStackPanel.VirtualizationMode="Recycling">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="200"></ColumnDefinition>
+			<ColumnDefinition></ColumnDefinition>
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="*"></RowDefinition>
+			<RowDefinition Height="24"></RowDefinition>
+		</Grid.RowDefinitions>
+		<Grid HorizontalAlignment="Stretch" Grid.Column="0" Grid.Row="0" Grid.RowSpan="2" Margin="0,0,5,0">
+			<Grid.RowDefinitions>
+				<RowDefinition Height="auto"></RowDefinition>
+				<RowDefinition Height="24"></RowDefinition>
+				<RowDefinition Height="24"></RowDefinition>
+				<RowDefinition Height="50*"></RowDefinition>
+			</Grid.RowDefinitions>
+			<telerik:RadCalendar Name="clnVisits" Grid.Row="0" SelectionMode="Single"/>
+			<telerik:RadButton Name="btnCancelSelection" Content="Tutto il mese" Grid.Row="1" />
+			<StackPanel Orientation="Horizontal" Grid.Row="2" Margin="0,3,0,0">
+				<Label Content="Filtra guide" Style="{StaticResource CaptionLabel}" Width="70"/>
+				<TextBox Name="txtFltCognome" MinWidth="110" HorizontalAlignment="Stretch" />
+			</StackPanel>
+			<telerik:RadListBox	
+				Name="lstGuides" 
+				Grid.Row="3" 
+				Margin="0,3,0,0"				
+				ItemsSource="{Binding AvailableGuidesFilter}"
+				SelectedValue="{Binding SelectedGuideFilterID, Mode=TwoWay}"						
+				DisplayMemberPath="Nominativo"
+				SelectedValuePath="Id_Guida"		
+				SelectionChanged="lstGuides_SelectionChanged"
+				/>
+			<Grid.Resources>
+				<Style TargetType="telerik:RadComboBox" >
+					<EventSetter Event="SelectionChanged" Handler="ComboBox_SelectionChanged" />
+				</Style>
+			</Grid.Resources>
+		</Grid>
+		<telerik:RadGridView		
+			Name="grdMaster" 
+			Grid.Column="1"					
+			AutoGenerateColumns="False"
+			ItemsSource="{Binding SrcEvidenzeGiornaliere}"	
+			SelectedItem="{Binding SelectedItem}">
+			<telerik:RadGridView.Columns>
+				<telerik:GridViewDataColumn  Header="Data visita" IsReadOnly="True" IsFilterable="False" ShowFilterButton="False" DataMemberBinding="{Binding Dt_Visita, StringFormat=D, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}"  Width="150" />
+				
+				<telerik:GridViewDataColumn  Header="Ora" IsReadOnly="True" IsFilterable="False" ShowFilterButton="False" DataMemberBinding="{Binding Ora_Visita}"  Width="50" />
+				
+				<telerik:GridViewDataColumn  Header="Lingua" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding LinguaVisita}"  Width="100" />
+
+				<telerik:GridViewDataColumn  Header="Tipo" IsReadOnly="True" IsFilterable="False"  ShowFilterButton="False" DataMemberBinding="{Binding TipoVisita}"  Width="40" />
+
+				<telerik:GridViewDataColumn
+					DataMemberBinding="{Binding AvailableGuides}"
+					IsFilterable="False" 
+					ShowFilterButton="False"						
+					Width="150">
+					<telerik:GridViewDataColumn.Header>
+						<TextBlock Text="Guida"></TextBlock>
+					</telerik:GridViewDataColumn.Header>
+					<telerik:GridViewDataColumn.CellTemplate>
+						<DataTemplate>
+							<TextBlock Text="{Binding Nominativo}" Foreground="{Binding GuideForeground}"></TextBlock>
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellTemplate>
+					<telerik:GridViewDataColumn.CellEditTemplate>
+						<DataTemplate>
+							<telerik:RadComboBox 
+								Name="cmbGuida"
+								ItemsSource="{Binding AvailableGuides}" 
+								SelectedValue="{Binding Id_Guida}"
+								SelectedValuePath="Id_Guida"
+								DisplayMemberPath="Nominativo"/>
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellEditTemplate>
+				</telerik:GridViewDataColumn>
+
+				<telerik:GridViewDataColumn
+					DataMemberBinding="{Binding Fl_AvvisaGuida, Mode=TwoWay}"
+					IsFilterable="False" 
+					ShowFilterButton="False"
+					Width="30">
+					<telerik:GridViewDataColumn.Header>
+						<TextBlock Text="Avv." TextWrapping="Wrap"></TextBlock>
+					</telerik:GridViewDataColumn.Header>
+					<telerik:GridViewDataColumn.CellTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding Fl_AvvisaGuida}" IsThreeState="False" IsEnabled="{Binding IsAvvisaEnabled}" />
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellTemplate>
+					<telerik:GridViewDataColumn.CellEditTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding Fl_AvvisaGuida, Mode=TwoWay}" IsThreeState="False"  IsEnabled="{Binding IsAvvisaEnabled}" />
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellEditTemplate>
+				</telerik:GridViewDataColumn>
+				
+				<telerik:GridViewDataColumn
+					DataMemberBinding="{Binding Fl_AccettaGuida, Mode=TwoWay}"
+					IsFilterable="False" 
+					ShowFilterButton="False"
+					Width="40">
+					<telerik:GridViewDataColumn.Header>
+						<TextBlock Text="Acc." TextWrapping="Wrap"></TextBlock>
+					</telerik:GridViewDataColumn.Header>
+					<telerik:GridViewDataColumn.CellTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding Fl_AccettaGuida}" IsThreeState="False" IsEnabled="False" />
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellTemplate>
+					<telerik:GridViewDataColumn.CellEditTemplate>
+						<DataTemplate>
+							<CheckBox IsChecked="{Binding Fl_AccettaGuida, Mode=TwoWay}" IsThreeState="False"   />
+						</DataTemplate>
+					</telerik:GridViewDataColumn.CellEditTemplate>
+				</telerik:GridViewDataColumn>
+
+				<telerik:GridViewDataColumn  Header="Ult. avviso" IsReadOnly="True" IsFilterable="False" ShowFilterButton="False" DataMemberBinding="{Binding Dt_InvioAvviso, StringFormat=d, ConverterCulture={x:Static sysglb:CultureInfo.CurrentUICulture}}" Width="80" />
+				
+				<telerik:GridViewDataColumn  Header="Nota" IsReadOnly="False" IsFilterable="False"  ShowFilterButton="False"  DataMemberBinding="{Binding Nota, Mode=TwoWay}" Width="250" />
+			</telerik:RadGridView.Columns>
+		</telerik:RadGridView>
+		<Grid Grid.Column="1" Grid.Row="1">
+			<Grid.ColumnDefinitions>
+				<ColumnDefinition Width="200"></ColumnDefinition>
+				<ColumnDefinition Width="100*"></ColumnDefinition>
+			</Grid.ColumnDefinitions>
+			<telerik:RadButton Grid.Column="0" Name="bntApply" Content="Assegnazioni/Note"></telerik:RadButton>
+			<ProgressBar Grid.Column="1" Minimum="0" Maximum="100" Value="{Binding PgValue}"></ProgressBar>			
+		</Grid>
+	</Grid>
+</my:BaseContentPage>
