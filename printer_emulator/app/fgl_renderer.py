@@ -17,23 +17,26 @@ TICKET_COLS = 624       # width in dots (X)
 BG_COLOR = (255, 255, 255)
 FG_COLOR = (0, 0, 0)
 
-# Font mapping: RTF ID -> (font_file, is_bold)
-# DejaVu Sans ≈ Verdana, DejaVu Sans Bold ≈ Verdana Bold
+# Font mapping: RTF ID -> font_file
+# Uses bundled Liberation fonts (portable, no system font dependency)
+import os as _os
+_FONT_DIR = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "fonts")
+
 FONT_MAP = {
-    1: "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",          # Comic Sans → DejaVu Sans
-    2: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",     # Comic Sans Bold
-    3: "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",          # Verdana → DejaVu Sans
-    4: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",     # Verdana Bold → DejaVu Sans Bold
-    5: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf",  # Verdana Italic
-    6: "/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf",  # Verdana Bold Italic
-    7: "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
-    8: "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf",
-    9: "/usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf",
-    10: "/usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf",
+    1: _os.path.join(_FONT_DIR, "LiberationSans-Regular.ttf"),      # Comic Sans → Liberation Sans
+    2: _os.path.join(_FONT_DIR, "LiberationSans-Bold.ttf"),         # Comic Sans Bold
+    3: _os.path.join(_FONT_DIR, "LiberationSans-Regular.ttf"),      # Verdana → Liberation Sans
+    4: _os.path.join(_FONT_DIR, "LiberationSans-Bold.ttf"),         # Verdana Bold
+    5: _os.path.join(_FONT_DIR, "LiberationSans-Italic.ttf"),       # Verdana Italic
+    6: _os.path.join(_FONT_DIR, "LiberationSans-BoldItalic.ttf"),   # Verdana Bold Italic
+    7: _os.path.join(_FONT_DIR, "LiberationMono-Regular.ttf"),
+    8: _os.path.join(_FONT_DIR, "LiberationMono-Bold.ttf"),
+    9: _os.path.join(_FONT_DIR, "LiberationMono-Italic.ttf"),
+    10: _os.path.join(_FONT_DIR, "LiberationMono-BoldItalic.ttf"),
 }
 
 BITMAP_FONT_MAP = {
-    3: ("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 10),  # F3 OCRB ~10px
+    3: (_os.path.join(_FONT_DIR, "LiberationMono-Regular.ttf"), 10),  # F3 OCRB ~10px
 }
 
 

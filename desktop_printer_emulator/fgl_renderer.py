@@ -17,26 +17,23 @@ TICKET_COLS = 624       # width in dots (X)
 BG_COLOR = (255, 255, 255)
 FG_COLOR = (0, 0, 0)
 
-# Font mapping: RTF ID -> font_file
-# Uses bundled Liberation fonts (portable, no system font dependency)
-import os as _os
-_FONT_DIR = _os.path.join(_os.path.dirname(_os.path.abspath(__file__)), "app", "fonts")
-
+# Font mapping: RTF ID -> (font_file, is_bold)
+# DejaVu Sans ≈ Verdana, DejaVu Sans Bold ≈ Verdana Bold
 FONT_MAP = {
-    1: _os.path.join(_FONT_DIR, "LiberationSans-Regular.ttf"),
-    2: _os.path.join(_FONT_DIR, "LiberationSans-Bold.ttf"),
-    3: _os.path.join(_FONT_DIR, "LiberationSans-Regular.ttf"),
-    4: _os.path.join(_FONT_DIR, "LiberationSans-Bold.ttf"),
-    5: _os.path.join(_FONT_DIR, "LiberationSans-Italic.ttf"),
-    6: _os.path.join(_FONT_DIR, "LiberationSans-BoldItalic.ttf"),
-    7: _os.path.join(_FONT_DIR, "LiberationMono-Regular.ttf"),
-    8: _os.path.join(_FONT_DIR, "LiberationMono-Bold.ttf"),
-    9: _os.path.join(_FONT_DIR, "LiberationMono-Italic.ttf"),
-    10: _os.path.join(_FONT_DIR, "LiberationMono-BoldItalic.ttf"),
+    1: "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",          # Comic Sans → DejaVu Sans
+    2: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",     # Comic Sans Bold
+    3: "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",          # Verdana → DejaVu Sans
+    4: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",     # Verdana Bold → DejaVu Sans Bold
+    5: "/usr/share/fonts/truetype/dejavu/DejaVuSans-Oblique.ttf",  # Verdana Italic
+    6: "/usr/share/fonts/truetype/dejavu/DejaVuSans-BoldOblique.ttf",  # Verdana Bold Italic
+    7: "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    8: "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf",
+    9: "/usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf",
+    10: "/usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf",
 }
 
 BITMAP_FONT_MAP = {
-    3: (_os.path.join(_FONT_DIR, "LiberationMono-Regular.ttf"), 10),
+    3: ("/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf", 10),  # F3 OCRB ~10px
 }
 
 
@@ -438,16 +435,16 @@ def substitute_placeholders(template, values=None):
     now = datetime.now()
 
     defaults = {
-        '~': "Visita Guidata Castello",
+        '~': "Ingresso Castello (IC)",
         '#': "Intero",
-        '@': "12.00",
-        '&': "000123456789",
+        '@': "20,00",
+        '&': "1580646858820",
         '??': "2",
         'TicketNotRefudable': "Biglietto non rimborsabile - Ticket not refundable",
-        'Protocol': "Protocollo: 2025-0001",
-        'Serial': "Seriale: 1",
-        '<DATE>': now.strftime('%d/%m/%Y'),
-        '<TIME>': now.strftime('%H:%M:%S'),
+        'Protocol': "Protocollo: 196423",
+        'Serial': "Seriale: 328826",
+        '<DATE>': "25/03/2026",
+        '<TIME>': "10:30",
     }
 
     # Merge user values with defaults
@@ -474,8 +471,26 @@ def substitute_placeholders(template, values=None):
 # --- Main ---
 
 if __name__ == '__main__':
-    # The original template
-    template = """<RC1,1><LT3><BX958,620> <RL><SP170,25><LD1> <RL><RC905,57><RTF4,8>CASTELLO ODESCALCHI DI BRACCIANO <RL><RC905,105><RTF4,6>TicketNotRefudable <RC1,160><LT3><VX958> <RC707,165><RTF4,10><RL>~ <RC707,210><RTF4,10><RL># <RC707,260><RTF4,6><RL>Protocol <RC350,260><RTF4,6><RL>Serial <HW1,1><RC913,165><RTF4,9>PAX<RC900,195><RL><RTF4,23>?? <RC1,300><LT3><VX958><RC726,160><LT3><HX140> <RC296,304><RTF3,6><RL>Prezzo / Price<RC296,343><RTF4,9><RL><TTCP10>€<HW1,1><RTF4,15> @ <RC940,319><RL><RTF3,6>Data e ora <RC940,368><RL>Date and time<RC700,343><RL><RTF4,7><DATE><RC462,343><RL><TIME> <RC1,427><LT3><VX958><RC300,300><LT3><HX127> <RC206,572><NL15><X3>*&*<RC623,571><RTF4,7><RL>&"""
+    # Template lines as in BocaPrintTemplate.txt
+    # C# joins them with Replace("\r\n", "") — no spaces between lines
+    template_lines = [
+        '<RC1,1><LT3><BX958,620>',
+        '<RL><SP170,25><LD1>',
+        '<RL><RC905,57><RTF4,8>CASTELLO ODESCALCHI DI BRACCIANO',
+        '<RL><RC905,105><RTF4,6>TicketNotRefudable',
+        '<RC1,160><LT3><VX958>',
+        '<RC707,165><RTF4,10><RL>~',
+        '<RC707,210><RTF4,10><RL>#',
+        '<RC707,260><RTF4,6><RL>Protocol',
+        '<RC350,260><RTF4,6><RL>Serial',
+        '<HW1,1><RC913,165><RTF4,9>PAX<RC900,195><RL><RTF4,23>??',
+        '<RC1,300><LT3><VX958><RC726,160><LT3><HX140>',
+        '<RC296,304><RTF3,6><RL>Prezzo / Price<RC296,343><RTF4,9><RL><TTCP10>€<HW1,1><RTF4,15> @',
+        '<RC940,319><RL><RTF3,6>Data e ora <RC940,368><RL>Date and time<RC700,343><RL><RTF4,7><DATE><RC462,343><RL><TIME>',
+        '<RC1,427><LT3><VX958><RC300,300><LT3><HX127>',
+        '<RC206,572><NL15><X3>*&*<RC623,571><RTF4,7><RL>&',
+    ]
+    template = ''.join(template_lines)
 
     # Substitute placeholders
     filled = substitute_placeholders(template)
